@@ -32,6 +32,15 @@ module.exports = async (req, res) => {
       quantity: 1,
     });
 
+    // Parse the address the customer already entered
+    // Format is "123 Main St, Miami, FL 33101"
+    const addressParts = customer.address.split(',').map(s => s.trim());
+    const line1  = addressParts[0] || '';
+    const city   = addressParts[1] || '';
+    const stateZip = (addressParts[2] || '').trim().split(' ');
+    const state  = stateZip[0] || '';
+    const zip    = stateZip[1] || '';
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
@@ -39,9 +48,29 @@ module.exports = async (req, res) => {
       success_url: `https://backinplaygolfing.com/success.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `https://backinplaygolfing.com/checkout.html`,
       customer_email: customer.email || undefined,
+
+      // Pre-fill shipping address from what customer already typed
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
+      shipping_options: undefined,
+
+      // Pre-fill the customer's name and address
+      customer_creation: 'always',
+      payment_intent_data: {
+        shipping: {
+          name: customer.name,
+          phone: customer.contact && !customer.contact.includes('@') ? customer.contact : undefined,
+          address: {
+            line1,
+            city,
+            state,
+            postal_code: zip,
+            country: 'US',
+          },
+        },
+      },
+
       metadata: {
         customer_name:    customer.name,
         customer_contact: customer.contact,
