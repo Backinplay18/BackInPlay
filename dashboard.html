@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Back In Play LLC — Order Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green: #1a3a2e;
+    --green-dark: #122922;
+    --green-deeper: #0d1f19;
+    --green-mid: #1f4535;
+    --gold: #c9a961;
+    --gold-bright: #d4b87a;
+    --cream: #f4efe6;
+    --cream-dim: rgba(244,239,230,0.7);
+    --cream-faint: rgba(244,239,230,0.12);
+    --line: rgba(201,169,97,0.2);
+    --red: #e05555;
+    --green-status: #4caf7d;
+    --blue: #5b9bd5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--green-deeper);
+    color: var(--cream);
+    min-height: 100vh;
+  }
+
+  /* ===== LOGIN SCREEN ===== */
+  #login-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--green-deeper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .login-box {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+  }
+  .login-logo {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--gold-bright);
+    margin-bottom: 0.4rem;
+  }
+  .login-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.45);
+    margin-bottom: 2.25rem;
+  }
+  .login-box input {
+    width: 100%;
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .login-box input:focus { border-color: var(--gold); }
+  .login-box input::placeholder { color: rgba(244,239,230,0.3); letter-spacing: 0.05em; }
+  .login-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: var(--gold-bright); }
+  .login-error {
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  #app { display: none; min-height: 100vh; flex-direction: column; }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    background: var(--green-dark);
+    border-bottom: 1px solid var(--line);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-logo {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--gold-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .topbar-logo span {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.45);
+    margin-left: 0.3rem;
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .topbar-date {
+    font-size: 0.78rem;
+    color: rgba(244,239,230,0.45);
+  }
+  .logout-btn {
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    color: var(--cream-dim);
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== MAIN CONTENT ===== */
+  .main { padding: 2rem; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .stat-card-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.5);
+    margin-bottom: 0.6rem;
+  }
+  .stat-card-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.25rem;
+    font-style: italic;
+    color: var(--gold-bright);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-card-sub {
+    font-size: 0.75rem;
+    color: rgba(244,239,230,0.4);
+  }
+
+  /* ===== TWO COLUMN LAYOUT ===== */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== PANEL ===== */
+  .panel {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+  }
+  .panel-badge {
+    background: var(--gold);
+    color: var(--green-deeper);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  /* ===== NEW ORDER FORM ===== */
+  .order-form {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: span 2; }
+  .form-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.55);
+  }
+  .form-input, .form-select {
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--gold); }
+  .form-select option { background: var(--green-dark); color: var(--cream); }
+
+  .calc-box {
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+  }
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    padding: 0.3rem 0;
+  }
+  .calc-row.total {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold-bright);
+    border-top: 1px solid var(--line);
+    margin-top: 0.4rem;
+    padding-top: 0.6rem;
+  }
+  .calc-row.total .calc-val { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-style: italic; }
+
+  .shipping-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ship-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ship-option:hover, .ship-option.selected {
+    border-color: var(--gold);
+    background: rgba(201,169,97,0.1);
+  }
+  .ship-option-left { display: flex; align-items: center; gap: 0.75rem; }
+  .ship-option input[type="radio"] { accent-color: var(--gold); width: 14px; height: 14px; }
+  .ship-carrier { font-weight: 600; font-size: 0.88rem; }
+  .ship-speed { font-size: 0.72rem; color: rgba(244,239,230,0.5); }
+  .ship-price { font-weight: 700; color: var(--gold-bright); font-size: 0.9rem; }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover {
+    background: var(--gold-bright);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(201,169,97,0.3);
+  }
+  .submit-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ===== ORDERS LIST ===== */
+  .orders-list { padding: 0; }
+  .order-item {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.2s;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    align-items: start;
+  }
+  .order-item:last-child { border-bottom: none; }
+  .order-item:hover { background: var(--cream-faint); }
+  .order-item.active { background: rgba(201,169,97,0.08); border-left: 2px solid var(--gold); }
+
+  .order-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .order-detail { font-size: 0.78rem; color: rgba(244,239,230,0.55); }
+  .order-meta { text-align: right; }
+  .order-total { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold-bright); font-size: 1.1rem; }
+  .order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    margin-top: 0.3rem;
+  }
+  .status-new { background: rgba(91,155,213,0.15); color: var(--blue); }
+  .status-ready { background: rgba(76,175,125,0.15); color: var(--green-status); }
+  .status-shipped { background: rgba(201,169,97,0.15); color: var(--gold-bright); }
+
+  /* ===== ORDER DETAIL MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,31,25,0.85);
+    backdrop-filter: blur(4px);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; margin-bottom: 0.2rem; }
+  .modal-id { font-size: 0.72rem; color: rgba(244,239,230,0.4); letter-spacing: 0.1em; }
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(244,239,230,0.4);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--cream); }
+  .modal-body { padding: 1.5rem; }
+
+  .detail-section { margin-bottom: 1.5rem; }
+  .detail-section-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .detail-item-label { font-size: 0.7rem; color: rgba(244,239,230,0.45); margin-bottom: 0.15rem; }
+  .detail-item-value { font-size: 0.95rem; font-weight: 500; }
+
+  .pirateship-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 0.75rem;
+  }
+  .pirateship-btn:hover { background: var(--gold-bright); }
+
+  .status-btn-row { display: flex; gap: 0.5rem; }
+  .status-btn {
+    flex: 1;
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    color: var(--cream-dim);
+    border-radius: 6px;
+    padding: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .status-btn:hover { border-color: var(--gold); color: var(--gold-bright); }
+  .status-btn.active-btn { background: rgba(201,169,97,0.15); border-color: var(--gold); color: var(--gold-bright); }
+
+  .empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: rgba(244,239,230,0.3);
+  }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .empty-text { font-size: 0.9rem; }
+
+  /* ===== TABS ===== */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--green-dark);
+    padding: 0 2rem;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: rgba(244,239,230,0.45);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--cream); }
+  .tab-btn.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ===== INVENTORY ===== */
+  .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .inv-card {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+  .inv-card:hover { border-color: rgba(201,169,97,0.4); }
+  .inv-card-ball { font-weight: 600; font-size: 0.9rem; color: var(--cream); }
+  .inv-card-grade {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .inv-card-count {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
+  .inv-card-unit { font-size: 0.72rem; color: rgba(244,239,230,0.4); }
+  .inv-card-actions { display: flex; gap: 0.4rem; margin-top: 0.25rem; }
+  .inv-adj-btn {
+    flex: 1;
+    background: var(--cream-faint);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 0.35rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .inv-adj-btn:hover { background: rgba(201,169,97,0.15); border-color: var(--gold); }
+  .inv-delete-btn {
+    position: absolute;
+    top: 0.6rem; right: 0.6rem;
+    background: none;
+    border: none;
+    color: rgba(244,239,230,0.2);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0.2rem;
+  }
+  .inv-delete-btn:hover { color: var(--red); }
+  .inv-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: rgba(244,239,230,0.3);
+  }
+  .inv-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+  /* ===== SCANNER ===== */
+  .scanner-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .scanner-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--line);
+  }
+  .scanner-viewport video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .scanner-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .scanner-frame {
+    width: 65%;
+    aspect-ratio: 2/1;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.45);
+    position: relative;
+  }
+  .scanner-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.8;
+    animation: scanLine 2s ease-in-out infinite;
+  }
+  @keyframes scanLine {
+    0%,100% { top: 10%; }
+    50% { top: 85%; }
+  }
+  .scanner-result {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .scanner-result-ball { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--cream); }
+  .scanner-result-grade { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .scanner-result-status { font-size: 0.85rem; color: rgba(244,239,230,0.5); }
+
+  .scanner-controls { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .scan-btn {
+    flex: 1;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .scan-btn:hover { background: var(--gold-bright); }
+  .scan-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .scan-btn-stop {
+    background: rgba(224,85,85,0.15);
+    border: 1px solid rgba(224,85,85,0.3);
+    color: var(--red);
+  }
+  .scan-btn-stop:hover { background: rgba(224,85,85,0.25); }
+
+  .manual-add {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .manual-add-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.4);
+    margin-bottom: 0.75rem;
+    text-align: center;
+  }
+  .manual-add-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+
+  @media (max-width: 1000px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: span 1; }
+    .tab-bar { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Back in Play LLC</div>
+    <div class="login-sub">Owner Dashboard · Private</div>
+    <input type="password" id="pin-input" placeholder="Enter your PIN" maxlength="10" />
+    <button class="login-btn" onclick="tryLogin()">Enter Dashboard</button>
+    <div class="login-error" id="login-error">Wrong PIN. Try again.</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      Back in Play LLC
+      <span>Owner Dashboard</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbar-date"></div>
+      <button onclick="refreshDashboard()" style="background:rgba(244,239,230,0.08);border:1px solid rgba(244,239,230,0.15);color:rgba(244,239,230,0.6);border-radius:6px;padding:0.45rem 0.9rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(244,239,230,0.15)'" onmouseout="this.style.background='rgba(244,239,230,0.08)'" id="refresh-btn">🔄 Refresh</button>
+      <a href="index.html" style="background:rgba(201,169,97,0.12);border:1px solid rgba(201,169,97,0.3);color:var(--gold-bright);border-radius:6px;padding:0.45rem 0.9rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,169,97,0.22)'" onmouseout="this.style.background='rgba(201,169,97,0.12)'">🌐 View Website</a>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('orders')">📦 Orders</button>
+    <button class="tab-btn" onclick="switchTab('inventory')">🏌️ Inventory</button>
+    <button class="tab-btn" onclick="switchTab('scanner')">📷 Scanner</button>
+    <button class="tab-btn" onclick="switchTab('unlisted')">🔔 Unlisted</button>
+  </div>
+
+  <div class="main">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-card-label">Total Orders</div>
+        <div class="stat-card-value" id="stat-total">0</div>
+        <div class="stat-card-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Revenue</div>
+        <div class="stat-card-value" id="stat-revenue">$0</div>
+        <div class="stat-card-sub">balls sold</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Pending</div>
+        <div class="stat-card-value" id="stat-pending">0</div>
+        <div class="stat-card-sub">need label</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">In Stock</div>
+        <div class="stat-card-value" id="stat-stock">0</div>
+        <div class="stat-card-sub">total balls</div>
+      </div>
+    </div>
+
+    <!-- ===== ORDERS TAB ===== -->
+    <div id="tab-orders" class="tab-panel active">
+      <div class="dashboard-grid">
+
+      <!-- LEFT: ORDERS LIST -->
+      <div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Orders</div>
+            <div class="panel-badge" id="orders-count-badge">0 orders</div>
+          </div>
+          <div class="orders-list" id="orders-list">
+            <div class="empty-state">
+              <div class="empty-icon">📦</div>
+              <div class="empty-text">No orders yet. Add one using the form →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: NEW ORDER FORM -->
+      <div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">New Order</div>
+          </div>
+          <div class="order-form">
+
+            <!-- Customer Info -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Customer Name</label>
+                <input class="form-input" id="f-name" type="text" placeholder="Jane Smith" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone / Email</label>
+                <input class="form-input" id="f-contact" type="text" placeholder="305-555-0100" />
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+              <label class="form-label">Shipping Address</label>
+              <input class="form-input" id="f-address" type="text" placeholder="123 Fairway Dr, Miami FL 33101" />
+            </div>
+
+            <!-- Order -->
+            <div class="form-row">
+              <div class="form-group full">
+                <label class="form-label">Ball Type</label>
+                <select class="form-select" id="f-ball" onchange="onDashBallChange()">
+                  <option value="">Select ball...</option>
+                  <optgroup label="── Titleist ──">
+                    <option value="Titleist Pro V1|Premium|25">Pro V1</option>
+                    <option value="Titleist Pro V1x|Premium|25">Pro V1x</option>
+                    <option value="Titleist AVX|Premium|25">AVX</option>
+                    <option value="Titleist Tour Soft|Mid|18">Tour Soft</option>
+                    <option value="Titleist Velocity|Value|12">Velocity</option>
+                  </optgroup>
+                  <optgroup label="── Callaway ──">
+                    <option value="Callaway Chrome Soft|Premium|25">Chrome Soft</option>
+                    <option value="Callaway Chrome Soft X|Premium|25">Chrome Soft X</option>
+                    <option value="Callaway Supersoft|Mid|18">Supersoft</option>
+                    <option value="Callaway Warbird|Value|12">Warbird</option>
+                  </optgroup>
+                  <optgroup label="── TaylorMade ──">
+                    <option value="TaylorMade TP5|Premium|25">TP5</option>
+                    <option value="TaylorMade TP5x|Premium|25">TP5x</option>
+                    <option value="TaylorMade Tour Response|Mid|18">Tour Response</option>
+                    <option value="TaylorMade Distance+|Value|12">Distance+</option>
+                  </optgroup>
+                  <optgroup label="── Bridgestone ──">
+                    <option value="Bridgestone Tour B X|Premium|25">Tour B X</option>
+                    <option value="Bridgestone Tour B RX|Premium|25">Tour B RX</option>
+                    <option value="Bridgestone e12|Mid|18">e12</option>
+                  </optgroup>
+                  <optgroup label="── Srixon ──">
+                    <option value="Srixon Z-Star|Premium|25">Z-Star</option>
+                    <option value="Srixon Z-Star XV|Premium|25">Z-Star XV</option>
+                    <option value="Srixon Q-Star|Mid|18">Q-Star</option>
+                  </optgroup>
+                  <optgroup label="── Cobra / Snell ──">
+                    <option value="Cobra King Tour|Premium|25">Cobra King Tour</option>
+                    <option value="Snell MTB Black|Premium|25">Snell MTB Black</option>
+                    <option value="Snell MTB X|Premium|25">Snell MTB X</option>
+                  </optgroup>
+                  <optgroup label="── Vice ──">
+                    <option value="Vice Pro|Premium|25">Vice Pro</option>
+                    <option value="Vice Pro Plus|Mid|18">Vice Pro Plus</option>
+                    <option value="Vice Drive|Value|12">Vice Drive</option>
+                  </optgroup>
+                  <optgroup label="── Wilson ──">
+                    <option value="Wilson Staff Model|Premium|25">Staff Model</option>
+                    <option value="Wilson Staff Model R|Mid|18">Staff Model R</option>
+                  </optgroup>
+                  <optgroup label="── Volvik ──">
+                    <option value="Volvik Vivid|Mid|18">Vivid</option>
+                    <option value="Volvik Crystal|Mid|18">Crystal</option>
+                  </optgroup>
+                  <optgroup label="── Nike ──">
+                    <option value="Nike RZN Black|Mid|18">RZN Black</option>
+                    <option value="Nike RZN White|Mid|18">RZN White</option>
+                    <option value="Nike Power Distance|Value|12">Power Distance</option>
+                  </optgroup>
+                  <optgroup label="── Maxfli ──">
+                    <option value="Maxfli Tour|Mid|18">Maxfli Tour</option>
+                    <option value="Maxfli SoftFli|Value|12">Maxfli SoftFli</option>
+                  </optgroup>
+                  <optgroup label="── Top Flite ──">
+                    <option value="Top Flite Gamer|Value|12">Top Flite Gamer</option>
+                    <option value="Top Flite XL|Value|12">Top Flite XL</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- Auto-detected grade display -->
+            <div id="dash-grade-pill" style="display:none;align-items:center;gap:0.75rem;background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.25);border-radius:6px;padding:0.6rem 1rem;font-size:0.85rem;">
+              <span style="color:rgba(244,239,230,0.5);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Grade:</span>
+              <span id="dash-grade-text" style="font-weight:700;color:#d4b87a;"></span>
+              <span id="dash-grade-price" style="margin-left:auto;font-family:'DM Serif Display',serif;font-style:italic;color:#d4b87a;"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group full">
+                <label class="form-label">Dozens</label>
+                <select class="form-select" id="f-qty" onchange="recalc()">
+                  <option value="1">1 dozen (12 balls)</option>
+                  <option value="2">2 dozen (24 balls)</option>
+                  <option value="3">3 dozen (36 balls)</option>
+                  <option value="4">4 dozen (48 balls)</option>
+                  <option value="5">5 dozen (60 balls)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Carrier selection -->
+            <div class="form-group">
+              <label class="form-label">Carrier</label>
+              <div class="shipping-options" id="shipping-options">
+                <label class="ship-option selected" onclick="selectCarrier(this, 'USPS Priority', 9.50)">
+                  <div class="ship-option-left">
+                    <input type="radio" name="carrier" checked />
+                    <div>
+                      <div class="ship-carrier">USPS Priority Mail</div>
+                      <div class="ship-speed">2–3 business days</div>
+                    </div>
+                  </div>
+                  <div class="ship-price">$9.50</div>
+                </label>
+                <label class="ship-option" onclick="selectCarrier(this, 'USPS Ground', 6.00)">
+                  <div class="ship-option-left">
+                    <input type="radio" name="carrier" />
+                    <div>
+                      <div class="ship-carrier">USPS Ground Advantage</div>
+                      <div class="ship-speed">3–5 business days</div>
+                    </div>
+                  </div>
+                  <div class="ship-price">$6.00</div>
+                </label>
+                <label class="ship-option" onclick="selectCarrier(this, 'UPS Ground', 11.00)">
+                  <div class="ship-option-left">
+                    <input type="radio" name="carrier" />
+                    <div>
+                      <div class="ship-carrier">UPS Ground</div>
+                      <div class="ship-speed">3–5 business days</div>
+                    </div>
+                  </div>
+                  <div class="ship-price">$11.00</div>
+                </label>
+                <label class="ship-option" onclick="selectCarrier(this, 'FedEx Home', 12.50)">
+                  <div class="ship-option-left">
+                    <input type="radio" name="carrier" />
+                    <div>
+                      <div class="ship-carrier">FedEx Home Delivery</div>
+                      <div class="ship-speed">2–4 business days</div>
+                    </div>
+                  </div>
+                  <div class="ship-price">$12.50</div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Calculated total -->
+            <div class="calc-box" id="calc-box">
+              <div class="calc-row">
+                <span id="calc-grade-label">Balls (select grade)</span>
+                <span id="calc-balls-price">—</span>
+              </div>
+              <div class="calc-row">
+                <span>Shipping (USPS Priority)</span>
+                <span id="calc-ship-price">$9.50</span>
+              </div>
+              <div class="calc-row total">
+                <span>Total to Collect</span>
+                <span class="calc-val" id="calc-total">—</span>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="form-group">
+              <label class="form-label">Notes</label>
+              <input class="form-input" id="f-notes" type="text" placeholder="Any special requests..." />
+            </div>
+
+            <button class="submit-btn" id="submit-btn" onclick="addOrder()">Add Order + Generate Label Link →</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end orders tab -->
+
+    <!-- ===== INVENTORY TAB ===== -->
+    <div id="tab-inventory" class="tab-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.25rem;">Ball Inventory</div>
+          <div style="font-size:0.8rem;color:rgba(244,239,230,0.45);">Live stock — updates when you scan or adjust manually</div>
+        </div>
+        <button onclick="switchTab('scanner')" style="background:var(--gold);color:var(--green-deeper);border:none;border-radius:6px;padding:0.7rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">📷 Scan Balls</button>
+      </div>
+      <div class="inventory-grid" id="inventory-grid">
+        <div class="inv-empty" style="grid-column:1/-1">
+          <div class="inv-empty-icon">🏌️</div>
+          <div>No inventory yet. Go to the Scanner tab to add balls.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCANNER TAB ===== -->
+    <div id="tab-scanner" class="tab-panel">
+      <div class="scanner-wrap">
+        <div style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.25rem;text-align:center;">AI Ball Scanner</div>
+        <div style="font-size:0.8rem;color:rgba(244,239,230,0.45);text-align:center;margin-bottom:1.5rem;">Point your camera at the ball — AI identifies the brand and model instantly</div>
+
+        <div class="scanner-viewport" id="scanner-viewport">
+          <video id="scanner-video" playsinline muted autoplay></video>
+          <canvas id="scanner-canvas" style="display:none;"></canvas>
+          <div class="scanner-overlay" id="scanner-overlay" style="display:none;">
+            <div class="scanner-frame" style="aspect-ratio:1;border-radius:50%;width:55%;">
+              <div class="scanner-line"></div>
+            </div>
+          </div>
+          <div id="scanner-idle" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;background:rgba(13,31,25,0.7);">
+            <div style="font-size:3rem;">⛳</div>
+            <div style="font-size:0.85rem;color:rgba(244,239,230,0.6);">Camera off</div>
+          </div>
+        </div>
+
+        <div class="scanner-result" id="scanner-result">
+          <div class="scanner-result-status">Start the camera, then tap "Identify Ball"</div>
+        </div>
+
+        <div class="scanner-controls">
+          <button class="scan-btn" id="scan-start-btn" onclick="startCamera()">📷 Start Camera</button>
+          <button class="scan-btn" id="scan-capture-btn" onclick="captureAndIdentify()" style="display:none;background:var(--green-mid);border:1px solid var(--gold);color:var(--gold-bright);">🔍 Identify Ball</button>
+          <button class="scan-btn scan-btn-stop" id="scan-stop-btn" onclick="stopScanner()" style="display:none;flex:0.4;">Stop</button>
+        </div>
+        <div style="font-size:0.72rem;color:rgba(244,239,230,0.3);text-align:center;margin-top:0.5rem;">Hold the ball steady with the logo visible, then tap Identify</div>
+
+        <!-- Manual add fallback -->
+        <div class="manual-add">
+          <div class="manual-add-title">— Or add manually —</div>
+          <div class="manual-add-row">
+            <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;">
+              <label style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.45);">Ball</label>
+              <select class="form-select" id="manual-ball" style="font-size:0.85rem;">
+                <option value="">Select ball...</option>
+                <optgroup label="── Titleist ──">
+                  <option value="Titleist Pro V1|Premium|25">Pro V1</option>
+                  <option value="Titleist Pro V1x|Premium|25">Pro V1x</option>
+                  <option value="Titleist AVX|Premium|25">AVX</option>
+                  <option value="Titleist Tour Soft|Mid|18">Tour Soft</option>
+                  <option value="Titleist Velocity|Value|12">Velocity</option>
+                </optgroup>
+                <optgroup label="── Callaway ──">
+                  <option value="Callaway Chrome Soft|Premium|25">Chrome Soft</option>
+                  <option value="Callaway Chrome Soft X|Premium|25">Chrome Soft X</option>
+                  <option value="Callaway Supersoft|Mid|18">Supersoft</option>
+                  <option value="Callaway Warbird|Value|12">Warbird</option>
+                </optgroup>
+                <optgroup label="── TaylorMade ──">
+                  <option value="TaylorMade TP5|Premium|25">TP5</option>
+                  <option value="TaylorMade TP5x|Premium|25">TP5x</option>
+                  <option value="TaylorMade Tour Response|Mid|18">Tour Response</option>
+                  <option value="TaylorMade Distance+|Value|12">Distance+</option>
+                </optgroup>
+                <optgroup label="── Bridgestone ──">
+                  <option value="Bridgestone Tour B X|Premium|25">Tour B X</option>
+                  <option value="Bridgestone Tour B RX|Premium|25">Tour B RX</option>
+                  <option value="Bridgestone e12|Mid|18">e12</option>
+                </optgroup>
+                <optgroup label="── Srixon ──">
+                  <option value="Srixon Z-Star|Premium|25">Z-Star</option>
+                  <option value="Srixon Z-Star XV|Premium|25">Z-Star XV</option>
+                  <option value="Srixon Q-Star|Mid|18">Q-Star</option>
+                </optgroup>
+                <optgroup label="── Cobra / Snell ──">
+                  <option value="Cobra King Tour|Premium|25">Cobra King Tour</option>
+                  <option value="Snell MTB Black|Premium|25">Snell MTB Black</option>
+                  <option value="Snell MTB X|Premium|25">Snell MTB X</option>
+                </optgroup>
+                <optgroup label="── Vice ──">
+                  <option value="Vice Pro|Premium|25">Vice Pro</option>
+                  <option value="Vice Pro Plus|Mid|18">Vice Pro Plus</option>
+                  <option value="Vice Drive|Value|12">Vice Drive</option>
+                </optgroup>
+                <optgroup label="── Wilson ──">
+                  <option value="Wilson Staff Model|Premium|25">Staff Model</option>
+                  <option value="Wilson Staff Model R|Mid|18">Staff Model R</option>
+                </optgroup>
+                <optgroup label="── Volvik ──">
+                  <option value="Volvik Vivid|Mid|18">Vivid</option>
+                  <option value="Volvik Crystal|Mid|18">Crystal</option>
+                </optgroup>
+                <optgroup label="── Nike ──">
+                  <option value="Nike RZN Black|Mid|18">RZN Black</option>
+                  <option value="Nike RZN White|Mid|18">RZN White</option>
+                  <option value="Nike Power Distance|Value|12">Power Distance</option>
+                </optgroup>
+                <optgroup label="── Maxfli ──">
+                  <option value="Maxfli Tour|Mid|18">Maxfli Tour</option>
+                  <option value="Maxfli SoftFli|Value|12">Maxfli SoftFli</option>
+                </optgroup>
+                <optgroup label="── Top Flite ──">
+                  <option value="Top Flite Gamer|Value|12">Top Flite Gamer</option>
+                  <option value="Top Flite XL|Value|12">Top Flite XL</option>
+                </optgroup>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.4rem;width:80px;">
+              <label style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.45);">Qty</label>
+              <input class="form-input" id="manual-qty" type="number" value="12" min="1" max="1000" style="font-size:0.85rem;padding:0.65rem;" />
+            </div>
+            <button onclick="manualAdd()" style="background:var(--gold);color:var(--green-deeper);border:none;border-radius:6px;padding:0.65rem 1rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;align-self:flex-end;">+ Add</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== UNLISTED TAB ===== -->
+    <div id="tab-unlisted" class="tab-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.25rem;">Unlisted Balls</div>
+          <div style="font-size:0.8rem;color:rgba(244,239,230,0.45);">Balls scanned that aren't in your shop yet</div>
+        </div>
+        <button onclick="unlistedBalls=[];saveUnlisted();renderUnlisted();" style="background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.25);color:var(--red);border-radius:6px;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Clear All</button>
+      </div>
+      <div style="background:rgba(201,169,97,0.06);border:1px solid rgba(201,169,97,0.2);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:0.82rem;color:rgba(244,239,230,0.65);line-height:1.6;">
+        💡 When you scan a ball not in your catalog, it gets saved here automatically. Come back to Claude and say <strong style="color:var(--gold);">"add these balls to my shop"</strong> and paste the list — I'll add them in minutes.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;" id="unlisted-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title">Order</div>
+        <div class="modal-id" id="modal-id"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="detail-section">
+        <div class="detail-section-title">Customer</div>
+        <div class="detail-grid">
+          <div><div class="detail-item-label">Name</div><div class="detail-item-value" id="d-name"></div></div>
+          <div><div class="detail-item-label">Contact</div><div class="detail-item-value" id="d-contact"></div></div>
+          <div style="grid-column:span 2"><div class="detail-item-label">Address</div><div class="detail-item-value" id="d-address"></div></div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-title">Order</div>
+        <div class="detail-grid">
+          <div><div class="detail-item-label">Grade</div><div class="detail-item-value" id="d-grade"></div></div>
+          <div><div class="detail-item-label">Quantity</div><div class="detail-item-value" id="d-qty"></div></div>
+          <div><div class="detail-item-label">Brand Pref</div><div class="detail-item-value" id="d-brand"></div></div>
+          <div><div class="detail-item-label">Carrier</div><div class="detail-item-value" id="d-carrier"></div></div>
+          <div><div class="detail-item-label">Balls Total</div><div class="detail-item-value" id="d-balls-total"></div></div>
+          <div><div class="detail-item-label">Shipping</div><div class="detail-item-value" id="d-ship-cost"></div></div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-title">Total to Collect</div>
+        <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:2.5rem;color:var(--gold-bright)" id="d-total"></div>
+        <div style="font-size:0.78rem;color:rgba(244,239,230,0.45);margin-top:0.25rem" id="d-notes"></div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-title">Shipping Label</div>
+        <div style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.25);border-radius:8px;padding:1rem 1.25rem;margin-bottom:0.75rem;">
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">📋 Ship to — copy and paste into Pirateship</div>
+          <div id="d-address-copy" style="font-size:0.95rem;font-weight:600;color:var(--cream);line-height:1.7;"></div>
+          <button onclick="copyAddress()" id="copy-addr-btn" style="margin-top:0.6rem;background:rgba(201,169,97,0.15);border:1px solid rgba(201,169,97,0.3);color:var(--gold-bright);border-radius:5px;padding:0.4rem 0.9rem;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copy Address</button>
+        </div>
+        <a id="pirateship-link" class="pirateship-btn" href="https://ship.pirateship.com" target="_blank" rel="noopener">
+          🚢 Open Pirateship — Create Label
+        </a>
+        <div style="font-size:0.72rem;color:rgba(244,239,230,0.4);text-align:center;margin-bottom:1rem;">
+          1. Copy address above &nbsp;→&nbsp; 2. Paste into Pirateship &nbsp;→&nbsp; 3. Select carrier &nbsp;→&nbsp; 4. Print &amp; ship
+        </div>
+        <div class="status-btn-row">
+          <button class="status-btn" onclick="setStatus('new')">🔵 New</button>
+          <button class="status-btn" onclick="setStatus('ready')">🟢 Label Ready</button>
+          <button class="status-btn" onclick="setStatus('shipped')">🟡 Shipped</button>
+        </div>
+      </div>
+
+      <div style="padding-top:0.5rem;border-top:1px solid var(--line);display:flex;gap:0.5rem;">
+        <button onclick="deleteOrder()" style="flex:1;background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.3);color:var(--red);border-radius:6px;padding:0.65rem;font-size:0.8rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;" onmouseover="this.style.background='rgba(224,85,85,0.2)'" onmouseout="this.style.background='rgba(224,85,85,0.1)'">
+          Delete Order
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== AUTH =====
+  const PIN = '1818'; // Change this to your own PIN
+  let orders = [];
+  let activeOrderId = null;
+  let selectedCarrierName = 'USPS Priority';
+  let selectedCarrierPrice = 9.50;
+  let lastOrderCount = 0;
+
+  // ===== CLOUD SYNC via Netlify proxy =====
+  const JBIN_HEADERS = { 'Content-Type': 'application/json' };
+
+  async function loadFromCloud() {
+    try {
+      const [invRes, ordRes] = await Promise.all([
+        fetch('/.netlify/functions/sync?type=inventory&action=get'),
+        fetch('/.netlify/functions/sync?type=orders&action=get')
+      ]);
+      const inv = await invRes.json();
+      const ord = await ordRes.json();
+      const invData = (inv && typeof inv === 'object' && !Array.isArray(inv) && !inv.data) ? inv : {};
+      const ordData = Array.isArray(ord) ? ord : [];
+      localStorage.setItem('bip_inventory', JSON.stringify(invData));
+      localStorage.setItem('bip_stock', JSON.stringify(invData));
+      localStorage.setItem('bip_orders', JSON.stringify(ordData));
+      inventory = invData;
+      orders = ordData;
+      lastOrderCount = ordData.length;
+    } catch(e) {
+      console.log('Cloud load failed, using local:', e);
+      inventory = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
+      orders = JSON.parse(localStorage.getItem('bip_orders') || '[]');
+      lastOrderCount = orders.length;
+    }
+  }
+
+  async function saveInventoryToCloud(inv) {
+    localStorage.setItem('bip_inventory', JSON.stringify(inv));
+    localStorage.setItem('bip_stock', JSON.stringify(inv));
+    try {
+      await fetch('/.netlify/functions/sync?type=inventory&action=save', {
+        method: 'POST',
+        headers: JBIN_HEADERS,
+        body: JSON.stringify(inv)
+      });
+    } catch(e) { console.log('Inventory save failed'); }
+  }
+
+  async function saveOrdersToCloud(ord) {
+    localStorage.setItem('bip_orders', JSON.stringify(ord));
+    try {
+      await fetch('/.netlify/functions/sync?type=orders&action=save', {
+        method: 'POST',
+        headers: JBIN_HEADERS,
+        body: JSON.stringify(ord)
+      });
+    } catch(e) { console.log('Orders save failed'); }
+  }
+
+  function tryLogin() {
+    const val = document.getElementById('pin-input').value;
+    if (val === PIN) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+      document.getElementById('app').style.flexDirection = 'column';
+      init();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('pin-input').value = '';
+    }
+  }
+  document.getElementById('pin-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+  });
+
+  async function refreshDashboard() {
+    const btn = document.getElementById('refresh-btn');
+    btn.textContent = '⏳ Loading...';
+    btn.disabled = true;
+    await loadFromCloud();
+    renderOrders();
+    renderInventory();
+    updateStats();
+    updateStockStat();
+    updateUnlistedBadge();
+    btn.textContent = '✅ Done!';
+    setTimeout(() => {
+      btn.textContent = '🔄 Refresh';
+      btn.disabled = false;
+    }, 1500);
+  }
+
+  function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('pin-input').value = '';
+  }
+
+  // ===== POLL for new orders every 10 seconds =====
+  async function pollOrders() {
+    try {
+      const res = await fetch('/.netlify/functions/get-orders');
+      const fresh = await res.json();
+      if (fresh.length !== orders.length) {
+        const newCount = fresh.length - orders.length;
+        orders = fresh;
+        localStorage.setItem('bip_orders', JSON.stringify(orders));
+        renderOrders();
+        updateStats();
+        if (newCount > 0) showNewOrderToast(newCount);
+      }
+    } catch(e) {
+      // Fall back to localStorage check
+      const fresh = JSON.parse(localStorage.getItem('bip_orders') || '[]');
+      if (fresh.length !== orders.length) {
+        orders = fresh;
+        renderOrders();
+        updateStats();
+      }
+    }
+  }
+
+  // ===== INIT =====
+  async function init() {
+    // Date
+    const d = new Date();
+    document.getElementById('topbar-date').textContent =
+      d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+
+    // Show loading state
+    document.getElementById('orders-tab').innerHTML = '<div style="text-align:center;padding:3rem;color:rgba(244,239,230,0.4);">⏳ Loading...</div>';
+
+    // Clear old localStorage to avoid stale data
+    localStorage.removeItem('bip_inventory');
+    localStorage.removeItem('bip_stock');
+    localStorage.removeItem('bip_orders');
+
+    // Load from cloud
+    await loadFromCloud();
+
+    renderOrders();
+    updateStats();
+    recalc();
+    updateStockStat();
+    updateUnlistedBadge();
+    // Poll for new orders every 10 seconds
+    setInterval(pollOrders, 10000);
+  }
+
+  // ===== TOAST =====
+  function showNewOrderToast(count) {
+    // Remove existing toast if any
+    const old = document.getElementById('new-order-toast');
+    if (old) old.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'new-order-toast';
+    toast.innerHTML = `🏌️ ${count} new order${count > 1 ? 's' : ''} just came in!`;
+    toast.style.cssText = `
+      position:fixed;top:80px;right:2rem;
+      background:#c9a961;color:#0d1f19;
+      font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.9rem;
+      padding:0.9rem 1.5rem;border-radius:8px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.4);
+      z-index:9999;animation:slideIn 0.4s ease;
+      cursor:pointer;
+    `;
+    toast.onclick = () => toast.remove();
+
+    // Add keyframe if not exists
+    if (!document.getElementById('toast-style')) {
+      const s = document.createElement('style');
+      s.id = 'toast-style';
+      s.textContent = '@keyframes slideIn{from{transform:translateX(120%);opacity:0}to{transform:none;opacity:1}}';
+      document.head.appendChild(s);
+    }
+
+    document.body.appendChild(toast);
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 6000);
+  }
+
+  // ===== BALL CHANGE =====
+  function onDashBallChange() {
+    const val = document.getElementById('f-ball').value;
+    const pill = document.getElementById('dash-grade-pill');
+    if (!val) { pill.style.display = 'none'; recalc(); return; }
+    const [, grade, price] = val.split('|');
+    const labels = { Premium: '⭐ Premium — $' + price + '/dz', Mid: '✅ Mid — $' + price + '/dz', Value: '💚 Value — $' + price + '/dz' };
+    document.getElementById('dash-grade-text').textContent = grade;
+    document.getElementById('dash-grade-price').textContent = '$' + price + '/dozen';
+    pill.style.display = 'flex';
+    recalc();
+  }
+
+  // ===== CARRIER SELECT =====
+  function selectCarrier(el, name, price) {
+    document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input[type="radio"]').checked = true;
+    selectedCarrierName = name;
+    selectedCarrierPrice = price;
+    document.getElementById('calc-ship-price').textContent = '$' + price.toFixed(2);
+    document.querySelector('.calc-row:nth-child(2) span:first-child').textContent = 'Shipping (' + name + ')';
+    recalc();
+  }
+
+  // ===== RECALCULATE =====
+  function recalc() {
+    const ballVal = document.getElementById('f-ball').value;
+    const qty = parseInt(document.getElementById('f-qty').value) || 1;
+
+    if (!ballVal) {
+      document.getElementById('calc-grade-label').textContent = 'Balls (select ball)';
+      document.getElementById('calc-balls-price').textContent = '—';
+      document.getElementById('calc-total').textContent = '—';
+      return;
+    }
+
+    const [ballName, grade, priceStr] = ballVal.split('|');
+    const pricePerDz = parseFloat(priceStr);
+    const ballsTotal = pricePerDz * qty;
+    const grandTotal = ballsTotal + selectedCarrierPrice;
+
+    document.getElementById('calc-grade-label').textContent =
+      `${ballName} × ${qty} dz (${qty * 12} balls)`;
+    document.getElementById('calc-balls-price').textContent = '$' + ballsTotal.toFixed(2);
+    document.getElementById('calc-total').textContent = '$' + grandTotal.toFixed(2);
+  }
+
+  // ===== ADD ORDER =====
+  function addOrder() {
+    const name    = document.getElementById('f-name').value.trim();
+    const contact = document.getElementById('f-contact').value.trim();
+    const address = document.getElementById('f-address').value.trim();
+    const ballVal = document.getElementById('f-ball').value;
+    const qty     = parseInt(document.getElementById('f-qty').value) || 1;
+    const notes   = document.getElementById('f-notes').value.trim();
+
+    if (!name || !address || !ballVal) {
+      alert('Please fill in name, address, and ball type.');
+      return;
+    }
+
+    const [ballName, grade, priceStr] = ballVal.split('|');
+    const pricePerDz  = parseFloat(priceStr);
+    const ballsOrdered = qty * 12;
+    const ballsTotal  = pricePerDz * qty;
+    const grandTotal  = ballsTotal + selectedCarrierPrice;
+
+    // Deduct from inventory
+    deductInventory(ballName, ballsOrdered);
+
+    const order = {
+      id:          'BIP-' + Date.now(),
+      date:        new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+      name, contact, address,
+      ball:        ballName,
+      grade,
+      qty,
+      brand:       ballName,
+      notes,
+      carrier:     selectedCarrierName,
+      shipCost:    selectedCarrierPrice,
+      ballsTotal,
+      grandTotal,
+      ballsOrdered,
+      status:      'new'
+    };
+
+    orders.unshift(order);
+    save();
+    renderOrders();
+    updateStats();
+    clearForm();
+  }
+
+  // ===== INVENTORY DEDUCT / REFUND =====
+  function deductInventory(ballName, count) {
+    if (!inventory[ballName]) return;
+    inventory[ballName].count = Math.max(0, inventory[ballName].count - count);
+    if (inventory[ballName].count === 0) delete inventory[ballName];
+    saveInventory();
+  }
+
+  function refundInventory(order) {
+    if (!order || !order.ball || !order.ballsOrdered) return;
+    const ballName = order.ball;
+    const count    = order.ballsOrdered;
+    if (!inventory[ballName]) {
+      // Re-create entry if it was fully deleted
+      const gradeMap = { Premium: 25, Mid: 18, Value: 12 };
+      inventory[ballName] = { ball: ballName, grade: order.grade, price: gradeMap[order.grade] || 18, count: 0 };
+    }
+    inventory[ballName].count += count;
+    saveInventory();
+  }
+
+  function clearForm() {
+    ['f-name','f-contact','f-address','f-notes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('f-ball').value = '';
+    document.getElementById('f-qty').value = '1';
+    document.getElementById('dash-grade-pill').style.display = 'none';
+    recalc();
+  }
+
+  // ===== RENDER ORDERS =====
+  function renderOrders() {
+    const list = document.getElementById('orders-list');
+    document.getElementById('orders-count-badge').textContent = orders.length + ' order' + (orders.length !== 1 ? 's' : '');
+
+    if (orders.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">No orders yet. Add one using the form →</div></div>';
+      return;
+    }
+
+    list.innerHTML = orders.map(o => `
+      <div class="order-item ${activeOrderId === o.id ? 'active' : ''}" onclick="openOrder('${o.id}')">
+        <div>
+          <div class="order-name">${o.name}</div>
+          <div class="order-detail">${o.qty} dz ${o.grade} · ${o.carrier}</div>
+          <div class="order-detail">${o.date}</div>
+        </div>
+        <div class="order-meta">
+          <div class="order-total">$${o.grandTotal.toFixed(2)}</div>
+          <div class="order-status status-${o.status}">
+            ${o.status === 'new' ? '🔵 New' : o.status === 'ready' ? '🟢 Label Ready' : '🟡 Shipped'}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ===== STATS =====
+  function updateStats() {
+    document.getElementById('stat-total').textContent = orders.length;
+    const revenue = orders.reduce((s, o) => s + o.ballsTotal, 0);
+    document.getElementById('stat-revenue').textContent = '$' + revenue.toFixed(0);
+    const pending = orders.filter(o => o.status !== 'shipped').length;
+    document.getElementById('stat-pending').textContent = pending;
+    updateStockStat();
+  }
+
+  // ===== MODAL =====
+  function openOrder(id) {
+    const o = orders.find(x => x.id === id);
+    if (!o) return;
+    activeOrderId = id;
+    renderOrders();
+
+    document.getElementById('modal-title').textContent = o.name;
+    document.getElementById('modal-id').textContent = o.id + ' · ' + o.date + (o.source === 'website' ? ' · 🌐 Website Order' : '');
+    document.getElementById('d-name').textContent = o.name;
+    document.getElementById('d-contact').textContent = o.contact || '—';
+    document.getElementById('d-address').textContent = o.address;
+    document.getElementById('d-grade').textContent = o.grade;
+    document.getElementById('d-qty').textContent = o.qty + ' dozen (' + (o.qty * 12) + ' balls)';
+    document.getElementById('d-brand').textContent = o.brand || 'Any';
+    document.getElementById('d-carrier').textContent = o.carrier;
+    document.getElementById('d-balls-total').textContent = '$' + o.ballsTotal.toFixed(2);
+    document.getElementById('d-ship-cost').textContent = '$' + o.shipCost.toFixed(2);
+    document.getElementById('d-total').textContent = '$' + o.grandTotal.toFixed(2);
+    document.getElementById('d-notes').textContent = o.notes ? 'Notes: ' + o.notes : '';
+
+    // Auto-fill the new order form with this order's details
+    document.getElementById('f-name').value    = o.name;
+    document.getElementById('f-contact').value = o.contact || '';
+    document.getElementById('f-address').value = o.address;
+    document.getElementById('f-notes').value   = o.notes || '';
+    document.getElementById('f-qty').value     = o.qty;
+
+    // Match ball dropdown by ball name
+    const ballSelect = document.getElementById('f-ball');
+    let matched = false;
+    for (const opt of ballSelect.options) {
+      if (opt.value && opt.value.startsWith(o.ball + '|')) {
+        ballSelect.value = opt.value;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) ballSelect.value = '';
+    onDashBallChange();
+
+    // Match carrier radio + highlight
+    document.querySelectorAll('#shipping-options .ship-option').forEach(opt => {
+      const carrierName = opt.querySelector('.ship-carrier').textContent.trim();
+      const priceText   = opt.querySelector('.ship-price').textContent.replace('$','').trim();
+      const radio       = opt.querySelector('input[type="radio"]');
+      const isMatch     = carrierName === o.carrier;
+      radio.checked = isMatch;
+      opt.classList.toggle('selected', isMatch);
+      if (isMatch) {
+        selectedCarrierName  = carrierName;
+        selectedCarrierPrice = parseFloat(priceText);
+      }
+    });
+
+    recalc();
+
+    // Pirateship — just open create page, show address for copy-paste
+    document.getElementById('pirateship-link').href = 'https://ship.pirateship.com/create';
+    document.getElementById('d-address-copy').innerHTML = `
+      <div>${o.name}</div>
+      <div>${o.address}</div>
+      <div>${o.contact}</div>
+    `;
+
+    // Status buttons
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active-btn'));
+    const statusMap = { new: 0, ready: 1, shipped: 2 };
+    const btns = document.querySelectorAll('.status-btn');
+    if (btns[statusMap[o.status]]) btns[statusMap[o.status]].classList.add('active-btn');
+
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+  }
+  function closeModalDirect() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    activeOrderId = null;
+    renderOrders();
+  }
+
+  function copyAddress() {
+    const o = orders.find(x => x.id === activeOrderId);
+    if (!o) return;
+    const text = `${o.name}\n${o.address}\n${o.contact}`;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-addr-btn');
+      btn.textContent = '✅ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy Address', 2000);
+    });
+  }
+
+  function setStatus(s) {
+    const o = orders.find(x => x.id === activeOrderId);
+    if (!o) return;
+    o.status = s;
+    save();
+    renderOrders();
+    updateStats();
+    // Re-open to refresh buttons
+    openOrder(activeOrderId);
+  }
+
+  function deleteOrder() {
+    if (!confirm('Delete this order? Stock will be returned to inventory.')) return;
+    const o = orders.find(x => x.id === activeOrderId);
+    if (o) refundInventory(o);
+    orders = orders.filter(x => x.id !== activeOrderId);
+    save();
+    closeModalDirect();
+    renderOrders();
+    updateStats();
+    renderInventory();
+  }
+
+  function save() {
+    saveOrdersToCloud(orders);
+  }
+
+  // ===== TABS =====
+  function switchTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const panel = document.getElementById('tab-' + name);
+    if (panel) panel.classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.textContent.toLowerCase().includes(name)) b.classList.add('active');
+    });
+    if (name !== 'scanner') stopScanner();
+    if (name === 'inventory') renderInventory();
+    if (name === 'unlisted') renderUnlisted();
+  }
+
+  // ===== INVENTORY =====
+  let inventory = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
+
+  function saveInventory() {
+    saveInventoryToCloud(inventory);
+    updateStockStat();
+  }
+
+  function updateStockStat() {
+    const total = Object.values(inventory).reduce((s, item) => s + (item.count || 0), 0);
+    document.getElementById('stat-stock').textContent = total;
+  }
+
+  function addToInventory(ballName, grade, price, qty) {
+    qty = parseInt(qty) || 1;
+    const key = ballName;
+    if (!inventory[key]) {
+      inventory[key] = { ball: ballName, grade, price: parseFloat(price), count: 0 };
+    }
+    inventory[key].count += qty;
+    saveInventory();
+    renderInventory();
+    showNewOrderToast('✅ Added ' + qty + ' ' + ballName + ' to inventory');
+  }
+
+  function adjustInventory(key, delta) {
+    if (!inventory[key]) return;
+    inventory[key].count = Math.max(0, inventory[key].count + delta);
+    if (inventory[key].count === 0) delete inventory[key];
+    saveInventory();
+    renderInventory();
+  }
+
+  function deleteInventoryItem(key) {
+    if (!confirm('Remove ' + key + ' from inventory?')) return;
+    delete inventory[key];
+    saveInventory();
+    renderInventory();
+  }
+
+  function renderInventory() {
+    const grid = document.getElementById('inventory-grid');
+    const items = Object.entries(inventory);
+    updateStockStat();
+
+    if (items.length === 0) {
+      grid.innerHTML = '<div class="inv-empty" style="grid-column:1/-1"><div class="inv-empty-icon">🏌️</div><div>No inventory yet. Go to the Scanner tab to add balls.</div></div>';
+      return;
+    }
+
+    // Sort by grade then name
+    const gradeOrder = { Premium: 0, Mid: 1, Value: 2 };
+    items.sort((a, b) => (gradeOrder[a[1].grade] - gradeOrder[b[1].grade]) || a[0].localeCompare(b[0]));
+
+    grid.innerHTML = items.map(([key, item]) => `
+      <div class="inv-card">
+        <button class="inv-delete-btn" onclick="deleteInventoryItem('${key.replace(/'/g,"\\'")}')">✕</button>
+        <div class="inv-card-grade">${item.grade === 'Premium' ? '⭐' : item.grade === 'Mid' ? '✅' : '💚'} ${item.grade} · $${item.price}/dz</div>
+        <div class="inv-card-ball">${item.ball}</div>
+        <div class="inv-card-count">${item.count}</div>
+        <div class="inv-card-unit">balls in stock</div>
+        <div class="inv-card-actions">
+          <button class="inv-adj-btn" onclick="adjustInventory('${key.replace(/'/g,"\\'")}', -1)" title="Remove 1">−1</button>
+          <button class="inv-adj-btn" onclick="adjustInventory('${key.replace(/'/g,"\\'")}', -12)" title="Remove 12">−dz</button>
+          <button class="inv-adj-btn" onclick="adjustInventory('${key.replace(/'/g,"\\'")}', 12)" title="Add 12">+dz</button>
+          <button class="inv-adj-btn" onclick="adjustInventory('${key.replace(/'/g,"\\'")}', 1)" title="Add 1">+1</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ===== MANUAL ADD =====
+  function manualAdd() {
+    const val = document.getElementById('manual-ball').value;
+    const qty = document.getElementById('manual-qty').value;
+    if (!val) { alert('Please select a ball type.'); return; }
+    const [ballName, grade, price] = val.split('|');
+    addToInventory(ballName, grade, price, qty);
+    document.getElementById('manual-ball').value = '';
+    document.getElementById('manual-qty').value = '12';
+    switchTab('inventory');
+  }
+
+  // ===== AI CAMERA SCANNER =====
+  let cameraStream = null;
+  let scannerRunning = false;
+
+  async function startCamera() {
+    const video = document.getElementById('scanner-video');
+    const idle  = document.getElementById('scanner-idle');
+    const resultDiv = document.getElementById('scanner-result');
+
+    resultDiv.innerHTML = '<div class="scanner-result-status">Starting camera...</div>';
+
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      });
+      video.srcObject = cameraStream;
+      await video.play();
+
+      scannerRunning = true;
+      idle.style.display = 'none';
+      document.getElementById('scanner-overlay').style.display = 'flex';
+      document.getElementById('scan-start-btn').style.display = 'none';
+      document.getElementById('scan-capture-btn').style.display = 'inline-flex';
+      document.getElementById('scan-stop-btn').style.display = 'inline-flex';
+      resultDiv.innerHTML = '<div class="scanner-result-status">📷 Camera ready — hold ball with logo visible and tap Identify Ball</div>';
+    } catch (err) {
+      resultDiv.innerHTML = `<div class="scanner-result-status" style="color:var(--red);">Camera error: ${err.message}<br><small>Allow camera access and try again.</small></div>`;
+    }
+  }
+
+  function stopScanner() {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(t => t.stop());
+      cameraStream = null;
+    }
+    scannerRunning = false;
+    const video = document.getElementById('scanner-video');
+    video.srcObject = null;
+    document.getElementById('scanner-idle').style.display = 'flex';
+    document.getElementById('scanner-overlay').style.display = 'none';
+    document.getElementById('scan-start-btn').style.display = 'inline-flex';
+    document.getElementById('scan-capture-btn').style.display = 'none';
+    document.getElementById('scan-stop-btn').style.display = 'none';
+    document.getElementById('scanner-result').innerHTML = '<div class="scanner-result-status">Scanner stopped</div>';
+  }
+
+  async function captureAndIdentify() {
+    if (!scannerRunning) return;
+    const video  = document.getElementById('scanner-video');
+    const canvas = document.getElementById('scanner-canvas');
+    const resultDiv = document.getElementById('scanner-result');
+    const btn = document.getElementById('scan-capture-btn');
+
+    // Capture frame from video
+    canvas.width  = video.videoWidth  || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/jpeg', 0.85).split(',')[1];
+
+    // Show loading state
+    btn.textContent = '⏳ Identifying...';
+    btn.disabled = true;
+    resultDiv.innerHTML = '<div class="scanner-result-status">🤖 AI is reading the ball...</div>';
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 200,
+          messages: [{
+            role: 'user',
+            content: [
+              {
+                type: 'image',
+                source: { type: 'base64', media_type: 'image/jpeg', data: imageData }
+              },
+              {
+                type: 'text',
+                text: `You are a golf ball identifier for a used golf ball business. Look at this image and identify the golf ball brand and model.
+
+Reply with ONLY a JSON object in this exact format, nothing else:
+{"brand": "Titleist", "model": "Pro V1", "grade": "Premium", "price": 25, "confidence": "high", "inCatalog": true}
+
+Current catalog (balls we already sell):
+Titleist: Pro V1, Pro V1x, AVX, Tour Soft, Velocity
+Callaway: Chrome Soft, Chrome Soft X, Supersoft, Warbird
+TaylorMade: TP5, TP5x, Tour Response, Distance+
+Bridgestone: Tour B X, Tour B RX, e12
+Srixon: Z-Star, Z-Star XV, Q-Star
+Cobra: King Tour
+Snell: MTB Black, MTB X
+Vice: Pro, Pro Plus, Drive
+Wilson: Staff Model, Staff Model R
+Volvik: Vivid, Crystal
+Nike: RZN Black, RZN White, Power Distance
+Maxfli: Tour, SoftFli
+Top Flite: Gamer, XL
+
+Grade rules:
+- Premium ($25): Pro V1, Pro V1x, AVX, Chrome Soft, Chrome Soft X, TP5, TP5x, Tour B X, Tour B RX, Z-Star, Z-Star XV, Vice Pro, Snell MTB, Cobra King Tour, Wilson Staff Model
+- Mid ($18): Tour Soft, Supersoft, e12, Q-Star, Tour Response, Vice Pro Plus, Volvik Vivid, Volvik Crystal, Nike RZN, Maxfli Tour, Staff Model R
+- Value ($12): Velocity, Warbird, Distance+, Vice Drive, Nike Power Distance, Maxfli SoftFli, Top Flite Gamer, Top Flite XL
+
+Set "inCatalog" to true if the ball is in the catalog above, false if it is not.
+If you cannot identify the ball clearly, return: {"brand": "Unknown", "model": "Unknown", "grade": "Mid", "price": 18, "confidence": "low", "inCatalog": false}
+Only return the JSON, no other text.`
+              }
+            ]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const text = data.content?.[0]?.text?.trim() || '{}';
+
+      let result;
+      try { result = JSON.parse(text.replace(/```json|```/g, '').trim()); }
+      catch { result = { brand: 'Unknown', model: 'Unknown', grade: 'Mid', price: 18, confidence: 'low', inCatalog: false }; }
+
+      showScanResult(result);
+
+    } catch (err) {
+      resultDiv.innerHTML = `<div class="scanner-result-status" style="color:var(--red);">Error: ${err.message}</div>`;
+    } finally {
+      btn.textContent = '🔍 Identify Ball';
+      btn.disabled = false;
+    }
+  }
+
+  // ===== UNLISTED BALL NOTIFICATIONS =====
+  let unlistedBalls = JSON.parse(localStorage.getItem('bip_unlisted') || '[]');
+
+  function saveUnlisted() {
+    localStorage.setItem('bip_unlisted', JSON.stringify(unlistedBalls));
+  }
+
+  function flagUnlistedBall(ballName, brand, model) {
+    // Don't duplicate
+    if (unlistedBalls.find(u => u.ball === ballName)) return;
+    const entry = {
+      id:    'UNL-' + Date.now(),
+      ball:  ballName,
+      brand,
+      model,
+      date:  new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+      time:  new Date().toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' }),
+      noted: false
+    };
+    unlistedBalls.unshift(entry);
+    saveUnlisted();
+    showUnlistedToast(ballName);
+    updateUnlistedBadge();
+  }
+
+  function showUnlistedToast(ballName) {
+    const old = document.getElementById('unlisted-toast');
+    if (old) old.remove();
+    const t = document.createElement('div');
+    t.id = 'unlisted-toast';
+    t.innerHTML = `⚠️ <strong>${ballName}</strong> is not in your shop catalog!<br><small style="opacity:0.8;">Saved to Unlisted Balls list</small>`;
+    t.style.cssText = `
+      position:fixed;top:80px;right:1.5rem;
+      background:#1a3a2e;border:1px solid var(--gold);
+      color:var(--cream);font-family:'DM Sans',sans-serif;
+      font-size:0.85rem;padding:1rem 1.25rem;border-radius:8px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.4);z-index:9999;
+      animation:slideIn 0.4s ease;cursor:pointer;line-height:1.4;
+      max-width:260px;
+    `;
+    t.onclick = () => { t.remove(); switchTab('unlisted'); };
+    document.body.appendChild(t);
+    setTimeout(() => { if (t.parentNode) t.remove(); }, 7000);
+  }
+
+  function updateUnlistedBadge() {
+    const count = unlistedBalls.filter(u => !u.noted).length;
+    // Update tab button
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      if (b.textContent.includes('Unlisted')) {
+        b.innerHTML = `🔔 Unlisted${count > 0 ? ` <span style="background:var(--red);color:#fff;border-radius:100px;font-size:0.6rem;padding:0.1rem 0.4rem;margin-left:0.3rem;">${count}</span>` : ''}`;
+      }
+    });
+  }
+
+  function renderUnlisted() {
+    const container = document.getElementById('unlisted-list');
+    if (!container) return;
+    updateUnlistedBadge();
+
+    if (unlistedBalls.length === 0) {
+      container.innerHTML = `<div style="text-align:center;padding:3rem;color:rgba(244,239,230,0.3);">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">✅</div>
+        <div>No unlisted balls scanned yet</div>
+      </div>`;
+      return;
+    }
+
+    container.innerHTML = unlistedBalls.map((u, idx) => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:${u.noted ? 'rgba(244,239,230,0.02)' : 'rgba(201,169,97,0.06)'};border:1px solid ${u.noted ? 'rgba(201,169,97,0.1)' : 'rgba(201,169,97,0.25)'};border-radius:8px;gap:1rem;">
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:0.95rem;color:${u.noted ? 'rgba(244,239,230,0.45)' : 'var(--cream)'};">${u.ball}</div>
+          <div style="font-size:0.72rem;color:rgba(244,239,230,0.35);margin-top:0.2rem;">Scanned ${u.date} at ${u.time}</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-shrink:0;">
+          ${!u.noted ? `<button onclick="markUnlistedNoted(${idx})" style="background:rgba(201,169,97,0.12);border:1px solid rgba(201,169,97,0.3);color:var(--gold-bright);border-radius:5px;padding:0.4rem 0.75rem;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Mark Noted</button>` : `<span style="font-size:0.72rem;color:rgba(244,239,230,0.3);">Noted</span>`}
+          <button onclick="removeUnlisted(${idx})" style="background:none;border:none;color:rgba(244,239,230,0.2);font-size:0.9rem;cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='#e05555'" onmouseout="this.style.color='rgba(244,239,230,0.2)'">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function markUnlistedNoted(idx) {
+    unlistedBalls[idx].noted = true;
+    saveUnlisted();
+    renderUnlisted();
+  }
+
+  function removeUnlisted(idx) {
+    unlistedBalls.splice(idx, 1);
+    saveUnlisted();
+    renderUnlisted();
+  }
+
+  function showScanResult(result) {
+    const resultDiv = document.getElementById('scanner-result');
+    const gradeEmoji = result.grade === 'Premium' ? '⭐' : result.grade === 'Mid' ? '✅' : '💚';
+    const ballName = result.brand + ' ' + result.model;
+    const confColor = result.confidence === 'high' ? 'var(--green-status)' : result.confidence === 'low' ? 'var(--red)' : 'var(--gold)';
+
+    if (result.brand === 'Unknown') {
+      resultDiv.innerHTML = `
+        <div class="scanner-result-grade" style="color:rgba(244,239,230,0.45);">Could not identify ball</div>
+        <div class="scanner-result-ball" style="font-size:1rem;">Try holding the ball closer<br>with the logo facing the camera</div>
+        <div class="scanner-result-status">Or add manually below ↓</div>
+      `;
+      return;
+    }
+
+    // Flag if not in catalog
+    if (result.inCatalog === false) {
+      flagUnlistedBall(ballName, result.brand, result.model);
+    }
+
+    const notInCatalogWarning = result.inCatalog === false
+      ? `<div style="background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.25);border-radius:6px;padding:0.6rem 0.8rem;font-size:0.78rem;color:#e07070;margin-top:0.5rem;width:100%;">
+          ⚠️ This ball is <strong>not in your shop catalog</strong> — saved to Unlisted Balls tab
+        </div>`
+      : '';
+
+    resultDiv.innerHTML = `
+      <div class="scanner-result-grade">${gradeEmoji} ${result.grade} · $${result.price}/dozen <span style="color:${confColor};margin-left:0.5rem;font-size:0.65rem;">${result.confidence} confidence</span></div>
+      <div class="scanner-result-ball">${ballName}</div>
+      ${notInCatalogWarning}
+      <div style="display:flex;gap:0.5rem;margin-top:0.75rem;width:100%;">
+        <button onclick="addToInventory('${ballName}','${result.grade}','${result.price}',1);this.textContent='✅ Added!';setTimeout(()=>this.textContent='+1 Ball',1500);"
+          style="flex:1;background:var(--gold);color:var(--green-deeper);border:none;border-radius:6px;padding:0.65rem;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;">+1 Ball</button>
+        <button onclick="addToInventory('${ballName}','${result.grade}','${result.price}',12);this.textContent='✅ Added!';setTimeout(()=>this.textContent='+1 Dozen',1500);"
+          style="flex:1;background:var(--green-mid);color:var(--cream);border:1px solid var(--line);border-radius:6px;padding:0.65rem;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;">+1 Dozen</button>
+      </div>
+    `;
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Back In Play LLC — Premium Used Golf Balls</title>
+<meta name="description" content="Top-brand used golf balls, hand-inspected and sold at a fraction of retail. Ships anywhere in the USA from Miami, FL." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green: #1a3a2e;
+    --green-dark: #122922;
+    --green-deeper: #0d1f19;
+    --green-mid: #1f4535;
+    --gold: #c9a961;
+    --gold-bright: #d4b87a;
+    --white: #f4efe6;
+    --lime: #b8e04a;
+    --magenta: #e0186c;
+    --yellow: #f5d400;
+    --orange: #f07820;
+    --sky: #60c8e0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--green);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(21, 47, 26, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 160, 23, 0.25);
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold-bright);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo-llc {
+    color: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    margin-left: 0.1rem;
+    opacity: 0.85;
+  }
+  .logo-ball {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, var(--gold) 80%);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-bright); }
+
+  .nav-order {
+    background: var(--gold);
+    color: var(--green-deeper);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-order:hover { background: var(--gold-bright); }
+
+  /* ===== TICKER ===== */
+  .ticker-wrap {
+    margin-top: 58px;
+    background: var(--green-dark);
+    overflow: hidden;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+    position: relative;
+  }
+  .ticker-wrap::before,
+  .ticker-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 60px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--green-dark), transparent); }
+  .ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--green-dark), transparent); }
+
+  .ticker-track {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: ticker 35s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+
+  .ticker-item {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    padding: 0 1.5rem;
+  }
+  .ticker-sep {
+    color: rgba(212, 160, 23, 0.4);
+    font-size: 0.5rem;
+  }
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: calc(100vh - 58px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 5rem 3.5rem 4rem;
+    gap: 3rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(13,31,16,0.8) 0%, transparent 55%),
+      radial-gradient(ellipse at 100% 0%, rgba(35,79,46,0.5) 0%, transparent 55%),
+      var(--green);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 2rem; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(4rem, 8.5vw, 7.5rem);
+    line-height: 0.93;
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.01em;
+  }
+  .hero-headline .line1 {
+    display: block;
+    color: var(--white);
+    font-style: normal;
+  }
+  .hero-headline .line2 {
+    display: block;
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+  .hero-headline .line3 {
+    display: block;
+    color: var(--white);
+    font-style: normal;
+  }
+  .hero-headline .line4 {
+    display: block;
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+
+  .hero-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(245, 242, 235, 0.75);
+    max-width: 420px;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(212, 160, 23, 0.2);
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.25rem;
+    color: var(--gold-bright);
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245, 242, 235, 0.6);
+    font-weight: 500;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--green-deeper);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-gold:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 160, 23, 0.35);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    border: 1px solid rgba(245, 242, 235, 0.3);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover {
+    border-color: var(--white);
+    background: rgba(245,242,235,0.08);
+  }
+
+  /* ===== BRAND BALL GRID ===== */
+  .ball-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    align-self: center;
+  }
+
+  .brand-ball {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    cursor: default;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .brand-ball:hover {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+  }
+  .brand-ball::before {
+    content: '';
+    position: absolute;
+    top: 12%; left: 18%;
+    width: 30%; height: 20%;
+    background: rgba(255,255,255,0.35);
+    border-radius: 50%;
+    filter: blur(3px);
+    transform: rotate(-30deg);
+  }
+  /* Dimple texture */
+  .brand-ball::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1.5px);
+    background-size: 10px 10px;
+  }
+
+  .ball-name {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.2;
+  }
+
+  /* Ball colors */
+  .ball-white  { background: radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0); color: #1a3a1f; }
+  .ball-yellow { background: radial-gradient(circle at 35% 30%, #fff176, var(--yellow)); color: #1a1a00; }
+  .ball-orange { background: radial-gradient(circle at 35% 30%, #ffcc88, var(--orange)); color: #3a1000; }
+  .ball-magenta{ background: radial-gradient(circle at 35% 30%, #ff80b0, var(--magenta)); color: #fff; }
+  .ball-lime   { background: radial-gradient(circle at 35% 30%, #e8ff80, var(--lime)); color: #1a2a00; }
+  .ball-sky    { background: radial-gradient(circle at 35% 30%, #c0f0ff, var(--sky)); color: #002a3a; }
+  .ball-gold   { background: radial-gradient(circle at 35% 30%, #fff0a0, var(--gold)); color: #2a1a00; }
+  .ball-red    { background: radial-gradient(circle at 35% 30%, #ff9090, #d42020); color: #fff; }
+
+  /* ===== ABOUT ===== */
+  #about {
+    padding: 6rem 3.5rem;
+    background: var(--green-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  #about::before {
+    content: 'GOLF';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.02);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .section-tag::before {
+    content: '';
+    width: 2rem; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  .section-heading em {
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(245, 242, 235, 0.8);
+    margin-bottom: 1.25rem;
+  }
+
+  .about-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .about-stat-box {
+    background: var(--green-mid);
+    border: 1px solid rgba(212, 160, 23, 0.2);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .about-stat-box:hover { border-color: var(--gold); }
+  .about-stat-box:first-child {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--green-mid), var(--green));
+  }
+  .about-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--gold-bright);
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .about-stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245, 242, 235, 0.6);
+  }
+
+  /* ===== PRICING ===== */
+  #pricing {
+    padding: 6rem 3.5rem;
+    background: var(--green);
+    position: relative;
+  }
+
+  .pricing-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .price-card {
+    background: var(--green-dark);
+    border: 1px solid rgba(212, 160, 23, 0.18);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.35s;
+    transform-origin: left;
+  }
+  .price-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .price-card:hover::before { transform: scaleX(1); }
+
+  .price-card.featured {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .price-card.featured::before { background: var(--green-deeper); }
+  .price-card.featured .card-tier,
+  .price-card.featured .card-desc,
+  .price-card.featured .card-price,
+  .price-card.featured .card-price-unit,
+  .price-card.featured .card-features li { color: var(--green-deeper); }
+  .price-card.featured .card-price-dollar { color: var(--green-darker); }
+  .price-card.featured .card-features li::before { color: var(--green); }
+  .price-card.featured .featured-badge { display: inline-block; }
+
+  .featured-badge {
+    display: none;
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--green-deeper);
+    color: var(--gold-bright);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+  }
+
+  .card-tier {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    color: var(--white);
+    margin-bottom: 0.35rem;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    color: rgba(245,242,235,0.6);
+    margin-bottom: 1.75rem;
+  }
+  .card-price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    margin-bottom: 0.3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(212,160,23,0.2);
+    margin-bottom: 1.5rem;
+  }
+  .price-card.featured .card-price-wrap { border-color: rgba(30,77,43,0.25); }
+  .card-price-dollar {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-style: italic;
+  }
+  .card-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--white);
+  }
+  .card-price-unit {
+    font-size: 0.85rem;
+    color: rgba(245,242,235,0.55);
+    margin-left: 0.25rem;
+  }
+  .card-features {
+    list-style: none;
+  }
+  .card-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.55rem 0;
+    font-size: 0.9rem;
+    color: rgba(245,242,235,0.85);
+    border-bottom: 1px solid rgba(212,160,23,0.08);
+  }
+  .price-card.featured .card-features li { border-color: rgba(30,77,43,0.15); }
+  .card-features li:last-child { border-bottom: none; }
+  .card-features li::before {
+    content: '◆';
+    color: var(--gold);
+    font-size: 0.5rem;
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  #how {
+    padding: 6rem 3.5rem;
+    background: var(--green-dark);
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+
+  .how-step {
+    position: relative;
+    padding: 2.5rem 2rem;
+    background: var(--green-mid);
+    border-radius: 8px;
+    border: 1px solid rgba(212,160,23,0.12);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .how-step:hover {
+    border-color: rgba(212,160,23,0.4);
+    transform: translateY(-4px);
+  }
+  .how-step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    line-height: 1;
+    font-style: italic;
+    color: rgba(212, 160, 23, 0.2);
+    margin-bottom: 1rem;
+  }
+  .how-step h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+  .how-step p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgba(245,242,235,0.7);
+  }
+
+  /* ===== CONTACT ===== */
+  #contact {
+    padding: 6rem 3.5rem;
+    background: var(--green-deeper);
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,160,23,0.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-blurb {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(245,242,235,0.78);
+    margin-bottom: 2rem;
+  }
+
+  .ship-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(212,160,23,0.12);
+    border: 1px solid rgba(212,160,23,0.3);
+    color: var(--gold-bright);
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.35rem 1.5rem;
+    background: var(--green-mid);
+    border: 1px solid rgba(212,160,23,0.15);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.3s;
+  }
+  .contact-card:hover {
+    background: rgba(212,160,23,0.1);
+    border-color: var(--gold);
+    transform: translateX(5px);
+  }
+  .contact-card-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(212,160,23,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .contact-card:hover .contact-card-icon { background: var(--gold); }
+  .contact-card:hover .contact-card-icon svg { stroke: var(--green-deeper); }
+  .contact-card-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,235,0.5);
+    margin-bottom: 0.2rem;
+  }
+  .contact-card-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--green-deeper);
+    border-top: 1px solid rgba(212,160,23,0.12);
+    padding: 2rem 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(245,242,235,0.4);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes floatBall {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+  /* ===== CART BUTTON ===== */
+  .cart-btn {
+    position: relative;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+  }
+  .cart-btn:hover { background: var(--gold-bright); }
+  .cart-count {
+    background: var(--green-deeper);
+    color: var(--gold-bright);
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.15rem 0.45rem;
+    min-width: 18px;
+    text-align: center;
+    display: none;
+  }
+  .cart-count.visible { display: inline-block; }
+
+  /* ===== CART DROPDOWN ===== */
+  .cart-dropdown {
+    position: fixed;
+    top: 58px;
+    right: 0;
+    left: 0;
+    background: var(--green-dark);
+    border-bottom: 1px solid rgba(201,169,97,0.2);
+    z-index: 190;
+    transform: translateY(-110%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .cart-dropdown.open { transform: translateY(0); }
+
+  .cart-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+  .cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,169,97,0.15);
+  }
+  .cart-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--white);
+  }
+  .cart-close-btn {
+    background: none;
+    border: none;
+    color: rgba(244,239,230,0.45);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0.25rem;
+  }
+  .cart-close-btn:hover { color: var(--white); }
+
+  .cart-items { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    background: rgba(244,239,230,0.04);
+    border: 1px solid rgba(201,169,97,0.12);
+    border-radius: 8px;
+  }
+  .cart-item-img {
+    width: 52px; height: 52px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .cart-item-ball {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 600; font-size: 0.9rem; color: var(--white); }
+  .cart-item-grade { font-size: 0.7rem; color: var(--gold); margin-top: 0.1rem; }
+  .cart-item-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .qty-btn {
+    width: 28px; height: 28px;
+    background: rgba(244,239,230,0.08);
+    border: 1px solid rgba(201,169,97,0.2);
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .qty-btn:hover { background: rgba(201,169,97,0.15); border-color: var(--gold); }
+  .qty-display {
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-width: 28px;
+    text-align: center;
+    color: var(--white);
+  }
+  .cart-item-price {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gold-bright);
+    min-width: 60px;
+    text-align: right;
+  }
+  .cart-item-remove {
+    background: none;
+    border: none;
+    color: rgba(244,239,230,0.25);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s;
+  }
+  .cart-item-remove:hover { color: #e05555; }
+
+  .cart-empty {
+    text-align: center;
+    padding: 2rem;
+    color: rgba(244,239,230,0.3);
+    font-size: 0.9rem;
+  }
+
+  .cart-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201,169,97,0.15);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .cart-total-wrap { display: flex; flex-direction: column; }
+  .cart-total-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(244,239,230,0.45); }
+  .cart-total-amount {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--gold-bright);
+    line-height: 1;
+  }
+  .cart-note { font-size: 0.72rem; color: rgba(244,239,230,0.35); margin-top: 0.2rem; }
+  .cart-checkout-btn {
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cart-checkout-btn:hover { background: var(--gold-bright); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,169,97,0.3); }
+  .cart-checkout-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  /* ===== SHOP MODAL ===== */
+  .shop-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13,31,25,0.9);
+    backdrop-filter: blur(8px);
+    z-index: 400;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5rem 1.5rem 1.5rem;
+    overflow-y: auto;
+  }
+  .shop-modal-overlay.open { display: flex; }
+
+  .shop-modal {
+    background: var(--green-dark);
+    border: 1px solid rgba(201,169,97,0.2);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 960px;
+    animation: modalPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .shop-modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(201,169,97,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--green-dark);
+    z-index: 2;
+    border-radius: 14px 14px 0 0;
+  }
+  .shop-modal-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+  .shop-modal-sub { font-size: 0.78rem; color: rgba(244,239,230,0.4); margin-top: 0.1rem; }
+
+  /* Brand filter tabs */
+  .shop-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(201,169,97,0.1);
+    background: rgba(244,239,230,0.02);
+  }
+  .filter-btn {
+    background: rgba(244,239,230,0.05);
+    border: 1px solid rgba(201,169,97,0.15);
+    color: rgba(244,239,230,0.6);
+    border-radius: 100px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: rgba(201,169,97,0.15);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+  }
+
+  /* Product grid */
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .product-card {
+    background: rgba(244,239,230,0.04);
+    border: 1px solid rgba(201,169,97,0.12);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .product-card:hover { border-color: rgba(201,169,97,0.4); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+
+  .product-img-wrap {
+    aspect-ratio: 1;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+  }
+  .product-ball-fallback {
+    width: 70%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .product-grade-badge {
+    position: absolute;
+    top: 0.5rem; left: 0.5rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 100px;
+    background: rgba(13,31,25,0.75);
+    color: var(--gold);
+  }
+
+  .product-brand { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .product-name { font-weight: 600; font-size: 0.95rem; color: var(--white); line-height: 1.3; }
+  .product-desc { font-size: 0.75rem; color: rgba(244,239,230,0.45); line-height: 1.5; flex: 1; }
+
+  .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .product-price {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--gold-bright);
+  }
+  .product-price-unit { font-size: 0.65rem; color: rgba(244,239,230,0.35); font-family: 'DM Sans', sans-serif; font-style: normal; }
+
+  .product-actions { display: flex; gap: 0.4rem; }
+  .add-cart-btn {
+    background: rgba(201,169,97,0.12);
+    border: 1px solid rgba(201,169,97,0.3);
+    color: var(--gold-bright);
+    border-radius: 5px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .add-cart-btn:hover { background: rgba(201,169,97,0.2); border-color: var(--gold); }
+  .buy-now-btn {
+    background: var(--gold);
+    border: none;
+    color: var(--green-deeper);
+    border-radius: 5px;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .buy-now-btn:hover { background: var(--gold-bright); }
+
+  /* ===== BALL PHOTO GALLERY MODAL ===== */
+  .gallery-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(9,20,15,0.95);
+    backdrop-filter: blur(12px);
+    z-index: 600;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .gallery-overlay.open { display: flex; }
+  .gallery-modal {
+    background: var(--green-dark);
+    border: 1px solid rgba(201,169,97,0.25);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 480px;
+    animation: modalPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+  }
+  .gallery-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(201,169,97,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .gallery-ball-name { font-family:'DM Serif Display',serif; font-size:1.2rem; color:var(--white); }
+  .gallery-grade { font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-top:0.15rem; }
+  .gallery-close {
+    background:rgba(244,239,230,0.06); border:1px solid rgba(244,239,230,0.12);
+    color:rgba(244,239,230,0.55); width:34px; height:34px; border-radius:50%;
+    font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+  }
+  .gallery-close:hover { background:rgba(224,85,85,0.15); color:#e05555; }
+  .gallery-scroll {
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .gallery-scroll::-webkit-scrollbar { display:none; }
+  .gallery-slide {
+    flex:0 0 100%; scroll-snap-align:start; aspect-ratio:1;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(ellipse at 50% 30%, rgba(201,169,97,0.07), transparent 70%), var(--green-deeper);
+    position:relative;
+  }
+  .gallery-ball-3d {
+    width:62%; aspect-ratio:1; border-radius:50%; position:relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3),
+      inset -12px -15px 30px rgba(0,0,0,0.15), inset 6px 6px 20px rgba(255,255,255,0.25);
+  }
+  .gallery-ball-3d::before {
+    content:''; position:absolute; top:10%; left:15%; width:32%; height:22%;
+    background:rgba(255,255,255,0.4); border-radius:50%; filter:blur(6px); transform:rotate(-30deg);
+  }
+  .gallery-ball-3d::after {
+    content:''; position:absolute; inset:0; border-radius:50%;
+    background-image:radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1.5px);
+    background-size:11px 11px;
+  }
+  .gallery-ball-label {
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; z-index:2; pointer-events:none;
+  }
+  .gallery-ball-brand {
+    font-family:'DM Serif Display',serif; font-size:clamp(0.9rem,3vw,1.3rem);
+    font-weight:700; letter-spacing:0.05em; line-height:1.1;
+    text-shadow:0 1px 4px rgba(0,0,0,0.35);
+  }
+  .gallery-ball-model {
+    font-size:clamp(0.55rem,1.8vw,0.78rem); font-weight:600; letter-spacing:0.08em;
+    opacity:0.85; text-shadow:0 1px 3px rgba(0,0,0,0.3); margin-top:0.1rem;
+  }
+  .gallery-slide-label {
+    position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%);
+    font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    color:rgba(244,239,230,0.35);
+  }
+  .gallery-dots { display:flex; justify-content:center; gap:6px; padding:0.65rem 0; border-bottom:1px solid rgba(201,169,97,0.1); }
+  .gallery-dot { width:6px; height:6px; border-radius:50%; background:rgba(244,239,230,0.2); transition:all 0.2s; cursor:pointer; }
+  .gallery-dot.active { background:var(--gold); width:18px; border-radius:3px; }
+  .gallery-footer {
+    padding:1.1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  }
+  .gallery-price { font-family:'DM Serif Display',serif; font-style:italic; font-size:1.75rem; color:var(--gold-bright); line-height:1; }
+  .gallery-price-unit { font-family:'DM Sans',sans-serif; font-style:normal; font-size:0.72rem; color:rgba(244,239,230,0.4); display:block; margin-top:0.1rem; }
+  .gallery-actions { display:flex; gap:0.5rem; }
+  .gallery-cart-btn {
+    background:rgba(201,169,97,0.12); border:1px solid rgba(201,169,97,0.3); color:var(--gold-bright);
+    border-radius:6px; padding:0.65rem 1rem; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s;
+  }
+  .gallery-cart-btn:hover { background:rgba(201,169,97,0.2); border-color:var(--gold); }
+  .gallery-buy-btn {
+    background:var(--gold); border:none; color:var(--green-deeper);
+    border-radius:6px; padding:0.65rem 1.25rem; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s;
+  }
+  .gallery-buy-btn:hover { background:var(--gold-bright); }
+  .gallery-cart-btn:disabled, .gallery-buy-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+  .brand-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 31, 25, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .brand-modal-overlay.open { display: flex; }
+
+  .brand-modal {
+    background: var(--green-dark);
+    border: 1px solid rgba(201,169,97,0.25);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 680px;
+    max-height: 88vh;
+    overflow-y: auto;
+    animation: modalPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes modalPop {
+    from { transform: scale(0.88) translateY(20px); opacity: 0; }
+    to   { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .brand-modal-header {
+    position: sticky;
+    top: 0;
+    background: var(--green-dark);
+    border-bottom: 1px solid rgba(201,169,97,0.15);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+  }
+  .brand-modal-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .brand-modal-ball {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .brand-modal-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    color: var(--white);
+  }
+  .brand-modal-sub {
+    font-size: 0.75rem;
+    color: rgba(244,239,230,0.45);
+    margin-top: 0.1rem;
+  }
+  .brand-modal-close {
+    background: rgba(244,239,230,0.06);
+    border: 1px solid rgba(244,239,230,0.12);
+    color: rgba(244,239,230,0.55);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .brand-modal-close:hover { background: rgba(224,85,85,0.15); color: #e05555; border-color: rgba(224,85,85,0.3); }
+
+  .brand-modal-body { padding: 1.5rem 1.75rem; }
+
+  .model-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.1rem;
+    background: rgba(244,239,230,0.04);
+    border: 1px solid rgba(201,169,97,0.12);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .model-card:hover { border-color: rgba(201,169,97,0.4); background: rgba(201,169,97,0.06); }
+  .model-card:last-child { margin-bottom: 0; }
+
+  .model-info { flex: 1; }
+  .model-name { font-weight: 600; font-size: 1rem; color: var(--white); margin-bottom: 0.25rem; }
+  .model-grade {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .model-desc { font-size: 0.8rem; color: rgba(244,239,230,0.45); margin-top: 0.2rem; }
+
+  .model-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+  .model-price {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--gold-bright);
+    white-space: nowrap;
+  }
+  .model-price-unit { font-size: 0.7rem; color: rgba(244,239,230,0.35); font-family: 'DM Sans', sans-serif; font-style: normal; display: block; text-align: right; margin-top: -4px; }
+
+  .model-order-btn {
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .model-order-btn:hover { background: var(--gold-bright); transform: translateY(-1px); }
+
+  .brand-modal-footer {
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid rgba(201,169,97,0.12);
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(244,239,230,0.4);
+  }
+
+  .brand-ball { cursor: pointer; }
+  .brand-ball:hover { cursor: pointer; }
+
+  .brand-ball:nth-child(2) { animation-delay: 0.3s; }
+  .brand-ball:nth-child(3) { animation-delay: 0.6s; }
+  .brand-ball:nth-child(4) { animation-delay: 0.9s; }
+  .brand-ball:nth-child(5) { animation-delay: 1.2s; }
+  .brand-ball:nth-child(6) { animation-delay: 1.5s; }
+  .brand-ball:nth-child(7) { animation-delay: 1.8s; }
+  .brand-ball:nth-child(8) { animation-delay: 2.1s; }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeIn 0.9s ease forwards;
+  }
+  .fade-in.d1 { animation-delay: 0.1s; }
+  .fade-in.d2 { animation-delay: 0.2s; }
+  .fade-in.d3 { animation-delay: 0.35s; }
+  .fade-in.d4 { animation-delay: 0.5s; }
+  .fade-in.d5 { animation-delay: 0.65s; }
+  @keyframes fadeIn { to { opacity: 1; transform: none; } }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem 4rem; min-height: auto; }
+    .ball-grid { grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+    .brand-ball { font-size: 0.5rem; }
+    #about, #pricing, #how, #contact { padding: 4rem 1.5rem; }
+    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pricing-grid, .how-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-ball"></span>
+    Back in Play <span class="logo-llc">LLC</span>
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#how">How It Works</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Cart <span class="cart-count" id="cart-count">0</span>
+  </button>
+</nav>
+
+<!-- CART DROPDOWN -->
+<div class="cart-dropdown" id="cart-dropdown">
+  <div class="cart-inner">
+    <div class="cart-header">
+      <div class="cart-title">🛒 Your Cart</div>
+      <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">Your cart is empty — browse balls below!</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-wrap">
+        <div class="cart-total-label">Order Total</div>
+        <div class="cart-total-amount" id="cart-total">$0.00</div>
+        <div class="cart-note">+ shipping calculated at checkout</div>
+      </div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <button class="cart-checkout-btn" id="cart-checkout-btn" onclick="proceedToCheckout()" disabled>Checkout →</button>
+        <button onclick="openShop()" style="background:transparent;border:1px solid rgba(201,169,97,0.3);color:var(--gold-bright);border-radius:6px;padding:0.9rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,97,0.3)'">+ Add More</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP MODAL -->
+<div class="shop-modal-overlay" id="shop-modal-overlay" onclick="closeShopModal(event)">
+  <div class="shop-modal" id="shop-modal">
+    <div class="shop-modal-header">
+      <div>
+        <div class="shop-modal-title">Shop All Balls</div>
+        <div class="shop-modal-sub">Tap a ball to add to cart — all prices per dozen (12 balls)</div>
+      </div>
+      <button class="brand-modal-close" onclick="closeShopModalDirect()">×</button>
+    </div>
+    <div class="shop-filters" id="shop-filters"></div>
+    <div class="shop-grid" id="shop-grid"></div>
+  </div>
+</div>
+
+<!-- BRAND TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Titleist</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Callaway</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">TaylorMade</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Bridgestone</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Srixon</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Ping</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Cobra</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Wilson</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Volvik</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Nike</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Mizuno</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Vice</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Snell</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Maxfli</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Top Flite</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Cleveland</span><span class="ticker-sep">⬥</span>
+    <!-- duplicate -->
+    <span class="ticker-item">Titleist</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Callaway</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">TaylorMade</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Bridgestone</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Srixon</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Ping</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Cobra</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Wilson</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Volvik</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Nike</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Mizuno</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Vice</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Snell</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Maxfli</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Top Flite</span><span class="ticker-sep">⬥</span>
+    <span class="ticker-item">Cleveland</span><span class="ticker-sep">⬥</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-in">Premium Used Golf Balls · Miami, FL</div>
+    <h1 class="hero-headline fade-in d1">
+      <span class="line1">Play</span>
+      <span class="line2">More.</span>
+      <span class="line3">Spend</span>
+      <span class="line4">Less.</span>
+    </h1>
+    <p class="hero-body fade-in d2">Top-brand golf balls, carefully inspected and sold at a fraction of retail. Every ball is back in play — and ready for your best round.</p>
+    <div class="hero-stats fade-in d3">
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Brands Available</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">50%</div>
+        <div class="stat-label">Below Retail</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">USA</div>
+        <div class="stat-label">Nationwide Shipping</div>
+      </div>
+    </div>
+    <div class="hero-ctas fade-in d4">
+      <a href="#pricing" class="btn-gold" onclick="event.preventDefault();openShop()">Shop All Balls →</a>
+      <a href="#how" class="btn-outline">How It Works</a>
+    </div>
+  </div>
+
+  <!-- BRAND BALL GRID -->
+  <div class="ball-grid fade-in d5">
+    <div class="brand-ball ball-white" onclick="openBrand('Titleist')">
+      <span class="ball-name">Titleist</span>
+    </div>
+    <div class="brand-ball ball-yellow" onclick="openBrand('Callaway')">
+      <span class="ball-name">Callaway</span>
+    </div>
+    <div class="brand-ball ball-white" onclick="openBrand('TaylorMade')">
+      <span class="ball-name">TaylorMade</span>
+    </div>
+    <div class="brand-ball ball-orange" onclick="openBrand('Srixon')">
+      <span class="ball-name">Srixon</span>
+    </div>
+    <div class="brand-ball ball-white" onclick="openBrand('Bridgestone')">
+      <span class="ball-name">Bridgestone</span>
+    </div>
+    <div class="brand-ball ball-magenta" onclick="openBrand('Volvik')">
+      <span class="ball-name">Volvik</span>
+    </div>
+    <div class="brand-ball ball-white" onclick="openBrand('Nike')">
+      <span class="ball-name">Nike</span>
+    </div>
+    <div class="brand-ball ball-lime" onclick="openBrand('Cobra')">
+      <span class="ball-name">Cobra</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-heading">Founded by a<br/><em>young golfer</em><br/>with a big idea.</h2>
+      <p>Back In Play LLC was started by a kid who loves golf — and noticed how many perfectly good balls were sitting in ponds and tree lines, waiting for a second life.</p>
+      <p>Every ball we sell is hand-recovered, professionally cleaned, and carefully graded by brand and condition. No surprises. No junk. Just quality balls at prices that make sense.</p>
+    </div>
+    <div class="about-visual">
+      <div class="about-stat-box">
+        <div class="about-stat-num">100%</div>
+        <div class="about-stat-label">Hand Inspected</div>
+      </div>
+      <div class="about-stat-box">
+        <div class="about-stat-num">3</div>
+        <div class="about-stat-label">Quality Grades</div>
+      </div>
+      <div class="about-stat-box">
+        <div class="about-stat-num">20+</div>
+        <div class="about-stat-label">Brands Sorted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pricing-header">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-heading">Three grades.<br/><em>One per dozen.</em></h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3 class="card-tier">Value</h3>
+      <p class="card-desc">Practice rounds & range work</p>
+      <div class="card-price-wrap">
+        <span class="card-price-dollar">$</span>
+        <span class="card-price">12</span>
+        <span class="card-price-unit">/ dozen</span>
+      </div>
+      <ul class="card-features">
+        <li>Mixed brands, light cosmetic wear</li>
+        <li>Fully playable performance</li>
+        <li>Great for beginners & high-volume play</li>
+        <li>Hand-inspected every ball</li>
+      </ul>
+    </div>
+
+    <div class="price-card featured">
+      <span class="featured-badge">Most Popular</span>
+      <h3 class="card-tier">Mid</h3>
+      <p class="card-desc">Weekend rounds & league play</p>
+      <div class="card-price-wrap">
+        <span class="card-price-dollar">$</span>
+        <span class="card-price">18</span>
+        <span class="card-price-unit">/ dozen</span>
+      </div>
+      <ul class="card-features">
+        <li>Sorted by brand on request</li>
+        <li>Minimal blemishes, like-new feel</li>
+        <li>Titleist, Callaway, TaylorMade & more</li>
+        <li>Best balance of price & quality</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <h3 class="card-tier">Premium</h3>
+      <p class="card-desc">Tournament & competitive play</p>
+      <div class="card-price-wrap">
+        <span class="card-price-dollar">$</span>
+        <span class="card-price">25</span>
+        <span class="card-price-unit">/ dozen</span>
+      </div>
+      <ul class="card-features">
+        <li>Mint / near-mint condition</li>
+        <li>Sorted by brand & model</li>
+        <li>Pro V1, Chrome Soft, TP5 & more</li>
+        <li>Indistinguishable from new</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-tag">The Process</div>
+  <h2 class="section-heading">From pond<br/>to <em>perfect.</em></h2>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-step-num">01</div>
+      <h3>Recovered</h3>
+      <p>Balls are collected from courses, ponds, and ranges across the area — given a second chance instead of going to waste.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02</div>
+      <h3>Cleaned & Sorted</h3>
+      <p>Each ball is washed, inspected, and sorted by brand, model, and condition. Anything that doesn't make the cut doesn't ship.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03</div>
+      <h3>Shipped to You</h3>
+      <p>Local pickup in Miami or shipped anywhere in the U.S. Order by the dozen — we'll get them out fast.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-heading">Ready to<br/><em>tee it up?</em></h2>
+      <p class="contact-blurb">Browse our balls, add them to your cart, and checkout in seconds. We ship anywhere in the U.S. from Miami, FL.</p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1.75rem;">
+        <a href="tel:+17864563188" class="contact-card">
+          <div class="contact-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-bright)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 11.9a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg></div>
+          <div><div class="contact-card-label">Call or Text</div><div class="contact-card-value">(786) 456-3188</div></div>
+        </a>
+        <a href="mailto:backinplay18@gmail.com" class="contact-card">
+          <div class="contact-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-bright)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+          <div><div class="contact-card-label">Email</div><div class="contact-card-value">backinplay18@gmail.com</div></div>
+        </a>
+        <div class="contact-card" style="cursor:default;">
+          <div class="contact-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-bright)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-card-label">Based In</div><div class="contact-card-value">Miami, Florida · Ships Nationwide</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;background:rgba(244,239,230,0.04);border:1px solid rgba(201,169,97,0.2);border-radius:12px;padding:3rem 2rem;text-align:center;">
+      <div style="font-size:3rem;">🛒</div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:1.75rem;color:var(--white);margin-bottom:0.5rem;">Shop &amp; Checkout</div>
+        <div style="font-size:0.9rem;color:rgba(244,239,230,0.55);line-height:1.6;">Browse all our balls, add to cart,<br/>and place your order securely.</div>
+      </div>
+      <button onclick="openShop()" style="background:var(--gold);color:var(--green-deeper);border:none;border-radius:8px;padding:1.1rem 2.5rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;width:100%;" onmouseover="this.style.background='var(--gold-bright)'" onmouseout="this.style.background='var(--gold)'">
+        Shop All Balls →
+      </button>
+      <div style="font-size:0.75rem;color:rgba(244,239,230,0.3);">Secure checkout · Ships anywhere in the U.S.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Back in Play LLC</div>
+  <div class="footer-copy">© 2026 Back In Play LLC · Miami, FL · All rights reserved</div>
+  <span id="owner-tap" onclick="ownerTap()" style="font-size:0.65rem;color:rgba(244,239,230,0.12);cursor:default;user-select:none;letter-spacing:0.05em;">&#9679;</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('section:not(.hero), .price-card, .how-step, .about-stat-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    io.observe(el);
+  });
+
+  // ===== HIDDEN OWNER LINK =====
+  let ownerTapCount = 0;
+  let ownerTapTimer = null;
+  function ownerTap() {
+    ownerTapCount++;
+    clearTimeout(ownerTapTimer);
+    if (ownerTapCount >= 5) {
+      ownerTapCount = 0;
+      window.location.href = 'dashboard.html';
+    } else {
+      ownerTapTimer = setTimeout(() => { ownerTapCount = 0; }, 3000);
+    }
+  }
+</script>
+
+<!-- BALL PHOTO GALLERY MODAL -->
+<div class="gallery-overlay" id="gallery-overlay" onclick="closeGallery(event)">
+  <div class="gallery-modal" id="gallery-modal">
+    <div class="gallery-header">
+      <div>
+        <div class="gallery-ball-name" id="gal-name"></div>
+        <div class="gallery-grade" id="gal-grade"></div>
+      </div>
+      <button class="gallery-close" onclick="closeGalleryDirect()">×</button>
+    </div>
+    <div class="gallery-scroll" id="gal-scroll">
+      <!-- slides injected by JS -->
+    </div>
+    <div class="gallery-dots" id="gal-dots"></div>
+    <div class="gallery-footer">
+      <div>
+        <div class="gallery-price" id="gal-price"></div>
+        <span class="gallery-price-unit">per dozen (12 balls)</span>
+        <div id="gal-stock" style="margin-top:0.3rem;"></div>
+      </div>
+      <div class="gallery-actions">
+        <button class="gallery-cart-btn" id="gal-cart-btn">+ Cart</button>
+        <button class="gallery-buy-btn" id="gal-buy-btn">Buy Now →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRAND MODAL -->
+<div class="brand-modal-overlay" id="brand-modal-overlay" onclick="closeBrandModal(event)">
+  <div class="brand-modal" id="brand-modal">
+    <div class="brand-modal-header">
+      <div class="brand-modal-logo">
+        <div class="brand-modal-ball" id="modal-ball-icon"></div>
+        <div>
+          <div class="brand-modal-name" id="modal-brand-name"></div>
+          <div class="brand-modal-sub" id="modal-brand-sub"></div>
+        </div>
+      </div>
+      <button class="brand-modal-close" onclick="closeBrandModalDirect()">×</button>
+    </div>
+    <div class="brand-modal-body" id="modal-brand-body"></div>
+    <div class="brand-modal-footer">Tap "Order →" to go straight to the order form with this ball pre-selected · Colors may vary · All balls inspected before shipping</div>
+  </div>
+</div>
+
+<script>
+  // ===== BRAND DATA =====
+  const BRANDS = {
+    Titleist: {
+      color: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+      textColor: '#1a3a1f',
+      models: [
+        { name: 'Pro V1',    grade: 'Premium', price: 25, desc: 'Low flight, consistent distance, drop-and-stop control' },
+        { name: 'Pro V1x',   grade: 'Premium', price: 25, desc: 'High flight, penetrating trajectory, firm feel' },
+        { name: 'AVX',       grade: 'Premium', price: 25, desc: 'Ultra-low flight, soft feel, exceptional distance' },
+        { name: 'Tour Soft', grade: 'Mid',     price: 18, desc: 'Soft feel, long distance, great for mid-handicappers' },
+        { name: 'Velocity',  grade: 'Value',   price: 12, desc: 'Maximum distance, high flight, durable' },
+      ]
+    },
+    Callaway: {
+      color: 'radial-gradient(circle at 35% 30%, #fff176, #f5d400)',
+      textColor: '#1a1a00',
+      models: [
+        { name: 'Chrome Soft',   grade: 'Premium', price: 25, desc: 'Softest feel, tour performance, low spin off driver' },
+        { name: 'Chrome Soft X', grade: 'Premium', price: 25, desc: 'High speed, low spin, firmer feel than Chrome Soft' },
+        { name: 'Supersoft',     grade: 'Mid',     price: 18, desc: 'Ultra-low compression, extremely soft, great for slower swings' },
+        { name: 'Warbird',       grade: 'Value',   price: 12, desc: 'Max distance, aerodynamic design, durable cover' },
+      ]
+    },
+    TaylorMade: {
+      color: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+      textColor: '#1a3a1f',
+      models: [
+        { name: 'TP5',           grade: 'Premium', price: 25, desc: 'High launch, low spin, 5-layer tour performance' },
+        { name: 'TP5x',          grade: 'Premium', price: 25, desc: 'Fast and low, higher speed, penetrating flight' },
+        { name: 'Tour Response', grade: 'Mid',     price: 18, desc: 'Tour-level performance at a mid-tier price' },
+        { name: 'Distance+',     grade: 'Value',   price: 12, desc: 'Long distance, straight flight, 2-piece design' },
+      ]
+    },
+    Bridgestone: {
+      color: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+      textColor: '#1a3a1f',
+      models: [
+        { name: 'Tour B X',  grade: 'Premium', price: 25, desc: 'High speed, low spin driver, high spin irons' },
+        { name: 'Tour B RX', grade: 'Premium', price: 25, desc: 'Straight distance, mid-swing speed, softer feel' },
+        { name: 'e12',       grade: 'Mid',     price: 18, desc: 'Active Acceleration Mantle for added distance' },
+      ]
+    },
+    Srixon: {
+      color: 'radial-gradient(circle at 35% 30%, #ffcc88, #f07820)',
+      textColor: '#3a1000',
+      models: [
+        { name: 'Z-Star',    grade: 'Premium', price: 25, desc: 'Soft feel, high spin, exceptional greenside control' },
+        { name: 'Z-Star XV', grade: 'Premium', price: 25, desc: 'Faster ball speed, low driver spin, high iron spin' },
+        { name: 'Q-Star',    grade: 'Mid',     price: 18, desc: 'Soft compression, straight distance, durable' },
+      ]
+    },
+    Volvik: {
+      color: 'radial-gradient(circle at 35% 30%, #ff80b0, #e0186c)',
+      textColor: '#fff',
+      models: [
+        { name: 'Vivid',   grade: 'Mid', price: 18, desc: 'Matte finish, high visibility colors, tour performance' },
+        { name: 'Crystal', grade: 'Mid', price: 18, desc: 'Semi-translucent finish, soft feel, great distance' },
+      ]
+    },
+    Nike: {
+      color: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+      textColor: '#1a3a1f',
+      models: [
+        { name: 'RZN Black',      grade: 'Mid',   price: 18, desc: 'Low spin, penetrating flight, firm feel' },
+        { name: 'RZN White',      grade: 'Mid',   price: 18, desc: 'Mid spin, soft feel, versatile performance' },
+        { name: 'Power Distance', grade: 'Value', price: 12, desc: 'Maximum distance, straight flight' },
+      ]
+    },
+    Cobra: {
+      color: 'radial-gradient(circle at 35% 30%, #e8ff80, #b8e04a)',
+      textColor: '#1a2a00',
+      models: [
+        { name: 'King Tour', grade: 'Premium', price: 25, desc: 'Tour-grade urethane cover, high spin, soft feel' },
+      ]
+    },
+  };
+
+  const GRADE_EMOJI = { Premium: '⭐', Mid: '✅', Value: '💚' };
+  const GRADE_DESC  = { Premium: 'Tour Performance', Mid: 'Great Value', Value: 'Practice & Range' };
+
+  // Ball product images (hosted on brand CDNs / Wikimedia / public sources)
+  const BALL_IMAGES = {
+    'Titleist Pro V1':          'https://www.titleist.com/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-titleist-master/default/dw8a1e4c7d/images/golf-balls/pro-v1/2023/T2024-PRO-V1-Side-Stamp.png?sw=400',
+    'Titleist Pro V1x':         'https://www.titleist.com/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-titleist-master/default/dwb6c2e8a9/images/golf-balls/pro-v1x/2023/T2024-PRO-V1X-Side-Stamp.png?sw=400',
+    'Titleist AVX':             'https://www.titleist.com/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-titleist-master/default/dw1234abcd/images/golf-balls/avx/T2024-AVX-Side-Stamp.png?sw=400',
+    'Titleist Tour Soft':       'https://www.titleist.com/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-titleist-master/default/dw5678efgh/images/golf-balls/tour-soft/T2024-TOUR-SOFT-Side-Stamp.png?sw=400',
+    'Callaway Chrome Soft':     'https://www.callawaygolf.com/dw/image/v2/BCSH_PRD/on/demandware.static/-/Sites-master-catalog/default/Chrome-Soft-2024-Golf-Balls-White.png?sw=400',
+    'Callaway Chrome Soft X':   'https://www.callawaygolf.com/dw/image/v2/BCSH_PRD/on/demandware.static/-/Sites-master-catalog/default/Chrome-Soft-X-2024-Golf-Balls-White.png?sw=400',
+    'TaylorMade TP5':           'https://www.taylormadegolf.com/dw/image/v2/BCSH_PRD/on/demandware.static/-/Sites-TMaG-master-catalog/default/tp5-2024-golf-ball-white.png?sw=400',
+    'TaylorMade TP5x':          'https://www.taylormadegolf.com/dw/image/v2/BCSH_PRD/on/demandware.static/-/Sites-TMaG-master-catalog/default/tp5x-2024-golf-ball-white.png?sw=400',
+    // Fallback brand-level images from Wikipedia Commons (always work)
+    'Titleist':     'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Titleist_Pro_V1_golf_ball.jpg/320px-Titleist_Pro_V1_golf_ball.jpg',
+    'Callaway':     'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Callaway_Chrome_Soft_Golf_Ball.jpg/320px-Callaway_Chrome_Soft_Golf_Ball.jpg',
+    'TaylorMade':   'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/TaylorMade_TP5_Golf_Ball.jpg/320px-TaylorMade_TP5_Golf_Ball.jpg',
+    'Bridgestone':  'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Bridgestone_Tour_B_Golf_Ball.jpg/320px-Bridgestone_Tour_B_Golf_Ball.jpg',
+    'Srixon':       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Srixon_Z-Star_Golf_Ball.jpg/320px-Srixon_Z-Star_Golf_Ball.jpg',
+  };
+
+  // ===== STOCK STATUS (syncs from JSONBin cloud) =====
+  let _cloudInventory = null;
+  const _JBIN_KEY = '$2a$10$k7iiAvrIhQYE/d2IL2N7WOsR.lVvf6tMeS7xOd2gVAU0JlJb3ax3u';
+  const _JBIN_INV = '6a11ccbfee5a733b12098982';
+
+  async function loadCloudInventory() {
+    try {
+      const res = await fetch('/.netlify/functions/sync?type=inventory&action=get');
+      const data = await res.json();
+      _cloudInventory = (data && typeof data === 'object' && !Array.isArray(data) && !data.data) ? data : {};
+      localStorage.setItem('bip_inventory', JSON.stringify(_cloudInventory));
+    } catch(e) {
+      _cloudInventory = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
+    }
+  }
+
+  function getStockStatus(ballName) {
+    const inv = _cloudInventory || JSON.parse(localStorage.getItem('bip_inventory') || '{}');
+    if (inv[ballName] && inv[ballName].count > 0) {
+      return { status: 'instock', count: inv[ballName].count };
+    }
+    return { status: 'outofstock', count: 0 };
+  }
+
+  function stockBadgeHtml(stock, small = false) {
+    const pad = small ? '2px 6px' : '3px 8px';
+    const fs  = small ? '0.6rem' : '0.65rem';
+    if (stock.status === 'instock' && stock.count <= 60) {
+      const dozens = Math.floor(stock.count / 12);
+      const balls  = stock.count % 12;
+      const label  = dozens > 0 ? `Only ${dozens} dz${balls > 0 ? ` ${balls}` : ''} left!` : `Only ${stock.count} balls left!`;
+      return `<div style="display:inline-flex;align-items:center;gap:3px;background:rgba(224,140,0,0.12);border:1px solid rgba(224,140,0,0.3);border-radius:100px;padding:${pad};font-size:${fs};font-weight:700;color:#e08c00;letter-spacing:0.08em;"><span style="width:5px;height:5px;border-radius:50%;background:#e08c00;flex-shrink:0;"></span>${label}</div>`;
+    }
+    if (stock.status === 'outofstock') {
+      return `<div style="display:inline-flex;align-items:center;gap:3px;background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.25);border-radius:100px;padding:${pad};font-size:${fs};font-weight:700;color:#e05555;letter-spacing:0.08em;"><span style="width:5px;height:5px;border-radius:50%;background:#e05555;flex-shrink:0;"></span>Out of stock</div>`;
+    }
+    // instock with plenty, or available (not set up yet) — show nothing
+    return '';
+  }
+
+  function openBrand(brand) {
+    const data = BRANDS[brand];
+    if (!data) return;
+
+    // Header
+    document.getElementById('modal-brand-name').textContent = brand;
+    document.getElementById('modal-brand-sub').textContent = data.models.length + ' models available';
+    const icon = document.getElementById('modal-ball-icon');
+    icon.style.cssText = `width:48px;height:48px;border-radius:50%;background:${data.color};box-shadow:0 4px 16px rgba(0,0,0,0.3);`;
+
+    // Models
+    const body = document.getElementById('modal-brand-body');
+
+    // Condition disclaimer banner
+    const disclaimer = `
+      <div style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.25);border-radius:8px;padding:1rem 1.1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.5rem;">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">ℹ️ About Our Used Balls</div>
+        <div style="font-size:0.82rem;color:rgba(244,239,230,0.72);line-height:1.55;">
+          Since these are used golf balls, some may have <strong style="color:var(--white);">minor scuffs, light marker lines, or small cosmetic blemishes</strong> — this is normal and does not affect performance. 
+          <strong style="color:var(--white);">We never sell balls with major scratches, cracks, or damage.</strong> Every ball is inspected before it ships.
+        </div>
+        <div style="font-size:0.82rem;color:rgba(244,239,230,0.72);line-height:1.55;">
+          🎨 <strong style="color:var(--white);">Color may vary.</strong> If you order a dozen Pro V1s, you may receive a mix — for example 7 white and 5 yellow. You always get the exact brand and model you ordered, but color assortment is random based on what we have in stock.
+        </div>
+      </div>
+    `;
+
+    body.innerHTML = disclaimer + data.models.map(m => {
+      const imgUrl = BALL_IMAGES[`${brand} ${m.name}`] || BALL_IMAGES[brand] || '';
+      const imgHtml = imgUrl
+        ? `<img src="${imgUrl}" alt="${brand} ${m.name}" style="width:72px;height:72px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,0.06);padding:6px;flex-shrink:0;" onerror="this.style.display='none'" />`
+        : `<div style="width:72px;height:72px;border-radius:50%;background:${data.color};flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.25);"></div>`;
+
+      const stock = getStockStatus(`${brand} ${m.name}`);
+      const outOfStock = stock.status === 'outofstock';
+      const btnHtml = outOfStock
+        ? `<button class="model-order-btn" disabled style="opacity:0.35;cursor:not-allowed;">Out of Stock</button>`
+        : `<button class="model-order-btn" onclick="orderThisBall('${brand} ${m.name}', '${m.grade}', ${m.price})">Order →</button>`;
+
+      return `
+        <div class="model-card" style="${outOfStock ? 'opacity:0.6;' : ''}cursor:pointer;" onclick="openGallery('${brand} ${m.name}','${m.grade}',${m.price},'${data.color}')">
+          ${imgHtml}
+          <div class="model-info">
+            <div class="model-name">${brand} ${m.name}</div>
+            <div class="model-grade">${GRADE_EMOJI[m.grade]} ${m.grade} · ${GRADE_DESC[m.grade]}</div>
+            <div style="margin-top:4px;">${stockBadgeHtml(stock, true)}</div>
+            <div class="model-desc" style="margin-top:4px;">${m.desc}</div>
+          </div>
+          <div class="model-right">
+            <div>
+              <div class="model-price">$${m.price}<span class="model-price-unit">/dozen</span></div>
+            </div>
+            <div style="font-size:0.75rem;color:var(--gold);font-weight:600;">View →</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('brand-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function orderThisBall(ballName, grade, price) {
+    // Close modal
+    closeBrandModalDirect();
+
+    // Scroll to order form
+    setTimeout(() => {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+
+      // Pre-select the ball in the order form dropdown
+      setTimeout(() => {
+        const select = document.getElementById('cust-ball');
+        const target = `${ballName}|${grade}|${price}`;
+        for (const opt of select.options) {
+          if (opt.value === target) {
+            select.value = target;
+            onBallChange();
+            // Flash the field so they notice it
+            select.style.borderColor = '#c9a961';
+            select.style.boxShadow = '0 0 0 3px rgba(201,169,97,0.25)';
+            setTimeout(() => {
+              select.style.borderColor = 'rgba(201,169,97,0.2)';
+              select.style.boxShadow = 'none';
+            }, 2000);
+            break;
+          }
+        }
+      }, 700);
+    }, 100);
+  }
+
+  function closeBrandModal(e) {
+    if (e.target === document.getElementById('brand-modal-overlay')) closeBrandModalDirect();
+  }
+  function closeBrandModalDirect() {
+    document.getElementById('brand-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ===== CART STATE =====
+  let cart = JSON.parse(localStorage.getItem('bip_cart') || '[]');
+  let cartOpen = false;
+
+  function saveCart() {
+    localStorage.setItem('bip_cart', JSON.stringify(cart));
+    renderCart();
+    updateCartBadge();
+  }
+
+  function updateCartBadge() {
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    const badge = document.getElementById('cart-count');
+    badge.textContent = total;
+    badge.classList.toggle('visible', total > 0);
+  }
+
+  // ===== CART OPEN/CLOSE =====
+  function toggleCart() {
+    cartOpen = !cartOpen;
+    document.getElementById('cart-dropdown').classList.toggle('open', cartOpen);
+    // Close shop if open
+    if (cartOpen) document.getElementById('shop-modal-overlay').classList.remove('open');
+  }
+
+  function closeCartDropdown() {
+    cartOpen = false;
+    document.getElementById('cart-dropdown').classList.remove('open');
+  }
+
+  // Close cart if clicking outside — use mousedown to catch before click bubbles
+  document.addEventListener('mousedown', e => {
+    const dropdown = document.getElementById('cart-dropdown');
+    const btn = document.querySelector('.cart-btn');
+    if (cartOpen && !dropdown.contains(e.target) && btn && !btn.contains(e.target)) {
+      closeCartDropdown();
+    }
+  });
+
+  // ===== RENDER CART =====
+  function renderCart() {
+    const container = document.getElementById('cart-items');
+    const totalEl   = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('cart-checkout-btn');
+
+    if (cart.length === 0) {
+      container.innerHTML = '<div class="cart-empty">Your cart is empty — <span style="color:var(--gold);cursor:pointer;" onclick="openShop()">browse our balls →</span></div>';
+      totalEl.textContent = '$0.00';
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    checkoutBtn.disabled = false;
+    const grandTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+    totalEl.textContent = '$' + grandTotal.toFixed(2);
+
+    container.innerHTML = cart.map((item, idx) => {
+      const imgUrl = BALL_IMAGES[item.ball] || BALL_IMAGES[item.brand] || '';
+      const gradeEmoji = { Premium: '⭐', Mid: '✅', Value: '💚' }[item.grade] || '';
+      const imgHtml = imgUrl
+        ? `<img class="cart-item-img" src="${imgUrl}" alt="${item.ball}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="cart-item-ball" style="display:none;background:${item.ballColor};"></div>`
+        : `<div class="cart-item-ball" style="background:${item.ballColor};border-radius:50%;"></div>`;
+      return `
+        <div class="cart-item">
+          ${imgHtml}
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.ball}</div>
+            <div class="cart-item-grade">${gradeEmoji} ${item.grade} · $${item.price}/dz</div>
+          </div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="changeQty(${idx}, -1, event)">−</button>
+            <span class="qty-display">${item.qty} dz</span>
+            <button class="qty-btn" onclick="changeQty(${idx}, 1, event)">+</button>
+          </div>
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+          <button class="cart-item-remove" onclick="removeFromCart(${idx}, event)">✕</button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function changeQty(idx, delta, event) {
+    if (event) event.stopPropagation();
+    cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+    saveCart();
+  }
+
+  function removeFromCart(idx, event) {
+    if (event) event.stopPropagation();
+    cart.splice(idx, 1);
+    saveCart();
+  }
+
+  // ===== ADD TO CART =====
+  function addToCart(ballName, brand, grade, price, ballColor, qty = 1) {
+    const existing = cart.find(i => i.ball === ballName);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ ball: ballName, brand, grade, price, ballColor, qty });
+    }
+    saveCart();
+
+    // Flash feedback
+    showToast('🛒 Added to cart!');
+  }
+
+  function showToast(msg) {
+    const old = document.getElementById('shop-toast');
+    if (old) old.remove();
+    const t = document.createElement('div');
+    t.id = 'shop-toast';
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--green-deeper);font-family:DM Sans,sans-serif;font-weight:700;padding:0.75rem 1.5rem;border-radius:8px;z-index:9999;font-size:0.9rem;box-shadow:0 8px 20px rgba(0,0,0,0.3);animation:fadeIn 0.3s ease;';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2200);
+  }
+
+  // ===== BUY NOW =====
+  function buyNow(ballName, brand, grade, price, ballColor) {
+    addToCart(ballName, brand, grade, price, ballColor, 1);
+    closeShopModalDirect();
+    setTimeout(() => {
+      toggleCart();
+    }, 200);
+  }
+
+  // ===== CHECKOUT =====
+  function proceedToCheckout() {
+    if (cart.length === 0) return;
+    // Cart is already saved in localStorage — just navigate to checkout page
+    window.location.href = 'checkout.html';
+  }
+
+  // ===== SHOP MODAL =====
+  // Build all products from BRANDS data
+  const ALL_PRODUCTS = [];
+  Object.entries(BRANDS).forEach(([brand, data]) => {
+    data.models.forEach(m => {
+      ALL_PRODUCTS.push({
+        ball:   `${brand} ${m.name}`,
+        brand,
+        model:  m.name,
+        grade:  m.grade,
+        price:  m.price,
+        desc:   m.desc,
+        color:  data.color,
+        textColor: data.textColor
+      });
+    });
+  });
+
+  let activeFilter = 'All';
+
+  async function openShop() {
+    closeCartDropdown();
+    await loadCloudInventory();
+    renderShopFilters();
+    renderShopGrid('All');
+    document.getElementById('shop-modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeShopModal(e) {
+    if (e.target === document.getElementById('shop-modal-overlay')) closeShopModalDirect();
+  }
+  function closeShopModalDirect() {
+    document.getElementById('shop-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ===== BALL GALLERY =====
+  const BALL_APPEARANCE = {
+    Titleist:    { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Callaway:    { bg: 'radial-gradient(circle at 35% 28%, #fff176, #e8c000)', text: '#1a1a00' },
+    TaylorMade:  { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Bridgestone: { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Srixon:      { bg: 'radial-gradient(circle at 35% 28%, #ffcc88, #e06820)', text: '#3a1000' },
+    Volvik:      { bg: 'radial-gradient(circle at 35% 28%, #ff80b0, #d01060)', text: '#fff' },
+    Nike:        { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Cobra:       { bg: 'radial-gradient(circle at 35% 28%, #d8ff80, #88c020)', text: '#1a2a00' },
+    Vice:        { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Wilson:      { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Snell:       { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    Maxfli:      { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+    'Top Flite': { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' },
+  };
+
+  function getBrandAppearance(ballName) {
+    const brand = ballName.split(' ')[0];
+    return BALL_APPEARANCE[brand] || { bg: 'radial-gradient(circle at 35% 28%, #ffffff, #ccc4b0)', text: '#1a3a1f' };
+  }
+
+  function openGallery(ballName, grade, price, ballColor) {
+    const brand  = ballName.split(' ')[0];
+    const model  = ballName.replace(brand + ' ', '');
+    const appear = getBrandAppearance(ballName);
+    const gradeEmoji = { Premium: '⭐', Mid: '✅', Value: '💚' }[grade] || '';
+
+    document.getElementById('gal-name').textContent   = ballName;
+    document.getElementById('gal-grade').textContent  = `${gradeEmoji} ${grade}`;
+    document.getElementById('gal-price').textContent  = '$' + price;
+
+    const stock = getStockStatus(ballName);
+    document.getElementById('gal-stock').innerHTML    = stockBadgeHtml(stock, true);
+    const outOfStock = stock.status === 'outofstock';
+    document.getElementById('gal-cart-btn').disabled  = outOfStock;
+    document.getElementById('gal-buy-btn').disabled   = outOfStock;
+
+    // 3 slides: front, side, back — CSS 3D ball with brand text rotated
+    const slides = ['Front', 'Side', 'Back'];
+    const rotations = ['0deg', '90deg', '180deg'];
+
+    document.getElementById('gal-scroll').innerHTML = slides.map((label, i) => `
+      <div class="gallery-slide">
+        <div class="gallery-ball-3d" style="background:${appear.bg};transform:rotate(${rotations[i]});">
+          <div class="gallery-ball-label" style="transform:rotate(-${rotations[i]});">
+            <span class="gallery-ball-brand" style="color:${appear.text};">${brand}</span>
+            <span class="gallery-ball-model" style="color:${appear.text};">${model}</span>
+          </div>
+        </div>
+        <div class="gallery-slide-label">${label} View</div>
+        ${i === 0 ? '<div style="position:absolute;bottom:3.25rem;left:50%;transform:translateX(-50%);font-size:0.62rem;color:rgba(244,239,230,0.22);letter-spacing:0.08em;white-space:nowrap;">← Swipe to see all sides →</div>' : ''}
+      </div>
+    `).join('');
+
+    // Dots
+    document.getElementById('gal-dots').innerHTML = slides.map((_, i) =>
+      `<div class="gallery-dot ${i === 0 ? 'active' : ''}" onclick="scrollGallery(${i})"></div>`
+    ).join('');
+
+    const scroll = document.getElementById('gal-scroll');
+    scroll.scrollLeft = 0;
+    scroll.onscroll = () => {
+      const idx = Math.round(scroll.scrollLeft / scroll.clientWidth);
+      document.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    };
+
+    document.getElementById('gal-cart-btn').onclick = () => {
+      addToCart(ballName, brand, grade, price, appear.bg, 1);
+      closeGalleryDirect();
+      showToast('🛒 Added to cart!');
+    };
+    document.getElementById('gal-buy-btn').onclick = () => {
+      buyNow(ballName, brand, grade, price, appear.bg);
+      closeGalleryDirect();
+    };
+
+    document.getElementById('gallery-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function scrollGallery(idx) {
+    const scroll = document.getElementById('gal-scroll');
+    scroll.scrollTo({ left: idx * scroll.clientWidth, behavior: 'smooth' });
+  }
+
+  function closeGallery(e) {
+    if (e.target === document.getElementById('gallery-overlay')) closeGalleryDirect();
+  }
+  function closeGalleryDirect() {
+    document.getElementById('gallery-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeGalleryDirect();
+      closeBrandModalDirect();
+      closeShopModalDirect();
+      closeCartDropdown();
+    }
+  });
+
+
+  function renderShopFilters() {
+    const brands = ['All', ...Object.keys(BRANDS)];
+    document.getElementById('shop-filters').innerHTML = brands.map(b => `
+      <button class="filter-btn ${b === activeFilter ? 'active' : ''}" onclick="filterShop('${b}')">${b}</button>
+    `).join('');
+  }
+
+  function filterShop(brand) {
+    activeFilter = brand;
+    renderShopFilters();
+    renderShopGrid(brand);
+  }
+
+  function renderShopGrid(brandFilter) {
+    const products = brandFilter === 'All' ? ALL_PRODUCTS : ALL_PRODUCTS.filter(p => p.brand === brandFilter);
+    const gradeEmoji = { Premium: '⭐', Mid: '✅', Value: '💚' };
+
+    document.getElementById('shop-grid').innerHTML = products.map(p => {
+      const imgUrl = BALL_IMAGES[p.ball] || BALL_IMAGES[p.brand] || '';
+      const imgHtml = imgUrl
+        ? `<img class="product-img" src="${imgUrl}" alt="${p.ball}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="product-ball-fallback" style="display:none;background:${p.color};"></div>`
+        : `<div class="product-ball-fallback" style="background:${p.color};"></div>`;
+
+      const stock = getStockStatus(p.ball);
+      const outOfStock = stock.status === 'outofstock';
+      const cardStyle = outOfStock ? 'opacity:0.55;' : '';
+      const btnDisabled = outOfStock ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : '';
+
+      return `
+        <div class="product-card" style="${cardStyle}cursor:pointer;" onclick="openGallery('${p.ball}','${p.grade}',${p.price},'${p.color}')">
+          <div class="product-img-wrap">
+            ${imgHtml}
+            <div class="product-grade-badge">${gradeEmoji[p.grade]} ${p.grade}</div>
+          </div>
+          <div class="product-brand">${p.brand}</div>
+          <div class="product-name">${p.model}</div>
+          <div style="margin:4px 0 6px;">${stockBadgeHtml(stock)}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-bottom">
+            <div>
+              <div class="product-price">$${p.price}</div>
+              <div class="product-price-unit">per dozen</div>
+            </div>
+            <div style="font-size:0.75rem;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:0.3rem;">
+              View → <span style="font-size:0.65rem;opacity:0.6;">front & back</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Init cart on load
+  updateCartBadge();
+  renderCart();
+</script>
+
+</body>
+</html>

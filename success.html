@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Confirmed — Back In Play LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0d1f19;
+    color: #f4efe6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  nav {
+    background: #122922;
+    border-bottom: 1px solid rgba(201,169,97,0.2);
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: #d4b87a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  .logo-ball {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff9e8, #c9a961);
+  }
+  .logo-llc { color: rgba(255,255,255,0.7); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:300; letter-spacing:0.15em; }
+
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+  .success-box {
+    background: #122922;
+    border: 1px solid rgba(201,169,97,0.2);
+    border-radius: 14px;
+    padding: 3rem 2.5rem;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+  .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    color: #d4b87a;
+    margin-bottom: 1rem;
+  }
+  .success-box p {
+    font-size: 1rem;
+    color: rgba(244,239,230,0.7);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .order-summary {
+    background: rgba(201,169,97,0.08);
+    border: 1px solid rgba(201,169,97,0.2);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+  .order-summary-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c9a961;
+    margin-bottom: 0.75rem;
+  }
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(201,169,97,0.08);
+    color: rgba(244,239,230,0.8);
+  }
+  .order-item:last-child { border-bottom: none; }
+  .order-item strong { color: #d4b87a; }
+
+  .btn {
+    display: inline-block;
+    background: #c9a961;
+    color: #0d1f19;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 1rem;
+  }
+  .btn:hover { background: #d4b87a; }
+  .contact-note {
+    font-size: 0.8rem;
+    color: rgba(244,239,230,0.4);
+    margin-top: 1.25rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-ball"></span>
+    Back In Play <span class="logo-llc">LLC</span>
+  </a>
+</nav>
+
+<div class="main">
+  <div class="success-box">
+    <div class="success-icon">🏌️</div>
+    <h1>Order Confirmed!</h1>
+    <p>Your payment was successful. Your balls are on their way!</p>
+
+    <div class="order-summary" id="order-summary">
+      <div class="order-summary-title">Your Order</div>
+      <div id="order-items">Loading...</div>
+    </div>
+
+    <p>We'll reach out to confirm your shipping details. Check your email for a receipt from Stripe.</p>
+
+    <a href="index.html" class="btn">← Back to Shop</a>
+    <div class="contact-note">
+      Questions? Text or email us at (786) 456-3188 · backinplay18@gmail.com
+    </div>
+  </div>
+</div>
+
+<script>
+  // Load pending order and confirm it
+  (async () => {
+  const pending = JSON.parse(localStorage.getItem('bip_pending_order') || 'null');
+
+  if (pending) {
+    // Deduct inventory
+    const H = { 'Content-Type': 'application/json' };
+
+    // Load current cloud inventory
+    let invData = {};
+    try {
+      const r = await fetch('/.netlify/functions/sync?type=inventory&action=get');
+      const d = await r.json();
+      invData = (d && typeof d === 'object' && !Array.isArray(d) && !d.data) ? d : {};
+    } catch(e) { invData = JSON.parse(localStorage.getItem('bip_inventory') || '{}'); }
+    const ballsTotal  = pending.cart.reduce((s, i) => s + (i.price * i.qty), 0);
+    const grandTotal  = ballsTotal + pending.shipCost;
+    const cartSummary = pending.cart.map(i => `${i.qty}dz ${i.ball}`).join(', ');
+
+    pending.cart.forEach(item => {
+      const ballsOrdered = item.qty * 12;
+      if (invData[item.ball]) {
+        invData[item.ball].count = Math.max(0, invData[item.ball].count - ballsOrdered);
+        if (invData[item.ball].count === 0) delete invData[item.ball];
+      }
+    });
+    localStorage.setItem('bip_inventory', JSON.stringify(invData));
+    localStorage.setItem('bip_stock', JSON.stringify(invData));
+    // Save inventory to cloud
+    fetch('/.netlify/functions/sync?type=inventory&action=save', { method:'POST', headers:H, body:JSON.stringify(invData) }).catch(()=>{});
+
+    // Save confirmed order to dashboard
+    const order = {
+      id:          pending.id,
+      date:        pending.date,
+      name:        pending.name,
+      contact:     pending.contact,
+      address:     pending.address,
+      ball:        pending.cart.length === 1 ? pending.cart[0].ball : cartSummary,
+      grade:       pending.cart.length === 1 ? pending.cart[0].grade : 'Mixed',
+      qty:         pending.cart.reduce((s,i) => s+i.qty, 0),
+      brand:       cartSummary,
+      notes:       pending.notes,
+      cartItems:   pending.cart,
+      carrier:     pending.carrier,
+      shipCost:    pending.shipCost,
+      ballsTotal,  grandTotal,
+      ballsOrdered: pending.cart.reduce((s,i) => s+(i.qty*12), 0),
+      status:      'new',
+      source:      'website',
+      paid:        true
+    };
+
+    // Load existing orders from cloud then save
+    let existing = [];
+    try {
+      const r = await fetch('/.netlify/functions/sync?type=orders&action=get');
+      const d = await r.json(); existing = Array.isArray(d) ? d : [];
+    } catch(e) { existing = JSON.parse(localStorage.getItem('bip_orders') || '[]'); }
+    existing.unshift(order);
+    localStorage.setItem('bip_orders', JSON.stringify(existing));
+    fetch('/.netlify/functions/sync?type=orders&action=save', { method:'POST', headers:H, body:JSON.stringify(existing) }).catch(()=>{});
+
+    // Clear cart and pending order
+    localStorage.setItem('bip_cart', '[]');
+    localStorage.removeItem('bip_pending_order');
+
+    // Show order summary
+    document.getElementById('order-items').innerHTML = [
+      ...pending.cart.map(i => `
+        <div class="order-item">
+          <span>${i.qty} dz · ${i.ball}</span>
+          <strong>$${(i.price * i.qty).toFixed(2)}</strong>
+        </div>
+      `),
+      `<div class="order-item"><span>Shipping (${pending.carrier})</span><strong>$${pending.shipCost.toFixed(2)}</strong></div>`,
+      `<div class="order-item" style="font-weight:700;"><span>Total Charged</span><strong style="font-size:1.1rem;">$${grandTotal.toFixed(2)}</strong></div>`
+    ].join('');
+
+  } else {
+    document.getElementById('order-items').innerHTML = '<div style="color:rgba(244,239,230,0.5);font-size:0.9rem;">Order details not available</div>';
+  }
+  })();
+</script>
+
+</body>
+</html>
