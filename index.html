@@ -1867,7 +1867,7 @@
 
   async function loadCloudInventory() {
     try {
-      const res = await fetch('/.netlify/functions/sync?type=inventory&action=get');
+      const res = await fetch('/./api/sync?type=inventory&action=get');
       const data = await res.json();
       _cloudInventory = (data && typeof data === 'object' && !Array.isArray(data) && !data.data) ? data : {};
       localStorage.setItem('bip_inventory', JSON.stringify(_cloudInventory));
