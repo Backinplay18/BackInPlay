@@ -1101,35 +1101,36 @@
 
   let inventory = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
 
-  function saveInventory() { saveInventoryToCloud(inventory); updateStockStat(); }
+  async function saveInventory() { await saveInventoryToCloud(inventory); updateStockStat(); }
 
   function updateStockStat() {
     const total = Object.values(inventory).reduce((s, item) => s + (item.count || 0), 0);
     document.getElementById('stat-stock').textContent = total;
   }
 
-  function addToInventory(ballName, grade, price, qty) {
+  async function addToInventory(ballName, grade, price, qty) {
     qty = parseInt(qty) || 1;
     if (!inventory[ballName]) inventory[ballName] = { ball: ballName, grade, price: parseFloat(price), count: 0 };
     inventory[ballName].count += qty;
-    saveInventory();
+    await saveInventory();
     renderInventory();
     showNewOrderToast('✅ Added ' + qty + ' ' + ballName + ' to inventory');
   }
 
-  function adjustInventory(key, delta) {
+  async function adjustInventory(key, delta) {
     if (!inventory[key]) return;
     inventory[key].count = Math.max(0, inventory[key].count + delta);
     if (inventory[key].count === 0) delete inventory[key];
-    saveInventory();
+    await saveInventory();
     renderInventory();
   }
 
-  function deleteInventoryItem(key) {
+  async function deleteInventoryItem(key) {
     if (!confirm('Remove ' + key + ' from inventory?')) return;
     delete inventory[key];
-    saveInventory();
-    renderInventory();
+    renderInventory(); // update screen immediately
+    await saveInventory(); // wait for cloud save to complete
+    showNewOrderToast('✅ ' + key + ' removed from inventory');
   }
 
   function renderInventory() {
