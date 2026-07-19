@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -153,9 +153,9 @@
       <div class="form-block">
         <div class="form-block-title">🚚 Shipping Method</div>
         <div class="carrier-options">
-          <label class="carrier-opt selected" onclick="selectCarrier(this, 'USPS Priority Mail', 11.00)">
-            <div class="carrier-left"><input type="radio" name="co-carrier" value="USPS Priority Mail|11.00" checked /><div><div class="carrier-name">USPS Priority Mail</div><div class="carrier-speed">2–3 business days</div></div></div>
-            <div class="carrier-price">$11.00</div>
+          <label class="carrier-opt selected" onclick="selectCarrier(this, 'USPS Priority Mail', 8.50)">
+            <div class="carrier-left"><input type="radio" name="co-carrier" value="USPS Priority Mail|8.50" checked /><div><div class="carrier-name">USPS Priority Mail</div><div class="carrier-speed">2–3 business days</div></div></div>
+            <div class="carrier-price">$8.50</div>
           </label>
           <label class="carrier-opt" onclick="selectCarrier(this, 'USPS Ground Advantage', 7.50)">
             <div class="carrier-left"><input type="radio" name="co-carrier" value="USPS Ground Advantage|7.50" /><div><div class="carrier-name">USPS Ground Advantage</div><div class="carrier-speed">3–5 business days</div></div></div>
@@ -190,7 +190,7 @@
         </div>
         <div class="summary-totals" id="co-totals" style="display:none;">
           <div class="total-row"><span id="co-balls-label">Balls</span><span id="co-balls-total">—</span></div>
-          <div class="total-row"><span id="co-ship-label">Shipping</span><span id="co-ship-total">$11.00</span></div>
+          <div class="total-row"><span id="co-ship-label">Shipping</span><span id="co-ship-total">$8.50</span></div>
           <div class="total-row grand"><span>Total</span><span class="grand-val" id="co-grand-total">—</span></div>
         </div>
       </div>
@@ -210,7 +210,7 @@
 <script>
   let cart = JSON.parse(localStorage.getItem('bip_cart') || '[]');
   let selectedCarrierName = 'USPS Priority Mail';
-  let selectedCarrierPrice = 11.00;
+  let selectedCarrierPrice = 8.50;
 
   const BALL_COLORS = {
     Titleist: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
