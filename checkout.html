@@ -377,17 +377,6 @@
   renderSummary();
 </script>
 
-<script>
-  // Load Google Maps key securely from server
-  fetch('/api/google-maps-key')
-    .then(r => r.json())
-    .then(data => {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=initAutocomplete`;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    });
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHBHmuS-CO-H3v87M68UgW4OYW-7QA1CM&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 </html>
