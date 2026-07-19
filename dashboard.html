@@ -515,9 +515,9 @@
               <div class="form-group">
                 <label class="form-label">Carrier</label>
                 <div class="shipping-options" id="shipping-options">
-                  <label class="ship-option selected" onclick="selectCarrier(this, 'USPS Priority', 9.50)">
+                  <label class="ship-option selected" onclick="selectCarrier(this, 'USPS Priority', 8.50)">
                     <div class="ship-option-left"><input type="radio" name="carrier" checked /><div><div class="ship-carrier">USPS Priority Mail</div><div class="ship-speed">2–3 business days</div></div></div>
-                    <div class="ship-price">$9.50</div>
+                    <div class="ship-price">$8.50</div>
                   </label>
                   <label class="ship-option" onclick="selectCarrier(this, 'USPS Ground', 6.00)">
                     <div class="ship-option-left"><input type="radio" name="carrier" /><div><div class="ship-carrier">USPS Ground Advantage</div><div class="ship-speed">3–5 business days</div></div></div>
@@ -535,7 +535,7 @@
               </div>
               <div class="calc-box" id="calc-box">
                 <div class="calc-row"><span id="calc-grade-label">Balls (select grade)</span><span id="calc-balls-price">—</span></div>
-                <div class="calc-row"><span>Shipping (USPS Priority)</span><span id="calc-ship-price">$9.50</span></div>
+                <div class="calc-row"><span>Shipping (USPS Priority)</span><span id="calc-ship-price">$8.50</span></div>
                 <div class="calc-row total"><span>Total to Collect</span><span class="calc-val" id="calc-total">—</span></div>
               </div>
               <div class="form-group"><label class="form-label">Notes</label><input class="form-input" id="f-notes" type="text" placeholder="Any special requests..." /></div>
@@ -741,7 +741,7 @@
   let orders = [];
   let activeOrderId = null;
   let selectedCarrierName = 'USPS Priority';
-  let selectedCarrierPrice = 9.50;
+  let selectedCarrierPrice = 8.50;
   let lastOrderCount = 0;
 
   const JBIN_HEADERS = { 'Content-Type': 'application/json' };
