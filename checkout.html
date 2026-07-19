@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -377,6 +377,17 @@
   renderSummary();
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDINGHko0ZHLJOpGo9w-odL22wj8hO11BY&libraries=places&callback=initAutocomplete" async defer></script>
+<script>
+  // Load Google Maps key securely from server
+  fetch('/api/google-maps-key')
+    .then(r => r.json())
+    .then(data => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=initAutocomplete`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    });
+</script>
 </body>
 </html>
