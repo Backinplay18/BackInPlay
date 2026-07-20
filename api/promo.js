@@ -2,7 +2,7 @@
 const https = require('https');
 
 const JBIN_KEY   = process.env.JBIN_KEY || '$2a$10$k7iiAvrIhQYE/d2IL2N7WOsR.lVvf6tMeS7xOd2gVAU0JlJb3ax3u';
-const JBIN_PROMO = '6a11ccbfee5a733b12098983'; // we'll create this bin
+const JBIN_PROMO = process.env.JBIN_PROMO || '';
 
 // Default promo codes
 const DEFAULT_PROMOS = {
@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
 
   // ── VALIDATE a promo code ──
   if (action === 'validate' && req.method === 'POST') {
-    const { code, contact, orderTotal } = req.body;
+    const { code, contact, orderTotal } = req.body; // orderTotal includes balls + shipping
     const key = (code || '').toUpperCase().trim();
 
     // Load promos from JSONBin or use defaults
