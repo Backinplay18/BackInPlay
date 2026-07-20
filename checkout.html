@@ -256,7 +256,7 @@
           <div class="summary-qty-ctrl">
             <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
             <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+            <button class="qty-btn" onclick="changeQty(${idx},1)" ${(() => { const inv = JSON.parse(localStorage.getItem('bip_inventory') || '{}'); const inStock = inv[item.ball] ? Math.floor(inv[item.ball].count / 12) : 999; return item.qty >= inStock ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''; })()}>+</button>
           </div>
           <div class="summary-item-price">$${(item.price * item.qty).toFixed(2)}</div>
         </div>
@@ -277,6 +277,12 @@
   }
 
   function changeQty(idx, delta) {
+    if (delta > 0) {
+      const item = cart[idx];
+      const inv = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
+      const inStock = inv[item.ball] ? Math.floor(inv[item.ball].count / 12) : 999;
+      if (item.qty >= inStock) return;
+    }
     cart[idx].qty = Math.max(1, cart[idx].qty + delta);
     localStorage.setItem('bip_cart', JSON.stringify(cart));
     renderSummary();
