@@ -427,9 +427,14 @@
                 <div class="form-group"><label class="form-label">Phone / Email</label><input class="form-input" id="f-contact" type="text" placeholder="305-555-0100" /></div>
               </div>
               <div class="form-group"><label class="form-label">Shipping Address</label><input class="form-input" id="f-address" type="text" placeholder="123 Fairway Dr, Miami FL 33101" /></div>
-              <div class="form-row">
-                <div class="form-group full">
-                  <label class="form-label">Ball Type</label>
+              <!-- Multi-ball rows injected by JS below -->
+              <div>
+                <label class="form-label" style="margin-bottom:0.5rem;display:block;">Ball Types</label>
+                <div id="ball-rows"></div>
+                <button type="button" onclick="addBallRow()" style="margin-top:0.5rem;background:rgba(201,169,97,0.1);border:1px solid rgba(201,169,97,0.3);color:#d4b87a;border-radius:6px;padding:0.5rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;width:100%;">+ Add Another Ball</button>
+              </div>
+              <div style="display:none"><div class="form-group full">
+                  <label class="form-label">Ball Type (hidden)</label>
                   <select class="form-select" id="f-ball" onchange="onDashBallChange()">
                     <option value="">Select ball...</option>
                     <optgroup label="── Titleist ──">
@@ -495,23 +500,12 @@
                   </select>
                 </div>
               </div>
-              <div id="dash-grade-pill" style="display:none;align-items:center;gap:0.75rem;background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.25);border-radius:6px;padding:0.6rem 1rem;font-size:0.85rem;">
+              <div id="dash-grade-pill" style="display:none !important;" style="display:none;align-items:center;gap:0.75rem;background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.25);border-radius:6px;padding:0.6rem 1rem;font-size:0.85rem;">
                 <span style="color:rgba(244,239,230,0.5);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Grade:</span>
                 <span id="dash-grade-text" style="font-weight:700;color:#d4b87a;"></span>
                 <span id="dash-grade-price" style="margin-left:auto;font-family:'DM Serif Display',serif;font-style:italic;color:#d4b87a;"></span>
               </div>
-              <div class="form-row">
-                <div class="form-group full">
-                  <label class="form-label">Dozens</label>
-                  <select class="form-select" id="f-qty" onchange="recalc()">
-                    <option value="1">1 dozen (12 balls)</option>
-                    <option value="2">2 dozen (24 balls)</option>
-                    <option value="3">3 dozen (36 balls)</option>
-                    <option value="4">4 dozen (48 balls)</option>
-                    <option value="5">5 dozen (60 balls)</option>
-                  </select>
-                </div>
-              </div>
+<div style="display:none"><select id="f-qty"><option value="1">1</option></select></div>
               <div class="form-group">
                 <label class="form-label">Carrier</label>
                 <div class="shipping-options" id="shipping-options">
@@ -851,6 +845,7 @@
     await loadFromCloud();
     renderOrders();
     updateStats();
+    addBallRow();
     recalc();
     updateStockStat();
     updateUnlistedBadge();
@@ -875,16 +870,7 @@
     setTimeout(() => { if (toast.parentNode) toast.remove(); }, 6000);
   }
 
-  function onDashBallChange() {
-    const val = document.getElementById('f-ball').value;
-    const pill = document.getElementById('dash-grade-pill');
-    if (!val) { pill.style.display = 'none'; recalc(); return; }
-    const [, grade, price] = val.split('|');
-    document.getElementById('dash-grade-text').textContent = grade;
-    document.getElementById('dash-grade-price').textContent = '$' + price + '/dozen';
-    pill.style.display = 'flex';
-    recalc();
-  }
+  // onDashBallChange removed — using multi-ball rows now
 
   function selectCarrier(el, name, price) {
     document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
@@ -897,20 +883,121 @@
     recalc();
   }
 
+  // ── BALL ROWS ──
+  const BALL_OPTIONS_HTML = `<option value="">Select ball...</option>
+                    <optgroup label="── Titleist ──">
+                      <option value="Titleist Pro V1|Premium|25">Pro V1</option>
+                      <option value="Titleist Pro V1x|Premium|25">Pro V1x</option>
+                      <option value="Titleist AVX|Premium|25">AVX</option>
+                      <option value="Titleist Tour Soft|Mid|18">Tour Soft</option>
+                      <option value="Titleist Velocity|Value|12">Velocity</option>
+                    </optgroup>
+                    <optgroup label="── Callaway ──">
+                      <option value="Callaway Chrome Soft|Premium|25">Chrome Soft</option>
+                      <option value="Callaway Chrome Soft X|Premium|25">Chrome Soft X</option>
+                      <option value="Callaway Supersoft|Mid|18">Supersoft</option>
+                      <option value="Callaway Warbird|Value|12">Warbird</option>
+                    </optgroup>
+                    <optgroup label="── TaylorMade ──">
+                      <option value="TaylorMade TP5|Premium|25">TP5</option>
+                      <option value="TaylorMade TP5x|Premium|25">TP5x</option>
+                      <option value="TaylorMade Tour Response|Mid|18">Tour Response</option>
+                      <option value="TaylorMade Distance+|Value|12">Distance+</option>
+                    </optgroup>
+                    <optgroup label="── Bridgestone ──">
+                      <option value="Bridgestone Tour B X|Premium|25">Tour B X</option>
+                      <option value="Bridgestone Tour B RX|Premium|25">Tour B RX</option>
+                      <option value="Bridgestone e12|Mid|18">e12</option>
+                    </optgroup>
+                    <optgroup label="── Srixon ──">
+                      <option value="Srixon Z-Star|Premium|25">Z-Star</option>
+                      <option value="Srixon Z-Star XV|Premium|25">Z-Star XV</option>
+                      <option value="Srixon Q-Star|Mid|18">Q-Star</option>
+                    </optgroup>
+                    <optgroup label="── Cobra / Snell ──">
+                      <option value="Cobra King Tour|Premium|25">Cobra King Tour</option>
+                      <option value="Snell MTB Black|Premium|25">Snell MTB Black</option>
+                      <option value="Snell MTB X|Premium|25">Snell MTB X</option>
+                    </optgroup>
+                    <optgroup label="── Vice ──">
+                      <option value="Vice Pro|Premium|25">Vice Pro</option>
+                      <option value="Vice Pro Plus|Mid|18">Vice Pro Plus</option>
+                      <option value="Vice Drive|Value|12">Vice Drive</option>
+                    </optgroup>
+                    <optgroup label="── Wilson ──">
+                      <option value="Wilson Staff Model|Premium|25">Staff Model</option>
+                      <option value="Wilson Staff Model R|Mid|18">Staff Model R</option>
+                    </optgroup>
+                    <optgroup label="── Volvik ──">
+                      <option value="Volvik Vivid|Mid|18">Vivid</option>
+                      <option value="Volvik Crystal|Mid|18">Crystal</option>
+                    </optgroup>
+                    <optgroup label="── Nike ──">
+                      <option value="Nike RZN Black|Mid|18">RZN Black</option>
+                      <option value="Nike RZN White|Mid|18">RZN White</option>
+                      <option value="Nike Power Distance|Value|12">Power Distance</option>
+                    </optgroup>
+                    <optgroup label="── Maxfli ──">
+                      <option value="Maxfli Tour|Mid|18">Maxfli Tour</option>
+                      <option value="Maxfli SoftFli|Value|12">Maxfli SoftFli</option>
+                    </optgroup>
+                    <optgroup label="── Top Flite ──">
+                      <option value="Top Flite Gamer|Value|12">Top Flite Gamer</option>
+                      <option value="Top Flite XL|Value|12">Top Flite XL</option>
+                    </optgroup>`;
+
+  function addBallRow() {
+    const container = document.getElementById('ball-rows');
+    const idx = container.children.length;
+    const row = document.createElement('div');
+    row.id = 'ball-row-' + idx;
+    row.style.cssText = 'display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;align-items:end;margin-bottom:0.5rem;';
+    row.innerHTML = `
+      <select class="form-select ball-row-select" onchange="recalc()" style="font-size:0.85rem;">
+        ${BALL_OPTIONS_HTML}
+      </select>
+      <select class="form-select ball-row-qty" onchange="recalc()" style="width:90px;font-size:0.85rem;">
+        <option value="1">1 dz</option>
+        <option value="2">2 dz</option>
+        <option value="3">3 dz</option>
+        <option value="4">4 dz</option>
+        <option value="5">5 dz</option>
+      </select>
+      ${idx > 0 ? `<button type="button" onclick="removeBallRow(${idx})" style="background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.3);color:#e05555;border-radius:6px;padding:0.5rem 0.65rem;cursor:pointer;font-size:0.9rem;flex-shrink:0;">✕</button>` : '<div style="width:34px;"></div>'}
+    `;
+    container.appendChild(row);
+    recalc();
+  }
+
+  function removeBallRow(idx) {
+    const row = document.getElementById('ball-row-' + idx);
+    if (row) { row.remove(); recalc(); }
+  }
+
+  function getBallRows() {
+    const rows = [];
+    document.querySelectorAll('#ball-rows > div').forEach(row => {
+      const ballVal = row.querySelector('.ball-row-select').value;
+      const qty = parseInt(row.querySelector('.ball-row-qty').value) || 1;
+      if (!ballVal) return;
+      const [ballName, grade, priceStr] = ballVal.split('|');
+      rows.push({ ball: ballName, grade, price: parseFloat(priceStr), qty });
+    });
+    return rows;
+  }
+
   function recalc() {
-    const ballVal = document.getElementById('f-ball').value;
-    const qty = parseInt(document.getElementById('f-qty').value) || 1;
-    if (!ballVal) {
+    const rows = getBallRows();
+    if (rows.length === 0) {
       document.getElementById('calc-grade-label').textContent = 'Balls (select ball)';
       document.getElementById('calc-balls-price').textContent = '—';
       document.getElementById('calc-total').textContent = '—';
       return;
     }
-    const [ballName, grade, priceStr] = ballVal.split('|');
-    const pricePerDz = parseFloat(priceStr);
-    const ballsTotal = pricePerDz * qty;
+    const ballsTotal = rows.reduce((s, r) => s + (r.price * r.qty), 0);
     const grandTotal = ballsTotal + selectedCarrierPrice;
-    document.getElementById('calc-grade-label').textContent = `${ballName} × ${qty} dz (${qty * 12} balls)`;
+    const summary = rows.map(r => r.ball + ' ×' + r.qty + 'dz').join(', ');
+    document.getElementById('calc-grade-label').textContent = summary;
     document.getElementById('calc-balls-price').textContent = '$' + ballsTotal.toFixed(2);
     document.getElementById('calc-total').textContent = '$' + grandTotal.toFixed(2);
   }
@@ -919,20 +1006,28 @@
     const name    = document.getElementById('f-name').value.trim();
     const contact = document.getElementById('f-contact').value.trim();
     const address = document.getElementById('f-address').value.trim();
-    const ballVal = document.getElementById('f-ball').value;
-    const qty     = parseInt(document.getElementById('f-qty').value) || 1;
     const notes   = document.getElementById('f-notes').value.trim();
-    if (!name || !address || !ballVal) { alert('Please fill in name, address, and ball type.'); return; }
-    const [ballName, grade, priceStr] = ballVal.split('|');
-    const pricePerDz  = parseFloat(priceStr);
-    const ballsOrdered = qty * 12;
-    const ballsTotal  = pricePerDz * qty;
+    const rows    = getBallRows();
+    if (!name || !address || rows.length === 0) { alert('Please fill in name, address, and at least one ball type.'); return; }
+    const ballsTotal  = rows.reduce((s, r) => s + (r.price * r.qty), 0);
     const grandTotal  = ballsTotal + selectedCarrierPrice;
-    deductInventory(ballName, ballsOrdered);
+    const totalQty    = rows.reduce((s, r) => s + r.qty, 0);
+    const cartSummary = rows.map(r => r.qty + 'dz ' + r.ball).join(', ');
+    // Deduct each ball from inventory
+    rows.forEach(r => deductInventory(r.ball, r.qty * 12));
     const order = {
-      id: 'BIP-' + Date.now(), date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
-      name, contact, address, ball: ballName, grade, qty, brand: ballName, notes,
-      carrier: selectedCarrierName, shipCost: selectedCarrierPrice, ballsTotal, grandTotal, ballsOrdered, status: 'new'
+      id: 'BIP-' + Date.now(),
+      date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+      name, contact, address,
+      ball:  rows.length === 1 ? rows[0].ball : cartSummary,
+      grade: rows.length === 1 ? rows[0].grade : 'Mixed',
+      qty:   totalQty,
+      brand: cartSummary,
+      notes, cart: rows,
+      carrier: selectedCarrierName, shipCost: selectedCarrierPrice,
+      ballsTotal, grandTotal,
+      ballsOrdered: rows.reduce((s, r) => s + (r.qty * 12), 0),
+      status: 'new'
     };
     orders.unshift(order);
     save();
@@ -962,9 +1057,8 @@
 
   function clearForm() {
     ['f-name','f-contact','f-address','f-notes'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f-ball').value = '';
-    document.getElementById('f-qty').value = '1';
-    document.getElementById('dash-grade-pill').style.display = 'none';
+    document.getElementById('ball-rows').innerHTML = '';
+    addBallRow();
     recalc();
   }
 
