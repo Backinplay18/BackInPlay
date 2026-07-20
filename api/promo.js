@@ -80,6 +80,11 @@ module.exports = async (req, res) => {
       return res.status(200).json({ valid: false, message: 'You have already used this promo code.' });
     }
 
+    // Check usage limit
+    if (promo.maxUses && usedBy.length >= promo.maxUses) {
+      return res.status(200).json({ valid: false, message: 'This promo code has reached its usage limit.' });
+    }
+
     // Calculate discount
     let discount = 0;
     let description = '';
