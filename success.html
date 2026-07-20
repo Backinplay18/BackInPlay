@@ -185,6 +185,22 @@
     existing.unshift(order);
     localStorage.setItem('bip_orders', JSON.stringify(existing));
     fetch('/api/sync?type=orders&action=save', { method:'POST', headers:H, body:JSON.stringify(existing) }).catch(()=>{});
+
+    // Send confirmation email
+    fetch('/api/send-email', {
+      method: 'POST',
+      headers: H,
+      body: JSON.stringify({
+        id:       order.id,
+        name:     order.name,
+        contact:  order.contact,
+        address:  order.address,
+        cart:     order.cartItems || order.cart || [],
+        carrier:  order.carrier,
+        shipCost: order.shipCost,
+        notes:    order.notes || ''
+      })
+    }).catch(() => {});
     localStorage.setItem('bip_cart', '[]');
     localStorage.removeItem('bip_pending_order');
     document.getElementById('order-items').innerHTML = [
