@@ -691,9 +691,20 @@
             <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Min Order ($)</label>
             <input class="form-input" id="new-promo-min" type="number" placeholder="50" min="0" />
           </div>
-          <div style="display:flex;flex-direction:column;gap:0.4rem;grid-column:span 2;">
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
             <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Expiry Date</label>
             <input class="form-input" id="new-promo-expires" type="date" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Usage Limit</label>
+            <select class="form-select" id="new-promo-limit-type" onchange="toggleCustomLimit()">
+              <option value="unlimited">Unlimited</option>
+              <option value="custom">Custom (e.g. first 50 people)</option>
+            </select>
+          </div>
+          <div id="custom-limit-wrap" style="display:none;flex-direction:column;gap:0.4rem;grid-column:span 2;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Max Uses</label>
+            <input class="form-input" id="new-promo-limit" type="number" placeholder="e.g. 50" min="1" />
           </div>
         </div>
         <div style="display:flex;gap:0.75rem;">
@@ -1494,6 +1505,12 @@
     } catch(e) { console.log('Promo save failed'); }
   }
 
+  function toggleCustomLimit() {
+    const type = document.getElementById('new-promo-limit-type').value;
+    const wrap = document.getElementById('custom-limit-wrap');
+    wrap.style.display = type === 'custom' ? 'flex' : 'none';
+  }
+
   function showCreatePromo() {
     document.getElementById('create-promo-form').style.display = 'block';
     // Set default expiry to 30 days from now
@@ -1504,7 +1521,9 @@
 
   function hideCreatePromo() {
     document.getElementById('create-promo-form').style.display = 'none';
-    ['new-promo-code','new-promo-value','new-promo-min'].forEach(id => document.getElementById(id).value = '');
+    ['new-promo-code','new-promo-value','new-promo-min','new-promo-limit'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+    document.getElementById('new-promo-limit-type').value = 'unlimited';
+    document.getElementById('custom-limit-wrap').style.display = 'none';
     document.getElementById('new-promo-type').value = 'fixed';
     updatePromoValueLabel();
   }
@@ -1529,7 +1548,9 @@
     if (!expires) { alert('Please set an expiry date.'); return; }
     if (type !== 'shipping' && value <= 0) { alert('Please enter a discount value.'); return; }
 
-    promos[code] = { type, value, minOrder, expires, usedBy: [] };
+    const limitType = document.getElementById('new-promo-limit-type').value;
+    const maxUses = limitType === 'custom' ? (parseInt(document.getElementById('new-promo-limit').value) || 0) : null;
+    promos[code] = { type, value, minOrder, expires, maxUses, usedBy: [] };
     await savePromos();
     hideCreatePromo();
     renderPromos();
@@ -1571,7 +1592,7 @@
               <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:100px;background:rgba(${expired ? '224,85,85' : '76,175,125'},0.15);color:${statusColor};">${statusText}</div>
             </div>
             <div style="font-size:0.82rem;color:var(--gold-bright);font-weight:600;">${typeLabel}${minLabel}</div>
-            <div style="font-size:0.75rem;color:rgba(244,239,230,0.4);margin-top:0.25rem;">Expires ${p.expires} · Used ${usedCount} time${usedCount !== 1 ? 's' : ''}</div>
+            <div style="font-size:0.75rem;color:rgba(244,239,230,0.4);margin-top:0.25rem;">Expires ${p.expires} · Used ${usedCount}${p.maxUses ? ' / ' + p.maxUses : ''} time${usedCount !== 1 ? 's' : ''}${p.maxUses && usedCount >= p.maxUses ? ' · <span style="color:#e05555;">Limit reached</span>' : ''}</div>
             ${usedCount > 0 ? '<div style="font-size:0.72rem;color:rgba(244,239,230,0.35);margin-top:0.15rem;">Used by: ' + (p.usedBy || []).join(', ') + '</div>' : ''}
           </div>
           <button onclick="deletePromo('${code}')" style="background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.3);color:var(--red);border-radius:6px;padding:0.5rem 0.9rem;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(224,85,85,0.2)'" onmouseout="this.style.background='rgba(224,85,85,0.1)'">Delete</button>
