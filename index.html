@@ -17,7 +17,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--green); color: var(--white); overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: #0a1a12; color: var(--white); overflow-x: hidden; }
 
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 2.5rem; background: rgba(21,47,26,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,160,23,0.25); }
   .logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--gold-bright); letter-spacing: 0.02em; display: flex; align-items: center; gap: 0.5rem; }
@@ -52,10 +52,10 @@
   .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.25rem; color: var(--gold-bright); font-style: italic; line-height: 1; margin-bottom: 0.25rem; }
   .stat-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,235,0.6); font-weight: 500; }
   .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-gold { background: var(--gold); color: var(--green-deeper); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2.25rem; border-radius: 4px; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 0.5rem; }
-  .btn-gold:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,160,23,0.35); }
-  .btn-outline { background: transparent; color: var(--white); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 1rem 2rem; border-radius: 4px; border: 1px solid rgba(245,242,235,0.3); text-decoration: none; transition: all 0.25s; }
-  .btn-outline:hover { border-color: var(--white); background: rgba(245,242,235,0.08); }
+  .btn-gold { background: #c9a961; color: #0a1a12; font-weight: 900; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 1.1rem 2.25rem; border-radius: 4px; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 20px rgba(201,169,97,0.35); }
+  .btn-gold:hover { background: #d4b87a; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201,169,97,0.45); }
+  .btn-outline { background: rgba(244,239,230,0.08); color: #f4efe6; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 1.1rem 2rem; border-radius: 4px; border: 2px solid rgba(244,239,230,0.5); text-decoration: none; transition: all 0.25s; }
+  .btn-outline:hover { border-color: #f4efe6; background: rgba(244,239,230,0.15); }
 
   .ball-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; align-self: center; }
   .brand-ball { aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; position: relative; overflow: hidden; }
@@ -87,7 +87,7 @@
   .about-stat-num { font-family: 'DM Serif Display', serif; font-size: 3rem; color: var(--gold-bright); font-style: italic; line-height: 1; margin-bottom: 0.4rem; }
   .about-stat-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,235,0.6); }
 
-  #pricing { padding: 6rem 3.5rem; background: var(--green); position: relative; }
+  #pricing { padding: 6rem 3.5rem; background: #0a1a12; position: relative; }
   .pricing-header { margin-bottom: 3.5rem; }
   .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
   .price-card { background: var(--green-dark); border: 1px solid rgba(212,160,23,0.18); border-radius: 8px; padding: 2.5rem 2rem; transition: all 0.35s; position: relative; overflow: hidden; }
@@ -95,11 +95,11 @@
   .price-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
   .price-card:hover::before { transform: scaleX(1); }
   .price-card.featured { background: var(--gold); border-color: var(--gold); }
-  .price-card.featured::before { background: var(--green-deeper); }
+  .price-card.featured::before { background: #0a1a12; }
   .price-card.featured .card-tier, .price-card.featured .card-desc, .price-card.featured .card-price, .price-card.featured .card-price-unit, .price-card.featured .card-features li { color: var(--green-deeper); }
   .price-card.featured .card-features li::before { color: var(--green); }
   .price-card.featured .featured-badge { display: inline-block; }
-  .featured-badge { display: none; position: absolute; top: 1rem; right: 1rem; background: var(--green-deeper); color: var(--gold-bright); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 100px; }
+  .featured-badge { display: none; position: absolute; top: 1rem; right: 1rem; background: #0a1a12; color: var(--gold-bright); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 100px; }
   .card-tier { font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--white); margin-bottom: 0.35rem; }
   .card-desc { font-size: 0.85rem; color: rgba(245,242,235,0.6); margin-bottom: 1.75rem; }
   .card-price-wrap { display: flex; align-items: baseline; gap: 0.2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(212,160,23,0.2); margin-bottom: 1.5rem; }
@@ -121,7 +121,7 @@
   .how-step h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--white); margin-bottom: 0.75rem; }
   .how-step p { font-size: 0.95rem; line-height: 1.65; color: rgba(245,242,235,0.7); }
 
-  #contact { padding: 6rem 3.5rem; background: var(--green-deeper); position: relative; overflow: hidden; }
+  #contact { padding: 6rem 3.5rem; background: #0a1a12; position: relative; overflow: hidden; }
   #contact::after { content: ''; position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(212,160,23,0.06), transparent 70%); pointer-events: none; }
   .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; position: relative; z-index: 1; }
   .contact-blurb { font-size: 1.05rem; line-height: 1.7; color: rgba(245,242,235,0.78); margin-bottom: 2rem; }
@@ -133,13 +133,13 @@
   .contact-card-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,242,235,0.5); margin-bottom: 0.2rem; }
   .contact-card-value { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--white); }
 
-  footer { background: var(--green-deeper); border-top: 1px solid rgba(212,160,23,0.12); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; }
+  footer { background: #0a1a12; border-top: 1px solid rgba(212,160,23,0.12); padding: 2rem 3.5rem; display: flex; align-items: center; justify-content: space-between; }
   .footer-logo { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); font-size: 1rem; }
   .footer-copy { font-size: 0.8rem; color: rgba(245,242,235,0.4); }
 
   .cart-btn { position: relative; background: var(--gold); color: var(--green-deeper); border: none; border-radius: 6px; padding: 0.6rem 1.1rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background 0.2s; }
   .cart-btn:hover { background: var(--gold-bright); }
-  .cart-count { background: var(--green-deeper); color: var(--gold-bright); border-radius: 100px; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; min-width: 18px; text-align: center; display: none; }
+  .cart-count { background: #0a1a12; color: var(--gold-bright); border-radius: 100px; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; min-width: 18px; text-align: center; display: none; }
   .cart-count.visible { display: inline-block; }
 
   .cart-dropdown { position: fixed; top: 58px; right: 0; left: 0; background: var(--green-dark); border-bottom: 1px solid rgba(201,169,97,0.2); z-index: 190; transform: translateY(-110%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 12px 40px rgba(0,0,0,0.4); max-height: 80vh; overflow-y: auto; }
@@ -270,25 +270,102 @@
     .pricing-grid, .how-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
   }
+
+  /* ===== SWING ANIMATION ===== */
+  .swing-overlay { position:fixed; inset:0; z-index:9999; pointer-events:none; display:none; }
+  .swing-overlay.active { display:block; }
+  .club-wrap { position:absolute; left:-120px; bottom:30%; width:80px; height:380px; transform-origin:bottom right; }
+  .club-wrap.swinging { animation:clubSwing 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+  @keyframes clubSwing {
+    0%   { left:-120px; transform:rotate(-35deg); opacity:1; }
+    45%  { left:35%;    transform:rotate(5deg);   opacity:1; }
+    75%  { left:60%;   transform:rotate(25deg);  opacity:1; }
+    100% { left:120%;  transform:rotate(45deg);  opacity:0; }
+  }
+  .impact-flash { position:absolute; inset:0; background:rgba(201,169,97,0.1); opacity:0; }
+  .impact-flash.flash { animation:flashAnim 0.3s 0.3s ease-out forwards; }
+  @keyframes flashAnim { 0%{opacity:1} 100%{opacity:0} }
+  @keyframes floatBall { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  .ball-grid .brand-ball:nth-child(1){animation:ballPop 0.5s 0.1s both}
+  .ball-grid .brand-ball:nth-child(2){animation:ballPop 0.5s 0.2s both}
+  .ball-grid .brand-ball:nth-child(3){animation:ballPop 0.5s 0.3s both}
+  .ball-grid .brand-ball:nth-child(4){animation:ballPop 0.5s 0.4s both}
+  .ball-grid .brand-ball:nth-child(5){animation:ballPop 0.5s 0.5s both}
+  .ball-grid .brand-ball:nth-child(6){animation:ballPop 0.5s 0.6s both}
+  .ball-grid .brand-ball:nth-child(7){animation:ballPop 0.5s 0.7s both}
+  .ball-grid .brand-ball:nth-child(8){animation:ballPop 0.5s 0.8s both}
+  @keyframes ballPop { from{transform:scale(0) rotate(-20deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo"><span class="logo-ball"></span>Back in Play <span class="logo-llc">LLC</span></div>
+  <div class="logo"><span class="logo-ball" style="animation:floatBall 3s ease-in-out infinite;"></span>Back in Play <span class="logo-llc">LLC</span></div>
   <div class="nav-links">
     <a href="#about">About</a><a href="#pricing">Pricing</a>
     <a href="#how">How It Works</a><a href="#contact">Contact</a>
   </div>
-  <button class="cart-btn" onclick="toggleCart()">
-    🛒 Cart <span class="cart-count" id="cart-count">0</span>
+  <button class="cart-btn" onclick="toggleCart()" style="display:flex;align-items:center;gap:0.6rem;">
+    <svg width="36" height="26" viewBox="0 0 120 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="28" y="4" width="58" height="8" rx="4" fill="#0a1a12"/>
+      <rect x="30" y="4" width="6" height="28" rx="2" fill="#0a1a12"/>
+      <rect x="78" y="4" width="6" height="28" rx="2" fill="#0a1a12"/>
+      <path d="M18 32 Q16 32 14 38 L10 58 L95 58 L95 32 Q80 28 60 28 Q38 28 18 32Z" fill="#0a1a12"/>
+      <path d="M32 32 L34 44 L72 44 L72 32Z" fill="#c9a961" opacity="0.4"/>
+      <circle cx="46" cy="40" r="6" fill="#c9a961" opacity="0.5"/>
+      <circle cx="46" cy="40" r="3" fill="#0a1a12"/>
+      <rect x="52" y="34" width="20" height="12" rx="4" fill="#c9a961" opacity="0.4"/>
+      <path d="M10 46 Q6 46 6 52 L8 58 L25 58 L22 46Z" fill="#0a1a12"/>
+      <path d="M84 32 L84 58 L100 58 L104 52 Q106 46 100 44 L84 32Z" fill="#0a1a12"/>
+      <rect x="88" y="20" width="14" height="30" rx="3" fill="#c9a961" opacity="0.3" stroke="#0a1a12" stroke-width="1.5"/>
+      <path d="M92 20 Q91 12 89 10" stroke="#0a1a12" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M95 20 Q95 11 94 9" stroke="#0a1a12" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M98 20 Q99 12 101 10" stroke="#0a1a12" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <ellipse cx="88" cy="10" rx="3" ry="2" fill="#0a1a12"/>
+      <ellipse cx="93" cy="9" rx="3" ry="2" fill="#0a1a12"/>
+      <ellipse cx="101" cy="10" rx="3" ry="2" fill="#0a1a12"/>
+      <circle cx="28" cy="68" r="14" fill="#0a1a12"/>
+      <circle cx="28" cy="68" r="7" fill="#c9a961"/>
+      <circle cx="28" cy="68" r="3" fill="#0a1a12"/>
+      <circle cx="84" cy="68" r="14" fill="#0a1a12"/>
+      <circle cx="84" cy="68" r="7" fill="#c9a961"/>
+      <circle cx="84" cy="68" r="3" fill="#0a1a12"/>
+    </svg>
+    Cart <span class="cart-count" id="cart-count">0</span>
   </button>
 </nav>
 
 <div class="cart-dropdown" id="cart-dropdown">
   <div class="cart-inner">
     <div class="cart-header">
-      <div class="cart-title">🛒 Your Cart</div>
+      <div class="cart-title" style="display:flex;align-items:center;gap:0.75rem;">
+        <svg width="32" height="23" viewBox="0 0 120 85" fill="none">
+          <rect x="28" y="4" width="58" height="8" rx="4" fill="#c9a961"/>
+          <rect x="30" y="4" width="6" height="28" rx="2" fill="#c9a961"/>
+          <rect x="78" y="4" width="6" height="28" rx="2" fill="#c9a961"/>
+          <path d="M18 32 Q16 32 14 38 L10 58 L95 58 L95 32 Q80 28 60 28 Q38 28 18 32Z" fill="#c9a961"/>
+          <path d="M32 32 L34 44 L72 44 L72 32Z" fill="#0d1f19" opacity="0.5"/>
+          <circle cx="46" cy="40" r="6" fill="#0d1f19" opacity="0.6"/>
+          <circle cx="46" cy="40" r="3" fill="#c9a961"/>
+          <rect x="52" y="34" width="20" height="12" rx="4" fill="#0d1f19" opacity="0.5"/>
+          <path d="M10 46 Q6 46 6 52 L8 58 L25 58 L22 46Z" fill="#c9a961"/>
+          <path d="M84 32 L84 58 L100 58 L104 52 Q106 46 100 44 L84 32Z" fill="#c9a961"/>
+          <rect x="88" y="20" width="14" height="30" rx="3" fill="#0d1f19" opacity="0.5" stroke="#c9a961" stroke-width="1.5"/>
+          <path d="M92 20 Q91 12 89 10" stroke="#c9a961" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M95 20 Q95 11 94 9" stroke="#c9a961" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M98 20 Q99 12 101 10" stroke="#c9a961" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <ellipse cx="88" cy="10" rx="3" ry="2" fill="#c9a961"/>
+          <ellipse cx="93" cy="9" rx="3" ry="2" fill="#c9a961"/>
+          <ellipse cx="101" cy="10" rx="3" ry="2" fill="#c9a961"/>
+          <circle cx="28" cy="68" r="14" fill="#0d1f19" stroke="#c9a961" stroke-width="2"/>
+          <circle cx="28" cy="68" r="7" fill="#c9a961"/>
+          <circle cx="28" cy="68" r="3" fill="#0d1f19"/>
+          <circle cx="84" cy="68" r="14" fill="#0d1f19" stroke="#c9a961" stroke-width="2"/>
+          <circle cx="84" cy="68" r="7" fill="#c9a961"/>
+          <circle cx="84" cy="68" r="3" fill="#0d1f19"/>
+        </svg>
+        Your Cart
+      </div>
       <button class="cart-close-btn" onclick="toggleCart()">✕</button>
     </div>
     <div class="cart-items" id="cart-items">
@@ -315,7 +392,12 @@
       <button class="brand-modal-close" onclick="closeShopModalDirect()">×</button>
     </div>
     <div class="shop-filters" id="shop-filters"></div>
-    <div class="shop-grid" id="shop-grid"></div>
+    <div style="margin:1rem 2rem 0;background:rgba(201,169,97,0.07);border:1px solid rgba(201,169,97,0.25);border-radius:8px;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem;">
+  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#c9a961;">ℹ️ About Our Used Balls</div>
+  <div style="font-size:0.82rem;color:rgba(244,239,230,0.72);line-height:1.6;">Since these are used golf balls, some may have <strong style="color:#f4efe6;">minor scuffs, light marker lines, or small cosmetic blemishes</strong> — this is normal and does not affect performance. We never sell balls with major scratches, cracks, or damage. Every ball is inspected before it ships.</div>
+  <div style="font-size:0.82rem;color:rgba(244,239,230,0.72);line-height:1.6;">🎨 <strong style="color:#f4efe6;">Color may vary.</strong> You always get the exact brand and model you ordered, but color assortment is random based on what we have in stock.</div>
+</div>
+<div class="shop-grid" id="shop-grid"></div>
   </div>
 </div>
 
@@ -370,7 +452,7 @@
       <div class="stat"><div class="stat-num">USA</div><div class="stat-label">Nationwide Shipping</div></div>
     </div>
     <div class="hero-ctas fade-in d4">
-      <a href="#pricing" class="btn-gold" onclick="event.preventDefault();openShop()">Shop All Balls →</a>
+      <a href="#pricing" class="btn-gold" onclick="event.preventDefault();triggerSwing()">Shop All Balls →</a>
       <a href="#how" class="btn-outline">How It Works</a>
     </div>
   </div>
@@ -880,6 +962,34 @@
 
   updateCartBadge();
   renderCart();
+</script>
+
+<!-- GOLF CLUB SWING OVERLAY -->
+<div class="swing-overlay" id="swingOverlay">
+  <div class="impact-flash" id="impactFlash"></div>
+  <div class="club-wrap" id="clubWrap">
+    <svg viewBox="0 0 60 380" width="60" height="380" fill="none">
+      <line x1="50" y1="0" x2="12" y2="355" stroke="#c9a961" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="42" y="0" width="12" height="55" rx="6" fill="#1a3a2e" stroke="#c9a961" stroke-width="1"/>
+      <rect x="0" y="342" width="38" height="16" rx="4" fill="#c9a961"/>
+      <line x1="3" y1="347" x2="35" y2="347" stroke="rgba(10,26,18,0.4)" stroke-width="1.5"/>
+      <line x1="3" y1="351" x2="35" y2="351" stroke="rgba(10,26,18,0.4)" stroke-width="1.5"/>
+    </svg>
+  </div>
+</div>
+<script>
+  function triggerSwing() {
+    const overlay = document.getElementById('swingOverlay');
+    const club    = document.getElementById('clubWrap');
+    const flash   = document.getElementById('impactFlash');
+    overlay.classList.add('active');
+    club.classList.remove('swinging');
+    flash.classList.remove('flash');
+    void club.offsetWidth;
+    club.classList.add('swinging');
+    setTimeout(() => flash.classList.add('flash'), 300);
+    setTimeout(() => { overlay.classList.remove('active'); openShop(); }, 520);
+  }
 </script>
 </body>
 </html>
