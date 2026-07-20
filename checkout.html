@@ -177,6 +177,18 @@
           <input class="field-input" id="co-notes" type="text" placeholder="Any special requests or brand preferences..." />
         </div>
       </div>
+
+      <!-- PROMO CODE -->
+      <div class="form-block">
+        <div class="form-block-title">🏷️ Promo Code</div>
+        <div class="form-row" style="align-items:flex-end;">
+          <div class="form-group" style="flex:1;">
+            <input class="field-input" id="co-promo" type="text" placeholder="Enter promo code..." style="text-transform:uppercase;" />
+          </div>
+          <button type="button" onclick="applyPromo()" style="background:rgba(201,169,97,0.15);border:1px solid rgba(201,169,97,0.4);color:#d4b87a;border-radius:6px;padding:0.8rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(201,169,97,0.25)'" onmouseout="this.style.background='rgba(201,169,97,0.15)'">Apply</button>
+        </div>
+        <div id="promo-msg" style="margin-top:0.5rem;font-size:0.82rem;display:none;"></div>
+      </div>
     </div>
 
     <div class="summary-panel">
@@ -209,6 +221,7 @@
 
 <script>
   let cart = JSON.parse(localStorage.getItem('bip_cart') || '[]');
+  let appliedPromo = null; // { code, type, discount, description }
   let selectedCarrierName = 'USPS Priority Mail';
   let selectedCarrierPrice = 8.50;
 
@@ -267,12 +280,36 @@
 
   function updateTotals() {
     const ballsTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-    const grand = ballsTotal + selectedCarrierPrice;
+    let shipping = selectedCarrierPrice;
+    let discount = 0;
+    if (appliedPromo) {
+      if (appliedPromo.type === 'shipping') shipping = 0;
+      else discount = appliedPromo.discount;
+    }
+    const grand = Math.max(0, ballsTotal + shipping - discount);
     const dzCount = cart.reduce((s, i) => s + i.qty, 0);
     document.getElementById('co-balls-label').textContent = `${cart.length} ball type${cart.length > 1 ? 's' : ''} (${dzCount} dz)`;
     document.getElementById('co-balls-total').textContent = '$' + ballsTotal.toFixed(2);
     document.getElementById('co-ship-label').textContent  = `Shipping (${selectedCarrierName})`;
-    document.getElementById('co-ship-total').textContent  = '$' + selectedCarrierPrice.toFixed(2);
+    document.getElementById('co-ship-total').textContent  = '$' + shipping.toFixed(2);
+
+    // Show/hide discount row
+    let discountRow = document.getElementById('co-discount-row');
+    if (discount > 0) {
+      if (!discountRow) {
+        const totalsEl = document.getElementById('co-totals');
+        const row = document.createElement('div');
+        row.id = 'co-discount-row';
+        row.className = 'total-row';
+        row.style.color = '#4caf7d';
+        totalsEl.insertBefore(row, document.getElementById('co-grand-total').parentElement || totalsEl.lastElementChild);
+      }
+      discountRow = document.getElementById('co-discount-row');
+      if (discountRow) discountRow.innerHTML = `<span>Promo (${appliedPromo.code})</span><span>-$${discount.toFixed(2)}</span>`;
+    } else if (discountRow) {
+      discountRow.remove();
+    }
+
     document.getElementById('co-grand-total').textContent = '$' + grand.toFixed(2);
   }
 
@@ -295,6 +332,45 @@
     selectedCarrierName  = name;
     selectedCarrierPrice = price;
     updateTotals();
+  }
+
+  async function applyPromo() {
+    const code    = document.getElementById('co-promo').value.trim().toUpperCase();
+    const contact = document.getElementById('co-contact').value.trim();
+    const msgEl   = document.getElementById('promo-msg');
+
+    if (!code) { msgEl.style.display='block'; msgEl.style.color='#e05555'; msgEl.textContent='Please enter a promo code.'; return; }
+
+    const ballsTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+    const orderTotal = ballsTotal + selectedCarrierPrice;
+
+    msgEl.style.display='block';
+    msgEl.style.color='rgba(244,239,230,0.5)';
+    msgEl.textContent='Checking code...';
+
+    try {
+      const res = await fetch('/api/promo?action=validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, contact, orderTotal })
+      });
+      const data = await res.json();
+
+      if (data.valid) {
+        appliedPromo = { code, ...data };
+        msgEl.style.color = '#4caf7d';
+        msgEl.textContent = data.message;
+        updateTotals();
+      } else {
+        appliedPromo = null;
+        msgEl.style.color = '#e05555';
+        msgEl.textContent = data.message;
+        updateTotals();
+      }
+    } catch(e) {
+      msgEl.style.color = '#e05555';
+      msgEl.textContent = 'Could not check promo code. Try again.';
+    }
   }
 
   async function placeOrder() {
@@ -338,6 +414,14 @@
       });
       const data = await res.json();
       if (data.url) {
+        // Mark promo as used
+        if (appliedPromo) {
+          fetch('/api/promo?action=redeem', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: appliedPromo.code, contact })
+          }).catch(() => {});
+        }
         window.location.href = data.url;
       } else {
         throw new Error(data.error || 'Payment failed');
