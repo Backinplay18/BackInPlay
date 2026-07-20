@@ -389,8 +389,62 @@
       const data = await res.json();
       invData = (data && typeof data === 'object' && !Array.isArray(data) && !data.data) ? data : {};
     } catch(e) { invData = JSON.parse(localStorage.getItem('bip_inventory') || '{}'); }
-    const outOfStock = cart.filter(i => !invData[i.ball] || invData[i.ball].count === 0);
-    if (outOfStock.length > 0) { alert(`Sorry — ${outOfStock.map(i => i.ball).join(', ')} ${outOfStock.length > 1 ? 'are' : 'is'} out of stock.`); return; }
+
+    // Check stock for each item and adjust cart if needed
+    let stockMessages = [];
+    let cartChanged = false;
+    let itemsToRemove = [];
+
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
+      const available = invData[item.ball] ? Math.floor(invData[item.ball].count / 12) : 0;
+
+      if (available === 0) {
+        // Completely out of stock
+        itemsToRemove.push(i);
+        stockMessages.push(`❌ <strong>${item.ball}</strong> is now out of stock and has been removed from your cart.`);
+        cartChanged = true;
+      } else if (item.qty > available) {
+        // Partial stock — reduce quantity
+        stockMessages.push(`⚠️ Only <strong>${available} dozen ${item.ball}</strong> left in stock — your cart has been updated from ${item.qty} to ${available} dozen.`);
+        cart[i].qty = available;
+        cartChanged = true;
+      }
+    }
+
+    // Remove out of stock items (in reverse to preserve indices)
+    for (let i = itemsToRemove.length - 1; i >= 0; i--) {
+      cart.splice(itemsToRemove[i], 1);
+    }
+
+    if (cartChanged) {
+      localStorage.setItem('bip_cart', JSON.stringify(cart));
+      renderSummary();
+
+      // Show stock message banner
+      let banner = document.getElementById('stock-warning-banner');
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'stock-warning-banner';
+        banner.style.cssText = 'background:rgba(224,140,0,0.12);border:1px solid rgba(224,140,0,0.4);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1rem;';
+        const placeBtn = document.getElementById('co-place-btn');
+        placeBtn.parentElement.insertBefore(banner, placeBtn);
+      }
+      banner.innerHTML = '<div style="font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#e08c00;margin-bottom:0.5rem;">⚠️ Stock Update</div>' +
+        stockMessages.map(m => '<div style="font-size:0.85rem;color:rgba(244,239,230,0.8);line-height:1.6;margin-bottom:0.25rem;">' + m + '</div>').join('') +
+        '<div style="font-size:0.78rem;color:rgba(244,239,230,0.45);margin-top:0.5rem;">Please review your updated cart below before continuing.</div>';
+
+      btn.disabled = false;
+      btn.textContent = '🔒 Pay with Card →';
+      return; // Stop — let customer review changes first
+    }
+
+    // Check if cart is now empty
+    if (cart.length === 0) {
+      alert('Sorry — all items in your cart are out of stock. Please go back and shop for available balls.');
+      window.location.href = 'index.html';
+      return;
+    }
     const btn = document.getElementById('co-place-btn');
     btn.disabled = true;
     btn.textContent = '⏳ Redirecting to payment...';
