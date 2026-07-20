@@ -394,6 +394,7 @@
     <button class="tab-btn" onclick="switchTab('inventory')">🏌️ Inventory</button>
     <button class="tab-btn" onclick="switchTab('scanner')">📷 Scanner</button>
     <button class="tab-btn" onclick="switchTab('unlisted')">🔔 Unlisted</button>
+    <button class="tab-btn" onclick="switchTab('promos')">🏷️ Promos</button>
   </div>
 
   <div class="main">
@@ -656,6 +657,51 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- PROMOS TAB -->
+    <div id="tab-promos" class="tab-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:0.25rem;">Promo Codes</div>
+          <div style="font-size:0.8rem;color:rgba(244,239,230,0.45);">Create and manage discount codes for customers</div>
+        </div>
+        <button onclick="showCreatePromo()" style="background:var(--gold);color:var(--green-deeper);border:none;border-radius:6px;padding:0.7rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">+ New Code</button>
+      </div>
+      <div id="create-promo-form" style="display:none;background:var(--green-dark);border:1px solid var(--line);border-radius:8px;padding:1.5rem;margin-bottom:1.25rem;">
+        <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:1.25rem;color:var(--cream);">New Promo Code</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Code</label>
+            <input class="form-input" id="new-promo-code" type="text" placeholder="e.g. SUMMER10" style="text-transform:uppercase;" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Type</label>
+            <select class="form-select" id="new-promo-type" onchange="updatePromoValueLabel()">
+              <option value="fixed">$ Fixed Amount Off</option>
+              <option value="percent">% Percentage Off</option>
+              <option value="shipping">Free Shipping</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);" id="promo-value-label">Discount Amount ($)</label>
+            <input class="form-input" id="new-promo-value" type="number" placeholder="7" min="0" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Min Order ($)</label>
+            <input class="form-input" id="new-promo-min" type="number" placeholder="50" min="0" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;grid-column:span 2;">
+            <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,239,230,0.55);">Expiry Date</label>
+            <input class="form-input" id="new-promo-expires" type="date" />
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;">
+          <button onclick="createPromo()" style="flex:1;background:var(--gold);color:var(--green-deeper);border:none;border-radius:6px;padding:0.75rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;">Create Code</button>
+          <button onclick="hideCreatePromo()" style="background:var(--cream-faint);border:1px solid var(--line);color:var(--cream-dim);border-radius:6px;padding:0.75rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;">Cancel</button>
+        </div>
+      </div>
+      <div id="promo-list"></div>
     </div>
 
     <!-- UNLISTED TAB -->
@@ -1191,6 +1237,7 @@
     if (name !== 'scanner') stopScanner();
     if (name === 'inventory') renderInventory();
     if (name === 'unlisted') renderUnlisted();
+    if (name === 'promos') loadPromos();
   }
 
   let inventory = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
@@ -1423,6 +1470,115 @@
       </div>
     `;
   }
+
+  // ===== PROMO CODES =====
+  let promos = {};
+
+  async function loadPromos() {
+    try {
+      const res = await fetch('/api/promo?action=get');
+      promos = await res.json();
+    } catch(e) {
+      promos = {};
+    }
+    renderPromos();
+  }
+
+  async function savePromos() {
+    try {
+      await fetch('/api/promo?action=save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(promos)
+      });
+    } catch(e) { console.log('Promo save failed'); }
+  }
+
+  function showCreatePromo() {
+    document.getElementById('create-promo-form').style.display = 'block';
+    // Set default expiry to 30 days from now
+    const d = new Date();
+    d.setDate(d.getDate() + 30);
+    document.getElementById('new-promo-expires').value = d.toISOString().split('T')[0];
+  }
+
+  function hideCreatePromo() {
+    document.getElementById('create-promo-form').style.display = 'none';
+    ['new-promo-code','new-promo-value','new-promo-min'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('new-promo-type').value = 'fixed';
+    updatePromoValueLabel();
+  }
+
+  function updatePromoValueLabel() {
+    const type = document.getElementById('new-promo-type').value;
+    const label = document.getElementById('promo-value-label');
+    const valueInput = document.getElementById('new-promo-value');
+    if (type === 'fixed') { label.textContent = 'Discount Amount ($)'; valueInput.style.display = 'block'; }
+    else if (type === 'percent') { label.textContent = 'Discount Percentage (%)'; valueInput.style.display = 'block'; }
+    else { label.textContent = 'Value (N/A for free shipping)'; valueInput.style.display = 'none'; }
+  }
+
+  async function createPromo() {
+    const code    = document.getElementById('new-promo-code').value.trim().toUpperCase();
+    const type    = document.getElementById('new-promo-type').value;
+    const value   = parseFloat(document.getElementById('new-promo-value').value) || 0;
+    const minOrder = parseFloat(document.getElementById('new-promo-min').value) || 0;
+    const expires = document.getElementById('new-promo-expires').value;
+
+    if (!code) { alert('Please enter a promo code.'); return; }
+    if (!expires) { alert('Please set an expiry date.'); return; }
+    if (type !== 'shipping' && value <= 0) { alert('Please enter a discount value.'); return; }
+
+    promos[code] = { type, value, minOrder, expires, usedBy: [] };
+    await savePromos();
+    hideCreatePromo();
+    renderPromos();
+    showNewOrderToast('✅ Promo code ' + code + ' created!');
+  }
+
+  async function deletePromo(code) {
+    if (!confirm('Delete promo code ' + code + '?')) return;
+    delete promos[code];
+    await savePromos();
+    renderPromos();
+  }
+
+  function renderPromos() {
+    const container = document.getElementById('promo-list');
+    if (!container) return;
+    const keys = Object.keys(promos);
+
+    if (keys.length === 0) {
+      container.innerHTML = '<div style="text-align:center;padding:3rem;color:rgba(244,239,230,0.3);"><div style="font-size:2rem;margin-bottom:0.5rem;">🏷️</div><div>No promo codes yet. Create one above!</div></div>';
+      return;
+    }
+
+    const now = new Date();
+    container.innerHTML = keys.map(code => {
+      const p = promos[code];
+      const expired = new Date(p.expires) < now;
+      const usedCount = (p.usedBy || []).length;
+      const typeLabel = p.type === 'fixed' ? '$' + p.value + ' off' : p.type === 'percent' ? p.value + '% off' : 'Free shipping';
+      const minLabel = p.minOrder ? ' (min $' + p.minOrder + ')' : '';
+      const statusColor = expired ? '#e05555' : '#4caf7d';
+      const statusText = expired ? 'Expired' : 'Active';
+
+      return `
+        <div style="background:var(--green-dark);border:1px solid ${expired ? 'rgba(224,85,85,0.3)' : 'var(--line)'};border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:1rem;${expired ? 'opacity:0.6;' : ''}">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.4rem;">
+              <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--cream);">${code}</div>
+              <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:100px;background:rgba(${expired ? '224,85,85' : '76,175,125'},0.15);color:${statusColor};">${statusText}</div>
+            </div>
+            <div style="font-size:0.82rem;color:var(--gold-bright);font-weight:600;">${typeLabel}${minLabel}</div>
+            <div style="font-size:0.75rem;color:rgba(244,239,230,0.4);margin-top:0.25rem;">Expires ${p.expires} · Used ${usedCount} time${usedCount !== 1 ? 's' : ''}</div>
+            ${usedCount > 0 ? '<div style="font-size:0.72rem;color:rgba(244,239,230,0.35);margin-top:0.15rem;">Used by: ' + (p.usedBy || []).join(', ') + '</div>' : ''}
+          </div>
+          <button onclick="deletePromo('${code}')" style="background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.3);color:var(--red);border-radius:6px;padding:0.5rem 0.9rem;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(224,85,85,0.2)'" onmouseout="this.style.background='rgba(224,85,85,0.1)'">Delete</button>
+        </div>`;
+    }).join('');
+  }
+
 </script>
 </body>
 </html>
