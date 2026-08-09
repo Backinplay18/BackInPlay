@@ -492,19 +492,19 @@
   <div class="pricing-grid">
     <div class="price-card">
       <h3 class="card-tier">Value</h3><p class="card-desc">Practice rounds & range work</p>
-      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">12</span><span class="card-price-unit">/ dozen</span></div>
-      <ul class="card-features"><li>Mixed brands, light cosmetic wear</li><li>Fully playable performance</li><li>Great for beginners & high-volume play</li><li>Hand-inspected every ball</li></ul>
+      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">7</span><span class="card-price-unit">–$13.99 / dz</span></div>
+      <ul class="card-features"><li>Top Flite, Warbird, Distance+ & more</li><li>Light cosmetic wear, fully playable</li><li>Great for beginners & high-volume play</li><li>Hand-inspected every ball</li></ul>
     </div>
     <div class="price-card featured">
       <span class="featured-badge">Most Popular</span>
       <h3 class="card-tier">Mid</h3><p class="card-desc">Weekend rounds & league play</p>
-      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">18</span><span class="card-price-unit">/ dozen</span></div>
-      <ul class="card-features"><li>Sorted by brand on request</li><li>Minimal blemishes, like-new feel</li><li>Titleist, Callaway, TaylorMade & more</li><li>Best balance of price & quality</li></ul>
+      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">14</span><span class="card-price-unit">–$19.99 / dz</span></div>
+      <ul class="card-features"><li>Srixon Z-Star, Tour Response & more</li><li>Minimal blemishes, like-new feel</li><li>Best balance of price & quality</li><li>50% below retail price</li></ul>
     </div>
     <div class="price-card">
       <h3 class="card-tier">Premium</h3><p class="card-desc">Tournament & competitive play</p>
-      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">25</span><span class="card-price-unit">/ dozen</span></div>
-      <ul class="card-features"><li>Mint / near-mint condition</li><li>Sorted by brand & model</li><li>Pro V1, Chrome Soft, TP5 & more</li><li>Indistinguishable from new</li></ul>
+      <div class="card-price-wrap"><span class="card-price-dollar">$</span><span class="card-price">24</span><span class="card-price-unit">–$28.99 / dz</span></div>
+      <ul class="card-features"><li>Pro V1, Chrome Soft, TP5 & more</li><li>Mint / near-mint condition</li><li>Sorted by exact brand & model</li><li>Indistinguishable from new</li></ul>
     </div>
   </div>
 </section>
@@ -612,38 +612,38 @@
 <script>
   const BRANDS = {
     Titleist: { color:'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)', textColor:'#1a3a1f', models:[
-      {name:'Pro V1',grade:'Premium',price:25,desc:'Low flight, consistent distance, drop-and-stop control'},
-      {name:'Pro V1x',grade:'Premium',price:25,desc:'High flight, penetrating trajectory, firm feel'},
-      {name:'AVX',grade:'Premium',price:25,desc:'Ultra-low flight, soft feel, exceptional distance'},
-      {name:'Tour Soft',grade:'Mid',price:18,desc:'Soft feel, long distance, great for mid-handicappers'},
-      {name:'Velocity',grade:'Value',price:12,desc:'Maximum distance, high flight, durable'}]},
+      {name:'Pro V1',grade:'Premium',price:28.99,desc:'Low flight, consistent distance, drop-and-stop control'},
+      {name:'Pro V1x',grade:'Premium',price:28.99,desc:'High flight, penetrating trajectory, firm feel'},
+      {name:'AVX',grade:'Premium',price:24.99,desc:'Ultra-low flight, soft feel, exceptional distance'},
+      {name:'Tour Soft',grade:'Mid',price:17.99,desc:'Soft feel, long distance, great for mid-handicappers'},
+      {name:'Velocity',grade:'Value',price:13.99,desc:'Maximum distance, high flight, durable'}]},
     Callaway: { color:'radial-gradient(circle at 35% 30%, #fff176, #f5d400)', textColor:'#1a1a00', models:[
-      {name:'Chrome Soft',grade:'Premium',price:25,desc:'Softest feel, tour performance, low spin off driver'},
-      {name:'Chrome Soft X',grade:'Premium',price:25,desc:'High speed, low spin, firmer feel than Chrome Soft'},
-      {name:'Supersoft',grade:'Mid',price:18,desc:'Ultra-low compression, extremely soft, great for slower swings'},
-      {name:'Warbird',grade:'Value',price:12,desc:'Max distance, aerodynamic design, durable cover'}]},
+      {name:'Chrome Soft',grade:'Premium',price:28.99,desc:'Softest feel, tour performance, low spin off driver'},
+      {name:'Chrome Soft X',grade:'Premium',price:28.99,desc:'High speed, low spin, firmer feel than Chrome Soft'},
+      {name:'Supersoft',grade:'Value',price:13.99,desc:'Ultra-low compression, extremely soft, great for slower swings'},
+      {name:'Warbird',grade:'Value',price:9.99,desc:'Max distance, aerodynamic design, durable cover'}]},
     TaylorMade: { color:'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)', textColor:'#1a3a1f', models:[
-      {name:'TP5',grade:'Premium',price:25,desc:'High launch, low spin, 5-layer tour performance'},
-      {name:'TP5x',grade:'Premium',price:25,desc:'Fast and low, higher speed, penetrating flight'},
-      {name:'Tour Response',grade:'Mid',price:18,desc:'Tour-level performance at a mid-tier price'},
-      {name:'Distance+',grade:'Value',price:12,desc:'Long distance, straight flight, 2-piece design'}]},
+      {name:'TP5',grade:'Premium',price:28.99,desc:'High launch, low spin, 5-layer tour performance'},
+      {name:'TP5x',grade:'Premium',price:28.99,desc:'Fast and low, higher speed, penetrating flight'},
+      {name:'Tour Response',grade:'Mid',price:19.99,desc:'Tour-level performance at a mid-tier price'},
+      {name:'Distance+',grade:'Value',price:9.99,desc:'Long distance, straight flight, 2-piece design'}]},
     Bridgestone: { color:'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)', textColor:'#1a3a1f', models:[
-      {name:'Tour B X',grade:'Premium',price:25,desc:'High speed, low spin driver, high spin irons'},
-      {name:'Tour B RX',grade:'Premium',price:25,desc:'Straight distance, mid-swing speed, softer feel'},
-      {name:'e12',grade:'Mid',price:18,desc:'Active Acceleration Mantle for added distance'}]},
+      {name:'Tour B X',grade:'Premium',price:24.99,desc:'High speed, low spin driver, high spin irons'},
+      {name:'Tour B RX',grade:'Premium',price:24.99,desc:'Straight distance, mid-swing speed, softer feel'},
+      {name:'e12',grade:'Mid',price:17.99,desc:'Active Acceleration Mantle for added distance'}]},
     Srixon: { color:'radial-gradient(circle at 35% 30%, #ffcc88, #f07820)', textColor:'#3a1000', models:[
-      {name:'Z-Star',grade:'Premium',price:25,desc:'Soft feel, high spin, exceptional greenside control'},
-      {name:'Z-Star XV',grade:'Premium',price:25,desc:'Faster ball speed, low driver spin, high iron spin'},
-      {name:'Q-Star',grade:'Mid',price:18,desc:'Soft compression, straight distance, durable'}]},
+      {name:'Z-Star',grade:'Mid',price:19.99,desc:'Soft feel, high spin, exceptional greenside control'},
+      {name:'Z-Star XV',grade:'Mid',price:19.99,desc:'Faster ball speed, low driver spin, high iron spin'},
+      {name:'Q-Star',grade:'Mid',price:17.99,desc:'Soft compression, straight distance, durable'}]},
     Volvik: { color:'radial-gradient(circle at 35% 30%, #ff80b0, #e0186c)', textColor:'#fff', models:[
-      {name:'Vivid',grade:'Mid',price:18,desc:'Matte finish, high visibility colors, tour performance'},
-      {name:'Crystal',grade:'Mid',price:18,desc:'Semi-translucent finish, soft feel, great distance'}]},
+      {name:'Vivid',grade:'Value',price:13.99,desc:'Matte finish, high visibility colors, tour performance'},
+      {name:'Crystal',grade:'Value',price:13.99,desc:'Semi-translucent finish, soft feel, great distance'}]},
     Nike: { color:'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)', textColor:'#1a3a1f', models:[
-      {name:'RZN Black',grade:'Mid',price:18,desc:'Low spin, penetrating flight, firm feel'},
-      {name:'RZN White',grade:'Mid',price:18,desc:'Mid spin, soft feel, versatile performance'},
-      {name:'Power Distance',grade:'Value',price:12,desc:'Maximum distance, straight flight'}]},
+      {name:'RZN Black',grade:'Value',price:13.99,desc:'Low spin, penetrating flight, firm feel'},
+      {name:'RZN White',grade:'Value',price:13.99,desc:'Mid spin, soft feel, versatile performance'},
+      {name:'Power Distance',grade:'Value',price:9.99,desc:'Maximum distance, straight flight'}]},
     Cobra: { color:'radial-gradient(circle at 35% 30%, #e8ff80, #b8e04a)', textColor:'#1a2a00', models:[
-      {name:'King Tour',grade:'Premium',price:25,desc:'Tour-grade urethane cover, high spin, soft feel'}]},
+      {name:'King Tour',grade:'Mid',price:19.99,desc:'Tour-grade urethane cover, high spin, soft feel'}]},
   };
 
   const GRADE_EMOJI = { Premium:'⭐', Mid:'✅', Value:'💚' };
