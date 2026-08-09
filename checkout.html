@@ -397,7 +397,7 @@
 
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
-      const available = invData[item.ball] ? Math.floor(invData[item.ball].count / 12) : 0;
+      const available = invData[item.ball] ? Math.floor(invData[item.ball].count / 12) : 0; // in dozens — less than 1 dz = out of stock
 
       if (available === 0) {
         // Completely out of stock
@@ -406,7 +406,8 @@
         cartChanged = true;
       } else if (item.qty > available) {
         // Partial stock — reduce quantity
-        stockMessages.push(`⚠️ Only <strong>${available} dozen ${item.ball}</strong> left in stock — your cart has been updated from ${item.qty} to ${available} dozen.`);
+        const dozLabel = available === 1 ? '1 dozen' : available + ' dozen';
+        stockMessages.push(`⚠️ Only <strong>${dozLabel} of ${item.ball}</strong> available — your cart has been updated from ${item.qty} to ${available} dozen.`);
         cart[i].qty = available;
         cartChanged = true;
       }
