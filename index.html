@@ -669,7 +669,7 @@
 
   function getStockStatus(ballName) {
     const inv = _cloudInventory || JSON.parse(localStorage.getItem('bip_inventory') || '{}');
-    if (inv[ballName] && inv[ballName].count > 0) return { status:'instock', count:inv[ballName].count };
+    if (inv[ballName] && inv[ballName].count >= 12) return { status:'instock', count:inv[ballName].count };
     return { status:'outofstock', count:0 };
   }
 
@@ -678,7 +678,10 @@
     const fs  = small ? '0.6rem' : '0.65rem';
     if (stock.status === 'instock' && stock.count <= 60) {
       const dozens = Math.floor(stock.count / 12);
-      if (dozens === 0) return ''; // less than 1 dozen — show as out of stock handled below
+      if (dozens === 0) {
+        // Less than 1 dozen — treat as out of stock
+        return `<div style="display:inline-flex;align-items:center;gap:3px;background:rgba(224,85,85,0.1);border:1px solid rgba(224,85,85,0.25);border-radius:100px;padding:${pad};font-size:${fs};font-weight:700;color:#e05555;letter-spacing:0.08em;"><span style="width:5px;height:5px;border-radius:50%;background:#e05555;flex-shrink:0;"></span>Out of stock</div>`;
+      }
       const label  = dozens === 1 ? 'Only 1 dozen left!' : `Only ${dozens} dozen left!`;
       return `<div style="display:inline-flex;align-items:center;gap:3px;background:rgba(224,140,0,0.12);border:1px solid rgba(224,140,0,0.3);border-radius:100px;padding:${pad};font-size:${fs};font-weight:700;color:#e08c00;letter-spacing:0.08em;"><span style="width:5px;height:5px;border-radius:50%;background:#e08c00;flex-shrink:0;"></span>${label}</div>`;
     }
