@@ -678,8 +678,8 @@
     const fs  = small ? '0.6rem' : '0.65rem';
     if (stock.status === 'instock' && stock.count <= 60) {
       const dozens = Math.floor(stock.count / 12);
-      const balls  = stock.count % 12;
-      const label  = dozens > 0 ? `Only ${dozens} dz${balls > 0 ? ` ${balls}` : ''} left!` : `Only ${stock.count} balls left!`;
+      if (dozens === 0) return ''; // less than 1 dozen — show as out of stock handled below
+      const label  = dozens === 1 ? 'Only 1 dozen left!' : `Only ${dozens} dozen left!`;
       return `<div style="display:inline-flex;align-items:center;gap:3px;background:rgba(224,140,0,0.12);border:1px solid rgba(224,140,0,0.3);border-radius:100px;padding:${pad};font-size:${fs};font-weight:700;color:#e08c00;letter-spacing:0.08em;"><span style="width:5px;height:5px;border-radius:50%;background:#e08c00;flex-shrink:0;"></span>${label}</div>`;
     }
     if (stock.status === 'outofstock') {
