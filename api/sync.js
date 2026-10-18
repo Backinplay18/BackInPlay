@@ -1,31 +1,35 @@
+// Inventory + Orders via Supabase (replaces JSONBin)
 const https = require('https');
 
-const JBIN_KEY = process.env.JBIN_KEY || '$2a$10$k7iiAvrIhQYE/d2IL2N7WOsR.lVvf6tMeS7xOd2gVAU0JlJb3ax3u';
-const JBIN_INV = '6a11ccbfee5a733b12098982';
-const JBIN_ORD = '6a11ccf86877513b27be5365';
+const SUPABASE_URL = process.env.SUPABASE_URL || '';
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY || '';
 
-function jsonbinRequest(method, binId, body) {
+function supabaseRequest(method, path, body) {
   return new Promise((resolve, reject) => {
+    const url = new URL(`${SUPABASE_URL}${path}`);
+    const data = body ? JSON.stringify(body) : null;
     const options = {
-      hostname: 'api.jsonbin.io',
-      path: `/v3/b/${binId}${method === 'GET' ? '/latest' : ''}`,
+      hostname: url.hostname,
+      path: url.pathname + url.search,
       method,
       headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
         'Content-Type': 'application/json',
-        'X-Master-Key': JBIN_KEY,
-        'X-Bin-Meta': 'false'
+        'Prefer': method === 'POST' ? 'resolution=merge-duplicates,return=minimal' : 'return=minimal',
+        ...(data ? { 'Content-Length': Buffer.byteLength(data) } : {})
       }
     };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
+    const req = https.request(options, res => {
+      let responseData = '';
+      res.on('data', chunk => responseData += chunk);
       res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch(e) { resolve({}); }
+        try { resolve(JSON.parse(responseData)); }
+        catch(e) { resolve([]); }
       });
     });
     req.on('error', reject);
-    if (body) req.write(JSON.stringify(body));
+    if (data) req.write(data);
     req.end();
   });
 }
@@ -35,23 +39,31 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
   try {
     const { type, action } = req.query;
-    const binId = type === 'orders' ? JBIN_ORD : JBIN_INV;
+    const key = type === 'orders' ? 'orders' : 'inventory';
 
     if (action === 'save') {
-      const body = req.body;
-      await jsonbinRequest('PUT', binId, body);
+      // UPSERT into store table
+      await supabaseRequest('POST', '/rest/v1/store', {
+        key,
+        value: req.body,
+        updated_at: new Date().toISOString()
+      });
       return res.status(200).json({ success: true });
     } else {
-      const data = await jsonbinRequest('GET', binId);
-      return res.status(200).json(data);
+      // GET from store table
+      const rows = await supabaseRequest('GET', `/rest/v1/store?key=eq.${key}&select=value`, null);
+      if (Array.isArray(rows) && rows.length > 0) {
+        return res.status(200).json(rows[0].value);
+      }
+      // Return empty defaults if not seeded yet
+      return res.status(200).json(key === 'orders' ? [] : {});
     }
   } catch(e) {
+    console.error('Supabase sync error:', e);
     return res.status(500).json({ error: e.message });
   }
 };
