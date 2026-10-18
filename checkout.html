@@ -9,35 +9,176 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --green: #1a3a2e; --green-dark: #122922; --green-deeper: #0d1f19;
-    --green-mid: #1f4535; --gold: #c9a961; --gold-bright: #d4b87a;
-    --white: #f4efe6; --line: rgba(201,169,97,0.2); --red: #e05555; --green-status: #4caf7d;
+    --green: #1a3a2e;
+    --green-dark: #122922;
+    --green-deeper: #0d1f19;
+    --green-mid: #1f4535;
+    --gold: #c9a961;
+    --gold-bright: #d4b87a;
+    --white: #f4efe6;
+    --line: rgba(201,169,97,0.2);
+    --red: #e05555;
+    --green-status: #4caf7d;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--green-deeper); color: var(--white); min-height: 100vh; }
-  nav { background: var(--green-dark); border-bottom: 1px solid var(--line); padding: 1.1rem 2.5rem; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--gold-bright); display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
-  .logo-ball { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff9e8, var(--gold)); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-  .logo-llc { color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 300; letter-spacing: 0.15em; }
-  .back-btn { color: rgba(244,239,230,0.5); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--green-deeper);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    background: var(--green-dark);
+    border-bottom: 1px solid var(--line);
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  .logo-ball {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff9e8, var(--gold));
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .logo-llc {
+    color: rgba(255,255,255,0.7);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+  }
+  .back-btn {
+    color: rgba(244,239,230,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
   .back-btn:hover { color: var(--white); }
-  .checkout-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 420px; gap: 2.5rem; align-items: start; }
-  .section-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-  .section-label::before { content: ''; width: 2rem; height: 1px; background: var(--gold); }
-  .section-heading { font-family: 'DM Serif Display', serif; font-size: 1.75rem; color: var(--white); margin-bottom: 1.75rem; }
-  .form-panel { display: flex; flex-direction: column; gap: 2rem; }
-  .form-block { background: var(--green-dark); border: 1px solid var(--line); border-radius: 10px; padding: 1.75rem; }
-  .form-block-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .checkout-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* ===== SECTION LABELS ===== */
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 2rem; height: 1px;
+    background: var(--gold);
+  }
+  .section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    color: var(--white);
+    margin-bottom: 1.75rem;
+  }
+
+  /* ===== FORM PANEL ===== */
+  .form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .form-block {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.75rem;
+  }
+  .form-block-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
   .form-row.full { grid-template-columns: 1fr; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  label.field-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(244,239,230,0.5); }
-  .field-input { background: rgba(244,239,230,0.06); border: 1px solid var(--line); border-radius: 6px; padding: 0.8rem 1rem; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
-  .field-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,97,0.15); }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  label.field-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(244,239,230,0.5);
+  }
+  .field-input {
+    background: rgba(244,239,230,0.06);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,169,97,0.15);
+  }
   .field-input::placeholder { color: rgba(244,239,230,0.25); }
+
+  /* ===== CARRIER OPTIONS ===== */
   .carrier-options { display: flex; flex-direction: column; gap: 0.6rem; }
-  .carrier-opt { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; background: rgba(244,239,230,0.04); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+  .carrier-opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    background: rgba(244,239,230,0.04);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
   .carrier-opt:hover { border-color: rgba(201,169,97,0.4); background: rgba(201,169,97,0.06); }
   .carrier-opt.selected { background: rgba(201,169,97,0.1); border-color: var(--gold); }
   .carrier-opt input[type="radio"] { accent-color: var(--gold); width: 16px; height: 16px; }
@@ -45,44 +186,200 @@
   .carrier-name { font-weight: 600; font-size: 0.9rem; }
   .carrier-speed { font-size: 0.72rem; color: rgba(244,239,230,0.45); margin-top: 0.1rem; }
   .carrier-price { font-weight: 700; color: var(--gold-bright); font-size: 0.95rem; }
-  .summary-panel { position: sticky; top: 2rem; }
-  .summary-box { background: var(--green-dark); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .summary-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); display: flex; align-items: center; justify-content: space-between; }
-  .summary-edit { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--gold); cursor: pointer; text-decoration: underline; font-weight: 600; }
+
+  /* Shipping loading state */
+  .shipping-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    color: rgba(244,239,230,0.5);
+    font-size: 0.88rem;
+  }
+  .shipping-spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(201,169,97,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .shipping-prompt {
+    padding: 0.85rem 1rem;
+    background: rgba(201,169,97,0.05);
+    border: 1px dashed rgba(201,169,97,0.2);
+    border-radius: 8px;
+    color: rgba(244,239,230,0.4);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .shipping-error {
+    padding: 0.85rem 1rem;
+    background: rgba(224,85,85,0.08);
+    border: 1px solid rgba(224,85,85,0.2);
+    border-radius: 8px;
+    color: #e07070;
+    font-size: 0.85rem;
+  }
+
+  /* ===== ORDER SUMMARY (right panel) ===== */
+  .summary-panel {
+    position: sticky;
+    top: 2rem;
+  }
+  .summary-box {
+    background: var(--green-dark);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .summary-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .summary-edit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+  }
   .summary-items { padding: 1rem 1.5rem; }
-  .summary-item { display: flex; align-items: center; gap: 0.85rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(201,169,97,0.08); }
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(201,169,97,0.08);
+  }
   .summary-item:last-child { border-bottom: none; }
-  .summary-item-ball { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .summary-item-ball {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
   .summary-item-name { font-weight: 600; font-size: 0.88rem; flex: 1; }
   .summary-item-qty { font-size: 0.75rem; color: rgba(244,239,230,0.5); }
   .summary-item-price { font-weight: 700; color: var(--gold-bright); font-size: 0.9rem; white-space: nowrap; }
   .summary-qty-ctrl { display: flex; align-items: center; gap: 0.4rem; }
-  .qty-btn { width: 26px; height: 26px; background: rgba(244,239,230,0.06); border: 1px solid var(--line); color: var(--white); border-radius: 4px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .qty-btn {
+    width: 26px; height: 26px;
+    background: rgba(244,239,230,0.06);
+    border: 1px solid var(--line);
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
   .qty-btn:hover { border-color: var(--gold); background: rgba(201,169,97,0.1); }
   .qty-num { font-weight: 600; font-size: 0.85rem; min-width: 24px; text-align: center; }
-  .summary-totals { padding: 1rem 1.5rem; border-top: 1px solid var(--line); background: rgba(244,239,230,0.02); }
-  .total-row { display: flex; justify-content: space-between; font-size: 0.88rem; color: rgba(244,239,230,0.65); padding: 0.3rem 0; }
-  .total-row.grand { font-size: 1rem; font-weight: 700; color: var(--white); border-top: 1px solid var(--line); margin-top: 0.5rem; padding-top: 0.75rem; }
-  .total-row.grand .grand-val { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.5rem; color: var(--gold-bright); }
-  .empty-cart { padding: 3rem 1.5rem; text-align: center; color: rgba(244,239,230,0.35); }
+
+  .summary-totals {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--line);
+    background: rgba(244,239,230,0.02);
+  }
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: rgba(244,239,230,0.65);
+    padding: 0.3rem 0;
+  }
+  .total-row.grand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    border-top: 1px solid var(--line);
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+  }
+  .total-row.grand .grand-val {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--gold-bright);
+  }
+
+  .empty-cart {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: rgba(244,239,230,0.35);
+  }
   .empty-cart-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-  .place-order-btn { width: 100%; background: var(--gold); color: var(--green-deeper); border: none; border-radius: 8px; padding: 1.1rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; margin-top: 1rem; }
-  .place-order-btn:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,169,97,0.3); }
-  .place-order-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
-  .secure-note { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.72rem; color: rgba(244,239,230,0.35); margin-top: 0.75rem; letter-spacing: 0.05em; }
-  #success-screen { display: none; max-width: 600px; margin: 5rem auto; text-align: center; padding: 2rem; }
-  #success-screen .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
-  #success-screen h2 { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 2.5rem; color: var(--gold-bright); margin-bottom: 1rem; }
-  #success-screen p { font-size: 1rem; color: rgba(244,239,230,0.65); line-height: 1.7; margin-bottom: 2rem; }
-  .success-back-btn { background: var(--gold); color: var(--green-deeper); border: none; border-radius: 8px; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
-  .success-back-btn:hover { background: var(--gold-bright); }
-  /* Google Places autocomplete dropdown styling */
-  .pac-container { background: #1a3a2e !important; border: 1px solid rgba(201,169,97,0.3) !important; border-radius: 0 0 8px 8px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; font-family: 'DM Sans', sans-serif !important; }
-  .pac-item { padding: 0.7rem 1rem !important; cursor: pointer !important; border-top: 1px solid rgba(201,169,97,0.1) !important; color: #f4efe6 !important; font-size: 0.88rem !important; }
+
+  /* ===== PLACE ORDER BUTTON ===== */
+  .place-order-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--green-deeper);
+    border: none;
+    border-radius: 8px;
+    padding: 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 1rem;
+  }
+  .place-order-btn:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(201,169,97,0.3);
+  }
+  .place-order-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .secure-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: rgba(244,239,230,0.35);
+    margin-top: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Style Google autocomplete dropdown */
+  .pac-container {
+    background: #1a3a2e !important;
+    border: 1px solid rgba(201,169,97,0.3) !important;
+    border-radius: 0 0 8px 8px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+    font-family: 'DM Sans', sans-serif !important;
+  }
+  .pac-item {
+    padding: 0.7rem 1rem !important;
+    cursor: pointer !important;
+    border-top: 1px solid rgba(201,169,97,0.1) !important;
+    color: #f4efe6 !important;
+    font-size: 0.88rem !important;
+  }
   .pac-item:hover { background: rgba(201,169,97,0.12) !important; }
   .pac-item-query { color: #d4b87a !important; font-weight: 600 !important; }
   .pac-matched { color: #c9a961 !important; }
   .pac-icon { display: none !important; }
+
   @media (max-width: 800px) {
     .checkout-wrap { grid-template-columns: 1fr; padding: 1.5rem 1rem; }
     .summary-panel { position: static; }
@@ -103,11 +400,15 @@
 
 <div id="main-checkout">
   <div class="checkout-wrap">
+
+    <!-- LEFT: FORM -->
     <div class="form-panel">
       <div>
         <div class="section-label">Checkout</div>
         <div class="section-heading">Your Information</div>
       </div>
+
+      <!-- Contact -->
       <div class="form-block">
         <div class="form-block-title">📋 Contact Details</div>
         <div class="form-row">
@@ -121,6 +422,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Shipping Address -->
       <div class="form-block">
         <div class="form-block-title">📦 Shipping Address</div>
         <div class="form-row full">
@@ -142,7 +445,8 @@
         <div class="form-row">
           <div class="form-group">
             <label class="field-label">ZIP Code *</label>
-            <input class="field-input" id="co-zip" type="text" placeholder="33101" maxlength="10" />
+            <input class="field-input" id="co-zip" type="text" placeholder="33101" maxlength="10"
+              oninput="onZipChange(this.value)" />
           </div>
           <div class="form-group">
             <label class="field-label">Country</label>
@@ -150,47 +454,25 @@
           </div>
         </div>
       </div>
-      <div class="form-block">
+
+      <!-- Carrier — dynamic via EasyPost -->
+      <div class="form-block" id="shipping-block">
         <div class="form-block-title">🚚 Shipping Method</div>
-        <div class="carrier-options">
-          <label class="carrier-opt selected" onclick="selectCarrier(this, 'USPS Priority Mail', 8.50)">
-            <div class="carrier-left"><input type="radio" name="co-carrier" value="USPS Priority Mail|8.50" checked /><div><div class="carrier-name">USPS Priority Mail</div><div class="carrier-speed">2–3 business days</div></div></div>
-            <div class="carrier-price">$8.50</div>
-          </label>
-          <label class="carrier-opt" onclick="selectCarrier(this, 'USPS Ground Advantage', 7.50)">
-            <div class="carrier-left"><input type="radio" name="co-carrier" value="USPS Ground Advantage|7.50" /><div><div class="carrier-name">USPS Ground Advantage</div><div class="carrier-speed">3–5 business days</div></div></div>
-            <div class="carrier-price">$7.50</div>
-          </label>
-          <label class="carrier-opt" onclick="selectCarrier(this, 'UPS Ground', 12.50)">
-            <div class="carrier-left"><input type="radio" name="co-carrier" value="UPS Ground|12.50" /><div><div class="carrier-name">UPS Ground</div><div class="carrier-speed">3–5 business days</div></div></div>
-            <div class="carrier-price">$12.50</div>
-          </label>
-          <label class="carrier-opt" onclick="selectCarrier(this, 'FedEx Home Delivery', 14.00)">
-            <div class="carrier-left"><input type="radio" name="co-carrier" value="FedEx Home Delivery|14.00" /><div><div class="carrier-name">FedEx Home Delivery</div><div class="carrier-speed">2–4 business days</div></div></div>
-            <div class="carrier-price">$14.00</div>
-          </label>
+        <div id="carrier-options-wrap">
+          <div class="shipping-prompt">Enter your ZIP code above to see live shipping rates</div>
         </div>
       </div>
+
+      <!-- Notes -->
       <div class="form-block">
         <div class="form-block-title">📝 Order Notes (optional)</div>
         <div class="form-group">
           <input class="field-input" id="co-notes" type="text" placeholder="Any special requests or brand preferences..." />
         </div>
       </div>
-
-      <!-- PROMO CODE -->
-      <div class="form-block">
-        <div class="form-block-title">🏷️ Promo Code</div>
-        <div class="form-row" style="align-items:flex-end;">
-          <div class="form-group" style="flex:1;">
-            <input class="field-input" id="co-promo" type="text" placeholder="Enter promo code..." style="text-transform:uppercase;" />
-          </div>
-          <button type="button" onclick="applyPromo()" style="background:rgba(201,169,97,0.15);border:1px solid rgba(201,169,97,0.4);color:#d4b87a;border-radius:6px;padding:0.8rem 1.25rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(201,169,97,0.25)'" onmouseout="this.style.background='rgba(201,169,97,0.15)'">Apply</button>
-        </div>
-        <div id="promo-msg" style="margin-top:0.5rem;font-size:0.82rem;display:none;"></div>
-      </div>
     </div>
 
+    <!-- RIGHT: ORDER SUMMARY -->
     <div class="summary-panel">
       <div class="summary-box">
         <div class="summary-header">
@@ -198,46 +480,59 @@
           <span class="summary-edit" onclick="window.location.href='index.html'">Edit Cart</span>
         </div>
         <div class="summary-items" id="co-items">
-          <div class="empty-cart"><div class="empty-cart-icon">🛒</div><div>Your cart is empty</div></div>
+          <div class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <div>Your cart is empty</div>
+          </div>
         </div>
         <div class="summary-totals" id="co-totals" style="display:none;">
-          <div class="total-row"><span id="co-balls-label">Balls</span><span id="co-balls-total">—</span></div>
-          <div class="total-row"><span id="co-ship-label">Shipping</span><span id="co-ship-total">$8.50</span></div>
-          <div class="total-row grand"><span>Total</span><span class="grand-val" id="co-grand-total">—</span></div>
+          <div class="total-row">
+            <span id="co-balls-label">Balls</span>
+            <span id="co-balls-total">—</span>
+          </div>
+          <div class="total-row">
+            <span id="co-ship-label">Shipping</span>
+            <span id="co-ship-total">—</span>
+          </div>
+          <div class="total-row grand">
+            <span>Total</span>
+            <span class="grand-val" id="co-grand-total">—</span>
+          </div>
         </div>
       </div>
-      <button class="place-order-btn" id="co-place-btn" onclick="placeOrder()" disabled>🔒 Pay with Card →</button>
-      <div class="secure-note">🔒 Your info is kept private and used only to fulfill your order</div>
+
+      <button class="place-order-btn" id="co-place-btn" onclick="placeOrder()" disabled>
+        🔒 Pay with Card →
+      </button>
+      <div class="secure-note">
+        🔒 Your info is kept private and used only to fulfill your order
+      </div>
     </div>
+
   </div>
 </div>
 
-<div id="success-screen">
-  <div class="success-icon">🏌️</div>
-  <h2>Order received!</h2>
-  <p>Thanks for your order! We'll confirm everything and reach out to you shortly via phone or email. Your balls will be on their way soon.</p>
-  <a href="index.html" class="success-back-btn">← Back to Shop</a>
-</div>
-
 <script>
+  // ===== STATE =====
   let cart = JSON.parse(localStorage.getItem('bip_cart') || '[]');
-  let appliedPromo = null; // { code, type, discount, description }
-  let selectedCarrierName = 'USPS Priority Mail';
-  let selectedCarrierPrice = 8.50;
+  let selectedCarrierName  = '';
+  let selectedCarrierPrice = 0;
+  let ratesLoaded = false;
+  let zipDebounce;
 
   const BALL_COLORS = {
-    Titleist: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Callaway: 'radial-gradient(circle at 35% 30%, #fff176, #f5d400)',
-    TaylorMade: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Titleist:    'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Callaway:    'radial-gradient(circle at 35% 30%, #fff176, #f5d400)',
+    TaylorMade:  'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
     Bridgestone: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Srixon: 'radial-gradient(circle at 35% 30%, #ffcc88, #f07820)',
-    Volvik: 'radial-gradient(circle at 35% 30%, #ff80b0, #e0186c)',
-    Nike: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Cobra: 'radial-gradient(circle at 35% 30%, #e8ff80, #b8e04a)',
-    Vice: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Wilson: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Snell: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
-    Maxfli: 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Srixon:      'radial-gradient(circle at 35% 30%, #ffcc88, #f07820)',
+    Volvik:      'radial-gradient(circle at 35% 30%, #ff80b0, #e0186c)',
+    Nike:        'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Cobra:       'radial-gradient(circle at 35% 30%, #e8ff80, #b8e04a)',
+    Vice:        'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Wilson:      'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Snell:       'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
+    Maxfli:      'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)',
   };
 
   function getBallColor(ballName) {
@@ -245,18 +540,23 @@
     return BALL_COLORS[brand] || 'radial-gradient(circle at 35% 30%, #ffffff, #d8d0c0)';
   }
 
+  // ===== RENDER SUMMARY =====
   function renderSummary() {
     const itemsEl  = document.getElementById('co-items');
     const totalsEl = document.getElementById('co-totals');
     const btn      = document.getElementById('co-place-btn');
+
     if (cart.length === 0) {
       itemsEl.innerHTML = '<div class="empty-cart"><div class="empty-cart-icon">🛒</div><div>Your cart is empty</div></div>';
       totalsEl.style.display = 'none';
       btn.disabled = true;
       return;
     }
-    btn.disabled = false;
+
     totalsEl.style.display = 'block';
+    // Button only enabled once rates are loaded and a carrier is selected
+    btn.disabled = !ratesLoaded || !selectedCarrierName;
+
     itemsEl.innerHTML = cart.map((item, idx) => {
       const color = item.ballColor || getBallColor(item.ball);
       return `
@@ -269,57 +569,36 @@
           <div class="summary-qty-ctrl">
             <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
             <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${idx},1)" ${(() => { const inv = JSON.parse(localStorage.getItem('bip_inventory') || '{}'); const inStock = inv[item.ball] ? Math.floor(inv[item.ball].count / 12) : 999; return item.qty >= inStock ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''; })()}>+</button>
+            <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
           </div>
           <div class="summary-item-price">$${(item.price * item.qty).toFixed(2)}</div>
         </div>
       `;
     }).join('');
+
     updateTotals();
   }
 
   function updateTotals() {
     const ballsTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-    let shipping = selectedCarrierPrice;
-    let discount = 0;
-    if (appliedPromo) {
-      if (appliedPromo.type === 'shipping') shipping = 0;
-      else discount = appliedPromo.discount;
-    }
-    const grand = Math.max(0, ballsTotal + shipping - discount);
-    const dzCount = cart.reduce((s, i) => s + i.qty, 0);
+    const dzCount    = cart.reduce((s, i) => s + i.qty, 0);
+
     document.getElementById('co-balls-label').textContent = `${cart.length} ball type${cart.length > 1 ? 's' : ''} (${dzCount} dz)`;
     document.getElementById('co-balls-total').textContent = '$' + ballsTotal.toFixed(2);
-    document.getElementById('co-ship-label').textContent  = `Shipping (${selectedCarrierName})`;
-    document.getElementById('co-ship-total').textContent  = '$' + shipping.toFixed(2);
 
-    // Show/hide discount row
-    let discountRow = document.getElementById('co-discount-row');
-    if (discount > 0) {
-      if (!discountRow) {
-        const totalsEl = document.getElementById('co-totals');
-        const row = document.createElement('div');
-        row.id = 'co-discount-row';
-        row.className = 'total-row';
-        row.style.color = '#4caf7d';
-        totalsEl.insertBefore(row, document.getElementById('co-grand-total').parentElement || totalsEl.lastElementChild);
-      }
-      discountRow = document.getElementById('co-discount-row');
-      if (discountRow) discountRow.innerHTML = `<span>Promo (${appliedPromo.code})</span><span>-$${discount.toFixed(2)}</span>`;
-    } else if (discountRow) {
-      discountRow.remove();
+    if (selectedCarrierName) {
+      const grand = ballsTotal + selectedCarrierPrice;
+      document.getElementById('co-ship-label').textContent  = `Shipping (${selectedCarrierName})`;
+      document.getElementById('co-ship-total').textContent  = '$' + selectedCarrierPrice.toFixed(2);
+      document.getElementById('co-grand-total').textContent = '$' + grand.toFixed(2);
+    } else {
+      document.getElementById('co-ship-label').textContent  = 'Shipping';
+      document.getElementById('co-ship-total').textContent  = '—';
+      document.getElementById('co-grand-total').textContent = '—';
     }
-
-    document.getElementById('co-grand-total').textContent = '$' + grand.toFixed(2);
   }
 
   function changeQty(idx, delta) {
-    if (delta > 0) {
-      const item = cart[idx];
-      const inv = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
-      const inStock = inv[item.ball] ? Math.floor(inv[item.ball].count / 12) : 999;
-      if (item.qty >= inStock) return;
-    }
     cart[idx].qty = Math.max(1, cart[idx].qty + delta);
     localStorage.setItem('bip_cart', JSON.stringify(cart));
     renderSummary();
@@ -332,47 +611,74 @@
     selectedCarrierName  = name;
     selectedCarrierPrice = price;
     updateTotals();
+    document.getElementById('co-place-btn').disabled = false;
   }
 
-  async function applyPromo() {
-    const code    = document.getElementById('co-promo').value.trim().toUpperCase();
-    const contact = document.getElementById('co-contact').value.trim();
-    const msgEl   = document.getElementById('promo-msg');
+  // ===== REAL-TIME SHIPPING RATES =====
+  function onZipChange(zip) {
+    clearTimeout(zipDebounce);
+    const clean = zip.replace(/\D/g, '');
+    if (clean.length < 5) return;
+    zipDebounce = setTimeout(() => fetchRates(clean), 600);
+  }
 
-    if (!code) { msgEl.style.display='block'; msgEl.style.color='#e05555'; msgEl.textContent='Please enter a promo code.'; return; }
+  async function fetchRates(zip) {
+    const wrap = document.getElementById('carrier-options-wrap');
+    wrap.innerHTML = '<div class="shipping-loading"><div class="shipping-spinner"></div>Getting live rates...</div>';
 
-    const ballsTotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-    const orderTotal = ballsTotal + selectedCarrierPrice;
+    // Reset selection
+    selectedCarrierName  = '';
+    selectedCarrierPrice = 0;
+    ratesLoaded = false;
+    document.getElementById('co-place-btn').disabled = true;
+    updateTotals();
 
-    msgEl.style.display='block';
-    msgEl.style.color='rgba(244,239,230,0.5)';
-    msgEl.textContent='Checking code...';
+    const city  = document.getElementById('co-city').value.trim();
+    const state = document.getElementById('co-state').value.trim();
+    const totalDozens = cart.reduce((s, i) => s + i.qty, 0) || 1;
 
     try {
-      const res = await fetch('/api/promo?action=validate', {
+      const res  = await fetch('/api/shipping-rates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, contact, orderTotal })
+        body: JSON.stringify({ toZip: zip, toCity: city, toState: state, totalDozens })
       });
       const data = await res.json();
 
-      if (data.valid) {
-        appliedPromo = { code, ...data };
-        msgEl.style.color = '#4caf7d';
-        msgEl.textContent = data.message;
-        updateTotals();
-      } else {
-        appliedPromo = null;
-        msgEl.style.color = '#e05555';
-        msgEl.textContent = data.message;
-        updateTotals();
+      if (!data.rates || data.rates.length === 0) {
+        wrap.innerHTML = `<div class="shipping-error">⚠️ ${data.error || 'No rates available for this ZIP. Please contact us.'}</div>`;
+        return;
       }
-    } catch(e) {
-      msgEl.style.color = '#e05555';
-      msgEl.textContent = 'Could not check promo code. Try again.';
+
+      ratesLoaded = true;
+      wrap.innerHTML = '<div class="carrier-options">' + data.rates.map((r, i) => `
+        <label class="carrier-opt${i === 0 ? ' selected' : ''}"
+          onclick="selectCarrier(this, ${JSON.stringify(r.displayName)}, ${r.rate})">
+          <div class="carrier-left">
+            <input type="radio" name="co-carrier" value="${r.id}" ${i === 0 ? 'checked' : ''} />
+            <div>
+              <div class="carrier-name">${r.displayName}</div>
+              <div class="carrier-speed">${r.displayDays}</div>
+            </div>
+          </div>
+          <div class="carrier-price">$${r.rate.toFixed(2)}</div>
+        </label>
+      `).join('') + '</div>';
+
+      // Auto-select cheapest (first)
+      const first = data.rates[0];
+      selectedCarrierName  = first.displayName;
+      selectedCarrierPrice = first.rate;
+      updateTotals();
+      if (cart.length > 0) document.getElementById('co-place-btn').disabled = false;
+
+    } catch (err) {
+      wrap.innerHTML = `<div class="shipping-error">⚠️ Could not load rates. Please try again or contact us.</div>`;
+      console.error('Rate fetch error:', err);
     }
   }
 
+  // ===== PLACE ORDER WITH STRIPE =====
   async function placeOrder() {
     const name    = document.getElementById('co-name').value.trim();
     const contact = document.getElementById('co-contact').value.trim();
@@ -381,106 +687,79 @@
     const state   = document.getElementById('co-state').value.trim();
     const zip     = document.getElementById('co-zip').value.trim();
     const notes   = document.getElementById('co-notes').value.trim();
-    if (!name || !contact || !street || !city || !state || !zip) { alert('Please fill in all required fields.'); return; }
-    if (cart.length === 0) { alert('Your cart is empty.'); return; }
+
+    if (!name || !contact || !street || !city || !state || !zip) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    if (!selectedCarrierName) {
+      alert('Please select a shipping method.');
+      return;
+    }
+    if (cart.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+
+    // Check stock
     let invData = {};
     try {
       const res = await fetch('/api/sync?type=inventory&action=get');
       const data = await res.json();
       invData = (data && typeof data === 'object' && !Array.isArray(data) && !data.data) ? data : {};
-    } catch(e) { invData = JSON.parse(localStorage.getItem('bip_inventory') || '{}'); }
-
-    // Check stock for each item and adjust cart if needed
-    let stockMessages = [];
-    let cartChanged = false;
-    let itemsToRemove = [];
-
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
-      const available = invData[item.ball] ? Math.floor(invData[item.ball].count / 12) : 0; // in dozens — less than 1 dz = out of stock
-
-      if (available === 0) {
-        // Completely out of stock
-        itemsToRemove.push(i);
-        stockMessages.push(`❌ <strong>${item.ball}</strong> is now out of stock and has been removed from your cart.`);
-        cartChanged = true;
-      } else if (item.qty > available) {
-        // Partial stock — reduce quantity
-        const dozLabel = available === 1 ? '1 dozen' : available + ' dozen';
-        stockMessages.push(`⚠️ Only <strong>${dozLabel} of ${item.ball}</strong> available — your cart has been updated from ${item.qty} to ${available} dozen.`);
-        cart[i].qty = available;
-        cartChanged = true;
-      }
+    } catch(e) {
+      invData = JSON.parse(localStorage.getItem('bip_inventory') || '{}');
     }
 
-    // Remove out of stock items (in reverse to preserve indices)
-    for (let i = itemsToRemove.length - 1; i >= 0; i--) {
-      cart.splice(itemsToRemove[i], 1);
-    }
-
-    if (cartChanged) {
-      localStorage.setItem('bip_cart', JSON.stringify(cart));
-      renderSummary();
-
-      // Show stock message banner
-      let banner = document.getElementById('stock-warning-banner');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'stock-warning-banner';
-        banner.style.cssText = 'background:rgba(224,140,0,0.12);border:1px solid rgba(224,140,0,0.4);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1rem;';
-        const placeBtn = document.getElementById('co-place-btn');
-        placeBtn.parentElement.insertBefore(banner, placeBtn);
-      }
-      banner.innerHTML = '<div style="font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#e08c00;margin-bottom:0.5rem;">⚠️ Stock Update</div>' +
-        stockMessages.map(m => '<div style="font-size:0.85rem;color:rgba(244,239,230,0.8);line-height:1.6;margin-bottom:0.25rem;">' + m + '</div>').join('') +
-        '<div style="font-size:0.78rem;color:rgba(244,239,230,0.45);margin-top:0.5rem;">Please review your updated cart below before continuing.</div>';
-
-      btn.disabled = false;
-      btn.textContent = '🔒 Pay with Card →';
-      return; // Stop — let customer review changes first
-    }
-
-    // Check if cart is now empty
-    if (cart.length === 0) {
-      alert('Sorry — all items in your cart are out of stock. Please go back and shop for available balls.');
-      window.location.href = 'index.html';
+    const outOfStock = cart.filter(i => !invData[i.ball] || invData[i.ball].count === 0);
+    if (outOfStock.length > 0) {
+      alert(`Sorry — ${outOfStock.map(i => i.ball).join(', ')} ${outOfStock.length > 1 ? 'are' : 'is'} out of stock.`);
       return;
     }
+
     const btn = document.getElementById('co-place-btn');
     btn.disabled = true;
     btn.textContent = '⏳ Redirecting to payment...';
+
     const address = `${street}, ${city}, ${state} ${zip}`;
+    const speedEl = document.querySelector('.carrier-opt.selected .carrier-speed');
+
     const pendingOrder = {
-      id: 'BIP-' + Date.now(),
-      date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
-      name, contact, address, cart: JSON.parse(JSON.stringify(cart)),
-      carrier: selectedCarrierName, shipCost: selectedCarrierPrice, notes, status: 'pending_payment'
+      id:       'BIP-' + Date.now(),
+      date:     new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+      name, contact, address,
+      cart:     JSON.parse(JSON.stringify(cart)),
+      carrier:  selectedCarrierName,
+      shipCost: selectedCarrierPrice,
+      notes,
+      status:   'pending_payment'
     };
     localStorage.setItem('bip_pending_order', JSON.stringify(pendingOrder));
+
     try {
       const res = await fetch('/api/create-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           cart,
-          shipping: { carrier: selectedCarrierName, cost: selectedCarrierPrice, speed: document.querySelector('.carrier-opt.selected .carrier-speed')?.textContent || '' },
-          customer: { name, contact, address, notes, email: contact.includes('@') ? contact : undefined }
+          shipping: {
+            carrier:  selectedCarrierName,
+            cost:     selectedCarrierPrice,
+            speed:    speedEl?.textContent || ''
+          },
+          customer: { name, contact, address, notes,
+            email: contact.includes('@') ? contact : undefined
+          }
         })
       });
+
       const data = await res.json();
       if (data.url) {
-        // Mark promo as used
-        if (appliedPromo) {
-          fetch('/api/promo?action=redeem', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: appliedPromo.code, contact })
-          }).catch(() => {});
-        }
         window.location.href = data.url;
       } else {
         throw new Error(data.error || 'Payment failed');
       }
+
     } catch (err) {
       alert('Payment error: ' + err.message + '\n\nPlease try again or contact us directly.');
       btn.disabled = false;
@@ -488,41 +767,90 @@
     }
   }
 
-  // ===== ADDRESS AUTOCOMPLETE (Google Places) =====
+  // ===== ADDRESS AUTOCOMPLETE =====
   function initAutocomplete() {
-    const input = document.getElementById('co-address');
-    const autocomplete = new google.maps.places.Autocomplete(input, {
-      componentRestrictions: { country: 'us' },
-      fields: ['address_components'],
-      types: ['address']
+    const input    = document.getElementById('co-address');
+    const dropdown = document.createElement('div');
+    dropdown.style.cssText = `
+      display:none;position:absolute;top:100%;left:0;right:0;
+      background:#1a3a2e;border:1px solid rgba(201,169,97,0.3);
+      border-radius:0 0 8px 8px;z-index:9999;max-height:250px;
+      overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    `;
+    input.parentNode.style.position = 'relative';
+    input.parentNode.appendChild(dropdown);
+
+    let debounce;
+
+    input.addEventListener('input', () => {
+      clearTimeout(debounce);
+      const val = input.value.trim();
+      if (val.length < 4) { dropdown.style.display = 'none'; return; }
+
+      debounce = setTimeout(async () => {
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(val)}&countrycodes=us&addressdetails=1&format=json&limit=5`, {
+            headers: { 'Accept-Language': 'en' }
+          });
+          const data = await res.json();
+
+          if (!data.length) { dropdown.style.display = 'none'; return; }
+
+          dropdown.innerHTML = data.map((a) => {
+            const addr   = a.address;
+            const street = `${addr.house_number || ''} ${addr.road || ''}`.trim();
+            const city   = addr.city || addr.town || addr.village || '';
+            const state  = addr.state || '';
+            const zip    = addr.postcode || '';
+            return `
+              <div class="addr-item"
+                data-street="${street}"
+                data-city="${city}"
+                data-state="${state}"
+                data-zip="${zip}"
+                style="padding:0.8rem 1rem;cursor:pointer;border-bottom:1px solid rgba(201,169,97,0.1);
+                color:#f4efe6;font-size:0.88rem;display:flex;align-items:center;gap:0.6rem;"
+                onmouseover="this.style.background='rgba(201,169,97,0.12)'"
+                onmouseout="this.style.background='transparent'">
+                <span style="color:#c9a961;">📍</span>
+                <div>
+                  <div style="font-weight:600;">${street}</div>
+                  <div style="font-size:0.75rem;color:rgba(244,239,230,0.5);">${city}${state ? ', ' + state : ''} ${zip}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          dropdown.style.display = 'block';
+
+          dropdown.querySelectorAll('.addr-item').forEach(item => {
+            item.addEventListener('click', () => {
+              input.value = item.dataset.street;
+              document.getElementById('co-city').value  = item.dataset.city;
+              document.getElementById('co-state').value = item.dataset.state;
+              const z = item.dataset.zip;
+              document.getElementById('co-zip').value   = z;
+              dropdown.style.display = 'none';
+              // Trigger rate fetch with the autofilled ZIP
+              if (z && z.replace(/\D/g,'').length >= 5) fetchRates(z.replace(/\D/g,''));
+              document.getElementById('co-contact').focus();
+            });
+          });
+
+        } catch(e) { dropdown.style.display = 'none'; }
+      }, 500);
     });
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.address_components) return;
-      let streetNum = '', route = '', city = '', state = '', zip = '';
-      for (const component of place.address_components) {
-        const type = component.types[0];
-        switch(type) {
-          case 'street_number':               streetNum = component.long_name;  break;
-          case 'route':                       route     = component.long_name;  break;
-          case 'locality':                    city      = component.long_name;  break;
-          case 'administrative_area_level_1': state     = component.short_name; break;
-          case 'postal_code':                 zip       = component.long_name;  break;
-        }
-      }
-      input.value = (streetNum + ' ' + route).trim();
-      document.getElementById('co-city').value  = city;
-      document.getElementById('co-state').value = state;
-      document.getElementById('co-zip').value   = zip;
-      document.getElementById('co-contact').focus();
+
+    document.addEventListener('click', e => {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.style.display = 'none';
     });
   }
 
-  // Init — initAutocomplete() called automatically by Google Maps callback
+  // Init
+  initAutocomplete();
   renderSummary();
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHBHmuS-CO-H3v87M68UgW4OYW-7QA1CM&libraries=places&callback=initAutocomplete" async defer></script>
 <script type="module" src="/analytics.js"></script>
 </body>
 </html>
